@@ -60,7 +60,7 @@ public class RandomWalkIndexHighIndicator extends CachedIndicator<Double> {
 
     @Override
     protected Double calculate(int index) {
-        return maxPrice.getValue(index) - (minPrice.getValue(Math.max(0, index - timeFrame)))
+        return (maxPrice.getValue(index) - minPrice.getValue(Math.max(0, index - timeFrame)))
                 / (averageTrueRange.getValue(index) * (sqrtTimeFrame));
     }
 

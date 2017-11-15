@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -28,6 +28,7 @@ import org.ta4j.core.Indicator;
 /**
  * Zero-lag exponential moving average indicator.
  * <p>
+ *
  * @see http://www.fmlabs.com/reference/default.htm?url=ZeroLagExpMA.htm
  */
 public class ZLEMAIndicator extends RecursiveCachedIndicator<Double> {
@@ -44,7 +45,7 @@ public class ZLEMAIndicator extends RecursiveCachedIndicator<Double> {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
-        k = 2d/ (Double.valueOf(timeFrame + 1));
+        k = 2d / (timeFrame + 1);
         lag = (timeFrame - 1) / 2;
     }
 
@@ -59,8 +60,9 @@ public class ZLEMAIndicator extends RecursiveCachedIndicator<Double> {
             return indicator.getValue(0);
         }
         Double zlemaPrev = getValue(index - 1);
-        return k* (2d* (indicator.getValue(index))- (indicator.getValue(index-lag)))
-                +(1d- (k)* (zlemaPrev));
+        double minus = 2d * indicator.getValue(index) - indicator.getValue(index - lag);
+        double augend = (1d - k) * zlemaPrev;
+        return k * minus + augend;
     }
 
     @Override

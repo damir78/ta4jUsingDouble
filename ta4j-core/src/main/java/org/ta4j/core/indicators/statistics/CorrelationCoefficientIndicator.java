@@ -41,9 +41,10 @@ public class CorrelationCoefficientIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.
+     *
      * @param indicator1 the first indicator
      * @param indicator2 the second indicator
-     * @param timeFrame the time frame
+     * @param timeFrame  the time frame
      */
     public CorrelationCoefficientIndicator(Indicator<Double> indicator1, Indicator<Double> indicator2, int timeFrame) {
         super(indicator1);
@@ -58,6 +59,6 @@ public class CorrelationCoefficientIndicator extends CachedIndicator<Double> {
         Double var1 = variance1.getValue(index);
         Double var2 = variance2.getValue(index);
 
-        return cov / (var1 * Math.sqrt(var2));
+        return cov / Math.sqrt(var1 * var2);
     }
 }

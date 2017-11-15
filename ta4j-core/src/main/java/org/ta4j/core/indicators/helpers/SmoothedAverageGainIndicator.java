@@ -47,10 +47,8 @@ public class SmoothedAverageGainIndicator extends RecursiveCachedIndicator<Doubl
     @Override
     protected Double calculate(int index) {
         if (index > timeFrame) {
-            return getValue(index - 1)
-                    * ((timeFrame - 1))
-                    + (calculateGain(index))
-                    / (timeFrame);
+            return (getValue(index - 1) * (timeFrame - 1) + calculateGain(index))
+                    / timeFrame;
         }
         return averageGains.getValue(index);
     }

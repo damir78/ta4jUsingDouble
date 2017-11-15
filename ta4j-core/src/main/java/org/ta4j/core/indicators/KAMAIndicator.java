@@ -70,10 +70,10 @@ public class KAMAIndicator extends RecursiveCachedIndicator<Double> {
          * Volatility is the sum of the absolute value of the last ten price changes (Close - Prior Close).
          */
         int startChangeIndex = Math.max(0, index - timeFrameEffectiveRatio);
-        Double change = currentPrice - Math.abs(price.getValue(startChangeIndex));
+        Double change = Math.abs(currentPrice - price.getValue(startChangeIndex));
         Double volatility = 0d;
         for (int i = startChangeIndex; i < index; i++) {
-            volatility = volatility + (price.getValue(i + 1) - Math.abs(price.getValue(i)));
+            volatility = volatility + Math.abs(price.getValue(i + 1) - price.getValue(i));
         }
         Double er = change / (volatility);
         /*
@@ -81,13 +81,13 @@ public class KAMAIndicator extends RecursiveCachedIndicator<Double> {
          * SC = [ER x (fastest SC - slowest SC) + slowest SC]2
          * SC = [ER x (2/(2+1) - 2/(30+1)) + 2/(30+1)]2
          */
-        Double sc = er * (fastest - (slowest)) + Math.pow(slowest, 2d);
+        Double sc = Math.pow(er * (fastest - slowest) + slowest, 2d);
         /*
          * KAMA
          * Current KAMA = Prior KAMA + SC x (Price - Prior KAMA)
          */
         Double priorKAMA = getValue(index - 1);
-        return priorKAMA + (sc * (currentPrice - (priorKAMA)));
+        return priorKAMA + sc * (currentPrice - priorKAMA);
     }
 
 }

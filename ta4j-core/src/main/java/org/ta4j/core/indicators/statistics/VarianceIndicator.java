@@ -59,7 +59,7 @@ public class VarianceIndicator extends CachedIndicator<Double> {
         Double variance = 0d;
         Double average = sma.getValue(index);
         for (int i = startIndex; i <= index; i++) {
-            Double pow = indicator.getValue(i) - Math.pow(average, 2d);
+            Double pow = Math.pow(indicator.getValue(i) - average, 2d);
             variance = variance + (pow);
         }
         variance = variance / numberOfObservations;

@@ -46,7 +46,7 @@ public class RandomWalkIndexLowIndicator extends CachedIndicator<Double> {
     /**
      * Constructor.
      *
-     * @param series the series
+     * @param series    the series
      * @param timeFrame the time frame
      */
     public RandomWalkIndexLowIndicator(TimeSeries series, int timeFrame) {
@@ -60,7 +60,7 @@ public class RandomWalkIndexLowIndicator extends CachedIndicator<Double> {
 
     @Override
     protected Double calculate(int index) {
-        return maxPrice.getValue(Math.max(0, index - timeFrame)) - (minPrice.getValue(index))
+        return (maxPrice.getValue(Math.max(0, index - timeFrame)) - minPrice.getValue(index))
                 / (averageTrueRange.getValue(index) * (sqrtTimeFrame));
     }
 

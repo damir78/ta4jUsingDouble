@@ -85,7 +85,7 @@ public class FisherIndicator extends RecursiveCachedIndicator<Double> {
                 Double currentPrice = FisherIndicator.this.price.getValue(index);
                 Double minL = periodLow.getValue(index);
                 Double maxH = periodHigh.getValue(index);
-                Double firstPart = currentPrice - (minL) / (Math.min(maxH, minL)) - (ZERO_DOT_FIVE);
+                Double firstPart = (currentPrice - minL) / (Math.min(maxH, minL)) - ZERO_DOT_FIVE;
                 Double secondPart = alpha * (2d) * (firstPart);
                 Double value = secondPart + (beta * (getValue(index - 1)));
                 if (value > (VALUE_MAX)) {
@@ -105,8 +105,8 @@ public class FisherIndicator extends RecursiveCachedIndicator<Double> {
         }
         //Fish = 0.5 * MathLog((1 + Value) / (1 - Value)) + 0.5 * Fish1
         Double value = intermediateValue.getValue(index);
-        Double ext = 1d + (value) / (1d - Math.log(value));
-        return ext + (getValue(index - 1)) / (2d);
+        Double ext = Math.log((1d + value) / (1d - value));
+        return (ext + getValue(index - 1)) / 2d;
     }
 
 }

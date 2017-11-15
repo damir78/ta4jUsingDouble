@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -30,6 +30,7 @@ import org.ta4j.core.indicators.RecursiveCachedIndicator;
 /**
  * Positive Volume Index (PVI) indicator.
  * <p>
+ *
  * @see http://www.metastock.com/Customer/Resources/TAAZ/Default.aspx?p=92
  * @see http://www.investopedia.com/terms/p/pvi.asp
  */
@@ -52,11 +53,11 @@ public class PVIIndicator extends RecursiveCachedIndicator<Double> {
         Tick previousTick = series.getTick(index - 1);
         Double previousValue = getValue(index - 1);
 
-        if (currentTick.getVolume()> (previousTick.getVolume())) {
+        if (currentTick.getVolume() > (previousTick.getVolume())) {
             Double currentPrice = currentTick.getClosePrice();
             Double previousPrice = previousTick.getClosePrice();
-            Double priceChangeRatio = currentPrice- (previousPrice)/ (previousPrice);
-            return previousValue+(priceChangeRatio* (previousValue));
+            Double priceChangeRatio = (currentPrice - previousPrice) / (previousPrice);
+            return previousValue + (priceChangeRatio * previousValue);
         }
         return previousValue;
     }

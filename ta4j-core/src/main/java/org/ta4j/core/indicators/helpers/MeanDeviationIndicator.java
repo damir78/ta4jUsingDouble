@@ -64,7 +64,8 @@ public class MeanDeviationIndicator extends CachedIndicator<Double> {
 
         for (int i = startIndex; i <= index; i++) {
             // For each period...
-            absoluteDeviations = absoluteDeviations + (indicator.getValue(i) - Math.abs(average));
+            absoluteDeviations = absoluteDeviations + Math.abs((indicator.getValue(i) - average));
+            System.out.println("absoluteDeviations = " + absoluteDeviations);
         }
         return absoluteDeviations / nbValues;
     }

@@ -47,10 +47,7 @@ public class SmoothedAverageLossIndicator extends RecursiveCachedIndicator<Doubl
     @Override
     protected Double calculate(int index) {
         if (index > timeFrame) {
-            return getValue(index - 1)
-                    * (timeFrame - 1)
-                    + (calculateLoss(index))
-                    / timeFrame;
+            return (getValue(index - 1) * (timeFrame - 1) + calculateLoss(index)) / timeFrame;
         }
         return averageLosses.getValue(index);
     }

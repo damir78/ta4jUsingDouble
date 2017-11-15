@@ -30,6 +30,7 @@ import org.ta4j.core.indicators.RecursiveCachedIndicator;
 /**
  * Negative Volume Index (NVI) indicator.
  * <p>
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:negative_volume_inde
  * @see http://www.metastock.com/Customer/Resources/TAAZ/Default.aspx?p=75
  * @see http://www.investopedia.com/terms/n/nvi.asp
@@ -56,7 +57,7 @@ public class NVIIndicator extends RecursiveCachedIndicator<Double> {
         if (currentTick.getVolume() < (previousTick.getVolume())) {
             Double currentPrice = currentTick.getClosePrice();
             Double previousPrice = previousTick.getClosePrice();
-            Double priceChangeRatio = currentPrice - (previousPrice) / (previousPrice);
+            Double priceChangeRatio = (currentPrice - previousPrice) / (previousPrice);
             return previousValue + (priceChangeRatio * (previousValue));
         }
         return previousValue;

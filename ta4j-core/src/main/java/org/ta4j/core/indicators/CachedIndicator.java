@@ -44,7 +44,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
      * I.E. the last calculated result.
      */
     protected int highestResultIndex = -1;
-    
+
     /**
      * Constructor.
      * @param series the related time series
@@ -72,10 +72,10 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
         }
 
         // Series is not null
-        
+
         final int removedTicksCount = series.getRemovedTicksCount();
         final int maximumResultCount = series.getMaximumTickCount();
-        
+
         T result;
         if (index < removedTicksCount) {
             // Result already removed from cache
