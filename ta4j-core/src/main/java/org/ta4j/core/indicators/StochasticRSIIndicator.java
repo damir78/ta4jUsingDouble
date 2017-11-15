@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -31,10 +31,10 @@ import org.ta4j.core.indicators.helpers.LowestValueIndicator;
 
 /**
  * The Stochastic RSI Indicator.
- * 
+ *
  * Stoch RSI = (RSI - MinimumRSIn) / (MaximumRSIn - MinimumRSIn)
  */
-public class StochasticRSIIndicator extends CachedIndicator<Decimal> {
+public class StochasticRSIIndicator extends CachedIndicator<Double> {
 
     private final int timeFrame;
     private final RSIIndicator rsi;
@@ -55,7 +55,7 @@ public class StochasticRSIIndicator extends CachedIndicator<Decimal> {
      * @param indicator the indicator
      * @param timeFrame the time frame
      */
-    public StochasticRSIIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public StochasticRSIIndicator(Indicator<Double> indicator, int timeFrame) {
         this(new RSIIndicator(indicator, timeFrame), timeFrame);
     }
 
@@ -73,10 +73,10 @@ public class StochasticRSIIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal minRsiValue = minRsi.getValue(index);
-        return rsi.getValue(index).minus(minRsiValue)
-                .dividedBy(maxRsi.getValue(index).minus(minRsiValue));
+    protected Double calculate(int index) {
+        Double minRsiValue = minRsi.getValue(index);
+        return rsi.getValue(index)- (minRsiValue)
+                / (maxRsi.getValue(index)- (minRsiValue));
     }
 
 }

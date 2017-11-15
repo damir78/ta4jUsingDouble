@@ -32,7 +32,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 /**
  * The Class RandomWalkIndexLowIndicatorTest.
@@ -71,20 +71,20 @@ public class RandomWalkIndexLowIndicatorTest {
     @Test
     public void randomWalkIndexLow() {
         RandomWalkIndexLowIndicator rwil = new RandomWalkIndexLowIndicator(data, 5);
-        
-        assertDecimalEquals(rwil.getValue(6), 0.0997);
-        assertDecimalEquals(rwil.getValue(7), 0.3162);
-        assertDecimalEquals(rwil.getValue(8), 0.1789);
-        assertDecimalEquals(rwil.getValue(9), 0.0000);
-        assertDecimalEquals(rwil.getValue(10), -0.3571);
-        assertDecimalEquals(rwil.getValue(11), -0.3535);
-        assertDecimalEquals(rwil.getValue(12), -0.3217);
-        assertDecimalEquals(rwil.getValue(13), 0.6200);
-        assertDecimalEquals(rwil.getValue(14), 1.2857);
-        assertDecimalEquals(rwil.getValue(15), 1.6714);
-        assertDecimalEquals(rwil.getValue(16), 2.0726);
-        assertDecimalEquals(rwil.getValue(17), 2.0622);
-        assertDecimalEquals(rwil.getValue(18), 1.6905);
+
+        assertDoubleEquals(rwil.getValue(6), 0.0997);
+        assertDoubleEquals(rwil.getValue(7), 0.3162);
+        assertDoubleEquals(rwil.getValue(8), 0.1789);
+        assertDoubleEquals(rwil.getValue(9), 0.0000);
+        assertDoubleEquals(rwil.getValue(10), -0.3571);
+        assertDoubleEquals(rwil.getValue(11), -0.3535);
+        assertDoubleEquals(rwil.getValue(12), -0.3217);
+        assertDoubleEquals(rwil.getValue(13), 0.6200);
+        assertDoubleEquals(rwil.getValue(14), 1.2857);
+        assertDoubleEquals(rwil.getValue(15), 1.6714);
+        assertDoubleEquals(rwil.getValue(16), 2.0726);
+        assertDoubleEquals(rwil.getValue(17), 2.0622);
+        assertDoubleEquals(rwil.getValue(18), 1.6905);
     }
 
 }

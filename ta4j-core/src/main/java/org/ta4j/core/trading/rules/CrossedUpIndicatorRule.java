@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.ConstantIndicator;
@@ -43,8 +43,8 @@ public class CrossedUpIndicatorRule extends AbstractRule {
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public CrossedUpIndicatorRule(Indicator<Decimal> indicator, Decimal threshold) {
-        this(indicator, new ConstantIndicator<Decimal>(threshold));
+    public CrossedUpIndicatorRule(Indicator<Double> indicator, Double threshold) {
+        this(indicator, new ConstantIndicator<Double>(threshold));
     }
 
     /**
@@ -52,7 +52,7 @@ public class CrossedUpIndicatorRule extends AbstractRule {
      * @param first the first indicator
      * @param second the second indicator
      */
-    public CrossedUpIndicatorRule(Indicator<Decimal> first, Indicator<Decimal> second) {
+    public CrossedUpIndicatorRule(Indicator<Double> first, Indicator<Double> second) {
         this.cross = new CrossIndicator(second, first);
     }
 

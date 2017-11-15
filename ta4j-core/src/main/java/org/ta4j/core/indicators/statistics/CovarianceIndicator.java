@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.statistics;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
@@ -31,16 +31,16 @@ import org.ta4j.core.indicators.SMAIndicator;
  * Covariance indicator.
  * <p>
  */
-public class CovarianceIndicator extends CachedIndicator<Decimal> {
+public class CovarianceIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal> indicator1;
-    
-    private Indicator<Decimal> indicator2;
+    private Indicator<Double> indicator1;
+
+    private Indicator<Double> indicator2;
 
     private int timeFrame;
 
     private SMAIndicator sma1;
-    
+
     private SMAIndicator sma2;
 
     /**
@@ -49,7 +49,7 @@ public class CovarianceIndicator extends CachedIndicator<Decimal> {
      * @param indicator2 the second indicator
      * @param timeFrame the time frame
      */
-    public CovarianceIndicator(Indicator<Decimal> indicator1, Indicator<Decimal> indicator2, int timeFrame) {
+    public CovarianceIndicator(Indicator<Double> indicator1, Indicator<Double> indicator2, int timeFrame) {
         super(indicator1);
         this.indicator1 = indicator1;
         this.indicator2 = indicator2;
@@ -59,17 +59,17 @@ public class CovarianceIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         final int startIndex = Math.max(0, index - timeFrame + 1);
         final int numberOfObservations = index - startIndex + 1;
-        Decimal covariance = Decimal.ZERO;
-        Decimal average1 = sma1.getValue(index);
-        Decimal average2 = sma2.getValue(index);
+        Double covariance = 0d;
+        Double average1 = sma1.getValue(index);
+        Double average2 = sma2.getValue(index);
         for (int i = startIndex; i <= index; i++) {
-            Decimal mul = indicator1.getValue(i).minus(average1).multipliedBy(indicator2.getValue(i).minus(average2));
-            covariance = covariance.plus(mul);
+            Double mul = indicator1.getValue(i)- (average1)* (indicator2.getValue(i)- (average2));
+            covariance = covariance+(mul);
         }
-        covariance = covariance.dividedBy(Decimal.valueOf(numberOfObservations));
+        covariance = covariance/ (Double.valueOf(numberOfObservations));
         return covariance;
     }
 

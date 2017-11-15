@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
@@ -30,25 +30,25 @@ import org.ta4j.core.Indicator;
  * <p>
  * a.k.a TRIX
  */
-public class TripleEMAIndicator extends CachedIndicator<Decimal> {
+public class TripleEMAIndicator extends CachedIndicator<Double> {
 
     private final int timeFrame;
 
     private final EMAIndicator ema;
 
-    public TripleEMAIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public TripleEMAIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.timeFrame = timeFrame;
         this.ema = new EMAIndicator(indicator, timeFrame);
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         EMAIndicator emaEma = new EMAIndicator(ema, timeFrame);
         EMAIndicator emaEmaEma = new EMAIndicator(emaEma, timeFrame);
-        return Decimal.THREE.multipliedBy(ema.getValue(index).minus(emaEma.getValue(index))).plus(emaEmaEma.getValue(index));
+        return 3d* (ema.getValue(index)- (emaEma.getValue(index)))+(emaEmaEma.getValue(index));
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

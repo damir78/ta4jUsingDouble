@@ -22,19 +22,19 @@
  */
 package org.ta4j.core.indicators.bollinger;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.indicators.CachedIndicator;
 
 /**
  * Bollinger BandWidth indicator.
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_width
  */
-public class BollingerBandWidthIndicator extends CachedIndicator<Decimal> {
+public class BollingerBandWidthIndicator extends CachedIndicator<Double> {
 
     private final BollingerBandsUpperIndicator bbu;
-    
+
     private final BollingerBandsMiddleIndicator bbm;
-    
+
     private final BollingerBandsLowerIndicator bbl;
 
     public BollingerBandWidthIndicator(BollingerBandsUpperIndicator bbu, BollingerBandsMiddleIndicator bbm, BollingerBandsLowerIndicator bbl) {
@@ -45,8 +45,8 @@ public class BollingerBandWidthIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return bbu.getValue(index).minus(bbl.getValue(index))
-                .dividedBy(bbm.getValue(index)).multipliedBy(Decimal.HUNDRED);
+    protected Double calculate(int index) {
+        return bbu.getValue(index)- (bbl.getValue(index))
+                / (bbm.getValue(index))* (100d);
     }
 }

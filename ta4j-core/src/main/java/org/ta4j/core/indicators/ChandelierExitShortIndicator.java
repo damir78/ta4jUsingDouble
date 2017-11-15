@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
 import org.ta4j.core.indicators.helpers.LowestValueIndicator;
@@ -32,29 +32,29 @@ import org.ta4j.core.indicators.helpers.MinPriceIndicator;
  * The Chandelier Exit (short) Indicator.
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:chandelier_exit
  */
-public class ChandelierExitShortIndicator extends CachedIndicator<Decimal> {
+public class ChandelierExitShortIndicator extends CachedIndicator<Double> {
 
     private final LowestValueIndicator low;
-    
+
     private final AverageTrueRangeIndicator atr;
-    
-    private final Decimal k;
+
+    private final Double k;
 
     /**
      * Constructor.
      * @param series the time series
      */
     public ChandelierExitShortIndicator(TimeSeries series) {
-        this(series, 22, Decimal.THREE);
+        this(series, 22, 3d);
     }
-    
+
     /**
      * Constructor.
      * @param series the time series
      * @param timeFrame the time frame (usually 22)
      * @param k the K multiplier for ATR (usually 3.0)
      */
-    public ChandelierExitShortIndicator(TimeSeries series, int timeFrame, Decimal k) {
+    public ChandelierExitShortIndicator(TimeSeries series, int timeFrame, Double k) {
         super(series);
         low = new LowestValueIndicator(new MinPriceIndicator(series), timeFrame);
         atr = new AverageTrueRangeIndicator(series, timeFrame);
@@ -62,7 +62,7 @@ public class ChandelierExitShortIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return low.getValue(index).plus(atr.getValue(index).multipliedBy(k));
+    protected Double calculate(int index) {
+        return low.getValue(index)+(atr.getValue(index)* (k));
     }
 }

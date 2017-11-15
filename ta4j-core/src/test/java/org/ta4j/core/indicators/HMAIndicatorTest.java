@@ -28,7 +28,7 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class HMAIndicatorTest {
 
@@ -51,17 +51,17 @@ public class HMAIndicatorTest {
     public void hmaUsingTimeFrame9UsingClosePrice() {
         // Example from http://traders.com/Documentation/FEEDbk_docs/2010/12/TradingIndexesWithHullMA.xls
         HMAIndicator hma = new HMAIndicator(new ClosePriceIndicator(data), 9);
-        assertDecimalEquals(hma.getValue(10), 86.3204);
-        assertDecimalEquals(hma.getValue(11), 85.3705);
-        assertDecimalEquals(hma.getValue(12), 84.1044);
-        assertDecimalEquals(hma.getValue(13), 83.0197);
-        assertDecimalEquals(hma.getValue(14), 81.3913);
-        assertDecimalEquals(hma.getValue(15), 79.6511);
-        assertDecimalEquals(hma.getValue(16), 78.0443);
-        assertDecimalEquals(hma.getValue(17), 76.8832);
-        assertDecimalEquals(hma.getValue(18), 75.5363);
-        assertDecimalEquals(hma.getValue(19), 75.1713);
-        assertDecimalEquals(hma.getValue(20), 75.3597);
+        assertDoubleEquals(hma.getValue(10), 86.3204);
+        assertDoubleEquals(hma.getValue(11), 85.3705);
+        assertDoubleEquals(hma.getValue(12), 84.1044);
+        assertDoubleEquals(hma.getValue(13), 83.0197);
+        assertDoubleEquals(hma.getValue(14), 81.3913);
+        assertDoubleEquals(hma.getValue(15), 79.6511);
+        assertDoubleEquals(hma.getValue(16), 78.0443);
+        assertDoubleEquals(hma.getValue(17), 76.8832);
+        assertDoubleEquals(hma.getValue(18), 75.5363);
+        assertDoubleEquals(hma.getValue(19), 75.1713);
+        assertDoubleEquals(hma.getValue(20), 75.3597);
     }
 
 }

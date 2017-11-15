@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -41,16 +41,16 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
  * </p>
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:detrended_price_osci
  */
-public class DPOIndicator extends CachedIndicator<Decimal> {
+public class DPOIndicator extends CachedIndicator<Double> {
 
     private final int timeFrame;
-    
+
     private final int timeShift;
-    
-    private final Indicator<Decimal> price;
-    
+
+    private final Indicator<Double> price;
+
     private final SMAIndicator sma;
-    
+
     /**
      * Constructor.
      * @param series the series
@@ -59,13 +59,13 @@ public class DPOIndicator extends CachedIndicator<Decimal> {
     public DPOIndicator(TimeSeries series, int timeFrame) {
         this(new ClosePriceIndicator(series), timeFrame);
     }
-    
+
     /**
      * Constructor.
      * @param price the price
      * @param timeFrame the time frame
      */
-    public DPOIndicator(Indicator<Decimal> price, int timeFrame) {
+    public DPOIndicator(Indicator<Double> price, int timeFrame) {
         super(price);
         this.timeFrame = timeFrame;
         timeShift = timeFrame / 2 + 1;
@@ -74,10 +74,10 @@ public class DPOIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return price.getValue(index).minus(sma.getValue(index-timeShift));
+    protected Double calculate(int index) {
+        return price.getValue(index)- (sma.getValue(index-timeShift));
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

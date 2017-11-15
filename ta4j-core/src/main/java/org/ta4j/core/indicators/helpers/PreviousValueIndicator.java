@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,16 +30,16 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Returns the previous (n-th) value of an indicator
  * <p>
  */
-public class PreviousValueIndicator extends CachedIndicator<Decimal> {
+public class PreviousValueIndicator extends CachedIndicator<Double> {
 
     private int n;
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
 
     /**
      * Constructor.
      * @param indicator the indicator of which the previous value should be calculated
      */
-    public PreviousValueIndicator(Indicator<Decimal> indicator) {
+    public PreviousValueIndicator(Indicator<Double> indicator) {
         this(indicator,1);
     }
 
@@ -48,13 +48,13 @@ public class PreviousValueIndicator extends CachedIndicator<Decimal> {
      * @param indicator the indicator of which the previous value should be calculated
      * @param n parameter defines the previous n-th value
      */
-    public PreviousValueIndicator(Indicator<Decimal> indicator, int n){
+    public PreviousValueIndicator(Indicator<Double> indicator, int n){
         super(indicator);
         this.n = n;
         this.indicator = indicator;
     }
 
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         int previousValue = Math.max(0, (index-n));
         return this.indicator.getValue(previousValue);
     }

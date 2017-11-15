@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.candles;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -34,7 +34,7 @@ import org.ta4j.core.indicators.CachedIndicator;
  * I.e.: close price - open price
  * @see http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:introduction_to_candlesticks#formation
  */
-public class RealBodyIndicator extends CachedIndicator<Decimal> {
+public class RealBodyIndicator extends CachedIndicator<Double> {
 
     private final TimeSeries series;
 
@@ -48,8 +48,8 @@ public class RealBodyIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         Tick t = series.getTick(index);
-        return t.getClosePrice().minus(t.getOpenPrice());
+        return t.getClosePrice()- (t.getOpenPrice());
     }
 }

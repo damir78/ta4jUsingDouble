@@ -40,17 +40,17 @@ public class BaseTick implements Tick {
     /** Begin time of the tick */
     private ZonedDateTime beginTime;
     /** Open price of the period */
-    private Decimal openPrice = null;
+    private Double openPrice = null;
     /** Close price of the period */
-    private Decimal closePrice = null;
+    private Double closePrice = null;
     /** Max price of the period */
-    private Decimal maxPrice = null;
+    private Double maxPrice = null;
     /** Min price of the period */
-    private Decimal minPrice = null;
+    private Double minPrice = null;
     /** Traded amount during the period */
-    private Decimal amount = Decimal.ZERO;
+    private Double amount = 0d;
     /** Volume of the period */
-    private Decimal volume = Decimal.ZERO;
+    private Double volume = 0d;
     /** Trade count */
     private int trades = 0;
 
@@ -76,11 +76,11 @@ public class BaseTick implements Tick {
      * @param volume the volume of the tick period
      */
     public BaseTick(ZonedDateTime endTime, double openPrice, double highPrice, double lowPrice, double closePrice, double volume) {
-        this(endTime, Decimal.valueOf(openPrice),
-                Decimal.valueOf(highPrice),
-                Decimal.valueOf(lowPrice),
-                Decimal.valueOf(closePrice),
-                Decimal.valueOf(volume));
+        this(endTime, Double.valueOf(openPrice),
+                Double.valueOf(highPrice),
+                Double.valueOf(lowPrice),
+                Double.valueOf(closePrice),
+                Double.valueOf(volume));
     }
 
     /**
@@ -93,11 +93,11 @@ public class BaseTick implements Tick {
      * @param volume the volume of the tick period
      */
     public BaseTick(ZonedDateTime endTime, String openPrice, String highPrice, String lowPrice, String closePrice, String volume) {
-        this(endTime, Decimal.valueOf(openPrice),
-                Decimal.valueOf(highPrice),
-                Decimal.valueOf(lowPrice),
-                Decimal.valueOf(closePrice),
-                Decimal.valueOf(volume));
+        this(endTime, Double.valueOf(openPrice),
+                Double.valueOf(highPrice),
+                Double.valueOf(lowPrice),
+                Double.valueOf(closePrice),
+                Double.valueOf(volume));
     }
 
     /**
@@ -109,7 +109,7 @@ public class BaseTick implements Tick {
      * @param closePrice the close price of the tick period
      * @param volume the volume of the tick period
      */
-    public BaseTick(ZonedDateTime endTime, Decimal openPrice, Decimal highPrice, Decimal lowPrice, Decimal closePrice, Decimal volume) {
+    public BaseTick(ZonedDateTime endTime, Double openPrice, Double highPrice, Double lowPrice, Double closePrice, Double volume) {
         this(Duration.ofDays(1), endTime, openPrice, highPrice, lowPrice, closePrice, volume);
     }
 
@@ -123,8 +123,8 @@ public class BaseTick implements Tick {
      * @param closePrice the close price of the tick period
      * @param volume the volume of the tick period
      */
-    public BaseTick(Duration timePeriod, ZonedDateTime endTime, Decimal openPrice, Decimal highPrice, Decimal lowPrice, Decimal closePrice, Decimal volume) {
-        this(timePeriod, endTime, openPrice, highPrice, lowPrice, closePrice, volume, Decimal.ZERO);
+    public BaseTick(Duration timePeriod, ZonedDateTime endTime, Double openPrice, Double highPrice, Double lowPrice, Double closePrice, Double volume) {
+        this(timePeriod, endTime, openPrice, highPrice, lowPrice, closePrice, volume, 0d);
     }
 
     /**
@@ -138,7 +138,7 @@ public class BaseTick implements Tick {
      * @param volume the volume of the tick period
      * @param amount the amount of the tick period
      */
-    public BaseTick(Duration timePeriod, ZonedDateTime endTime, Decimal openPrice, Decimal highPrice, Decimal lowPrice, Decimal closePrice, Decimal volume, Decimal amount) {
+    public BaseTick(Duration timePeriod, ZonedDateTime endTime, Double openPrice, Double highPrice, Double lowPrice, Double closePrice, Double volume, Double amount) {
         checkTimeArguments(timePeriod, endTime);
         this.timePeriod = timePeriod;
         this.endTime = endTime;
@@ -154,35 +154,35 @@ public class BaseTick implements Tick {
     /**
      * @return the open price of the period
      */
-    public Decimal getOpenPrice() {
+    public Double getOpenPrice() {
         return openPrice;
     }
 
     /**
      * @return the min price of the period
      */
-    public Decimal getMinPrice() {
+    public Double getMinPrice() {
         return minPrice;
     }
 
     /**
      * @return the max price of the period
      */
-    public Decimal getMaxPrice() {
+    public Double getMaxPrice() {
         return maxPrice;
     }
 
     /**
      * @return the close price of the period
      */
-    public Decimal getClosePrice() {
+    public Double getClosePrice() {
         return closePrice;
     }
 
     /**
      * @return the whole traded volume in the period
      */
-    public Decimal getVolume() {
+    public Double getVolume() {
         return volume;
     }
 
@@ -196,7 +196,7 @@ public class BaseTick implements Tick {
     /**
      * @return the whole traded amount of the period
      */
-    public Decimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
@@ -226,7 +226,7 @@ public class BaseTick implements Tick {
      * @param tradeVolume the traded volume
      * @param tradePrice the price
      */
-    public void addTrade(Decimal tradeVolume, Decimal tradePrice) {
+    public void addTrade(Double tradeVolume, Double tradePrice) {
         if (openPrice == null) {
             openPrice = tradePrice;
         }
@@ -235,22 +235,22 @@ public class BaseTick implements Tick {
         if (maxPrice == null) {
             maxPrice = tradePrice;
         } else {
-            maxPrice = maxPrice.isLessThan(tradePrice) ? tradePrice : maxPrice;
+            maxPrice = maxPrice< (tradePrice) ? tradePrice : maxPrice;
         }
         if (minPrice == null) {
             minPrice = tradePrice;
         } else {
-            minPrice = minPrice.isGreaterThan(tradePrice) ? tradePrice : minPrice;
+            minPrice = minPrice> (tradePrice) ? tradePrice : minPrice;
         }
-        volume = volume.plus(tradeVolume);
-        amount = amount.plus(tradeVolume.multipliedBy(tradePrice));
+        volume = volume+(tradeVolume);
+        amount = amount+(tradeVolume* (tradePrice));
         trades++;
     }
 
     @Override
     public String toString() {
         return String.format("{end time: %1s, close price: %2$f, open price: %3$f, min price: %4$f, max price: %5$f, volume: %6$f}",
-                endTime.withZoneSameInstant(ZoneId.systemDefault()), closePrice.toDouble(), openPrice.toDouble(), minPrice.toDouble(), maxPrice.toDouble(), volume.toDouble());
+                endTime.withZoneSameInstant(ZoneId.systemDefault()), closePrice, openPrice, minPrice, maxPrice, volume);
     }
 
     /**

@@ -28,7 +28,7 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class StandardErrorIndicatorTest {
     private TimeSeries data;
@@ -42,24 +42,24 @@ public class StandardErrorIndicatorTest {
     public void usingTimeFrame5UsingClosePrice() {
         StandardErrorIndicator se = new StandardErrorIndicator(new ClosePriceIndicator(data), 5);
 
-        assertDecimalEquals(se.getValue(0), 0);
-        assertDecimalEquals(se.getValue(1), 3.5355);
-        assertDecimalEquals(se.getValue(2), 4.714);
-        assertDecimalEquals(se.getValue(3), 5.5902);
-        assertDecimalEquals(se.getValue(4), 6.3246);
-        assertDecimalEquals(se.getValue(5), 4.5607);
-        assertDecimalEquals(se.getValue(6), 2.8284);
-        assertDecimalEquals(se.getValue(7), 2.1909);
-        assertDecimalEquals(se.getValue(8), 2.1909);
-        assertDecimalEquals(se.getValue(9), 2.8284);
-        assertDecimalEquals(se.getValue(10), 4.5607);
-        assertDecimalEquals(se.getValue(11), 6.3246);
+        assertDoubleEquals(se.getValue(0), 0);
+        assertDoubleEquals(se.getValue(1), 3.5355);
+        assertDoubleEquals(se.getValue(2), 4.714);
+        assertDoubleEquals(se.getValue(3), 5.5902);
+        assertDoubleEquals(se.getValue(4), 6.3246);
+        assertDoubleEquals(se.getValue(5), 4.5607);
+        assertDoubleEquals(se.getValue(6), 2.8284);
+        assertDoubleEquals(se.getValue(7), 2.1909);
+        assertDoubleEquals(se.getValue(8), 2.1909);
+        assertDoubleEquals(se.getValue(9), 2.8284);
+        assertDoubleEquals(se.getValue(10), 4.5607);
+        assertDoubleEquals(se.getValue(11), 6.3246);
     }
 
     @Test
     public void shouldBeZeroWhenTimeFrameIs1() {
         StandardErrorIndicator se = new StandardErrorIndicator(new ClosePriceIndicator(data), 1);
-        assertDecimalEquals(se.getValue(1), 0);
-        assertDecimalEquals(se.getValue(3), 0);
+        assertDoubleEquals(se.getValue(1), 0);
+        assertDoubleEquals(se.getValue(3), 0);
     }
 }

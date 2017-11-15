@@ -23,7 +23,7 @@
 package org.ta4j.core.mocks;
 
 import org.ta4j.core.BaseTick;
-import org.ta4j.core.Decimal;
+
 
 import java.time.ZonedDateTime;
 
@@ -32,7 +32,7 @@ import java.time.ZonedDateTime;
  */
 public class MockTick extends BaseTick {
 
-    private Decimal amount = Decimal.ZERO;
+    private Double amount = 0d;
 
     private int trades = 0;
 
@@ -43,7 +43,7 @@ public class MockTick extends BaseTick {
     public MockTick(double closePrice, double volume) {
         super(ZonedDateTime.now(), 0, 0, 0, closePrice, volume);
     }
-    
+
     public MockTick(ZonedDateTime endTime, double closePrice) {
         super(endTime, 0, 0, 0, closePrice, 0);
     }
@@ -51,19 +51,19 @@ public class MockTick extends BaseTick {
     public MockTick(double openPrice, double closePrice, double maxPrice, double minPrice) {
         super(ZonedDateTime.now(), openPrice, maxPrice, minPrice, closePrice, 1);
     }
-    
+
     public MockTick(double openPrice, double closePrice, double maxPrice, double minPrice, double volume) {
         super(ZonedDateTime.now(), openPrice, maxPrice, minPrice, closePrice, volume);
     }
 
     public MockTick(ZonedDateTime endTime, double openPrice, double closePrice, double maxPrice, double minPrice, double amount, double volume, int trades) {
         super(endTime, openPrice, maxPrice, minPrice, closePrice, volume);
-        this.amount = Decimal.valueOf(amount);
+        this.amount = Double.valueOf(amount);
         this.trades = trades;
     }
 
     @Override
-    public Decimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 

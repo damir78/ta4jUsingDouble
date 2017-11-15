@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.CachedIndicator;
  * True range indicator.
  * <p>
  */
-public class TrueRangeIndicator extends CachedIndicator<Decimal>{
+public class TrueRangeIndicator extends CachedIndicator<Double> {
 
     private TimeSeries series;
 
@@ -38,13 +38,15 @@ public class TrueRangeIndicator extends CachedIndicator<Decimal>{
         super(series);
         this.series = series;
     }
-    
+
     @Override
-    protected Decimal calculate(int index) {
-        Decimal ts = series.getTick(index).getMaxPrice().minus(series.getTick(index).getMinPrice());
-        Decimal ys = index == 0 ? Decimal.ZERO : series.getTick(index).getMaxPrice().minus(series.getTick(index - 1).getClosePrice());
-        Decimal yst = index == 0 ? Decimal.ZERO : series.getTick(index - 1).getClosePrice().minus(series.getTick(index).getMinPrice());
-        
-        return ts.abs().max(ys.abs()).max(yst.abs());
+    protected Double calculate(int index) {
+        Double ts = series.getTick(index).getMaxPrice() - (series.getTick(index).getMinPrice());
+        Double ys = index == 0 ? 0d : series.getTick(index).getMaxPrice() - (series.getTick(index - 1).getClosePrice());
+        Double yst = index == 0 ? 0d : series.getTick(index - 1).getClosePrice() - (series.getTick(index).getMinPrice());
+
+        double tmp = Math.max(Math.abs(ts), Math.abs(ys));
+
+        return Math.max(tmp, Math.abs(yst));
     }
 }

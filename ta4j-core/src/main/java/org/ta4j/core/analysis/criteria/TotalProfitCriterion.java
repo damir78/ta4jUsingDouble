@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.analysis.criteria;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.Trade;
 import org.ta4j.core.TradingRecord;
@@ -60,17 +60,17 @@ public class TotalProfitCriterion extends AbstractAnalysisCriterion {
      * @return the profit of the trade
      */
     private double calculateProfit(TimeSeries series, Trade trade) {
-        Decimal profit = Decimal.ONE;
+        Double profit = 1d;
         if (trade.isClosed()) {
-            Decimal exitClosePrice = series.getTick(trade.getExit().getIndex()).getClosePrice();
-            Decimal entryClosePrice = series.getTick(trade.getEntry().getIndex()).getClosePrice();
+            Double exitClosePrice = series.getTick(trade.getExit().getIndex()).getClosePrice();
+            Double entryClosePrice = series.getTick(trade.getEntry().getIndex()).getClosePrice();
 
             if (trade.getEntry().isBuy()) {
-                profit = exitClosePrice.dividedBy(entryClosePrice);
+                profit = exitClosePrice/ (entryClosePrice);
             } else {
-                profit = entryClosePrice.dividedBy(exitClosePrice);
+                profit = entryClosePrice/ (exitClosePrice);
             }
         }
-        return profit.toDouble();
+        return profit;
     }
 }

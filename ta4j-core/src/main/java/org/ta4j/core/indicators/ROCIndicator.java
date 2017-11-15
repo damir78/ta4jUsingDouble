@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
@@ -31,28 +31,28 @@ import org.ta4j.core.Indicator;
  * <p>
  * The ROCIndicator calculation compares the current value with the value "n" periods ago.
  */
-public class ROCIndicator extends CachedIndicator<Decimal> {
+public class ROCIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Decimal> indicator;
+    private final Indicator<Double> indicator;
 
     private final int timeFrame;
 
-    public ROCIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public ROCIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         int nIndex = Math.max(index - timeFrame, 0);
-        Decimal nPeriodsAgoValue = indicator.getValue(nIndex);
-        Decimal currentValue = indicator.getValue(index);
-        return currentValue.minus(nPeriodsAgoValue)
-                .dividedBy(nPeriodsAgoValue)
-                .multipliedBy(Decimal.HUNDRED);
+        Double nPeriodsAgoValue = indicator.getValue(nIndex);
+        Double currentValue = indicator.getValue(index);
+        return currentValue- (nPeriodsAgoValue)
+                / (nPeriodsAgoValue)
+                * (100d);
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

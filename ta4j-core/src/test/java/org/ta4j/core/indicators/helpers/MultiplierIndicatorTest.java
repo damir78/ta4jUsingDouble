@@ -24,25 +24,25 @@ package org.ta4j.core.indicators.helpers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class MultiplierIndicatorTest {
-    private ConstantIndicator<Decimal> constantIndicator;
+    private ConstantIndicator<Double> constantIndicator;
     private MultiplierIndicator multiplierIndicator;
 
     @Before
     public void setUp() {
-        constantIndicator = new ConstantIndicator<Decimal>(Decimal.valueOf(6));
-        multiplierIndicator = new MultiplierIndicator(constantIndicator, Decimal.valueOf("0.75"));
+        constantIndicator = new ConstantIndicator<Double>(Double.valueOf(6));
+        multiplierIndicator = new MultiplierIndicator(constantIndicator, Double.valueOf("0.75"));
     }
 
     @Test
     public void constantIndicator() {
-        assertDecimalEquals(multiplierIndicator.getValue(10), "4.5");
-        assertDecimalEquals(multiplierIndicator.getValue(1), "4.5");
-        assertDecimalEquals(multiplierIndicator.getValue(0), "4.5");
-        assertDecimalEquals(multiplierIndicator.getValue(30), "4.5");
+        assertDoubleEquals(multiplierIndicator.getValue(10), "4.5");
+        assertDoubleEquals(multiplierIndicator.getValue(1), "4.5");
+        assertDoubleEquals(multiplierIndicator.getValue(0), "4.5");
+        assertDoubleEquals(multiplierIndicator.getValue(30), "4.5");
     }
 }

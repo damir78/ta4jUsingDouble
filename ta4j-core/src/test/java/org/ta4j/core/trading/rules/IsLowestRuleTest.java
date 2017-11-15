@@ -24,7 +24,7 @@ package org.ta4j.core.trading.rules;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.FixedDecimalIndicator;
 
@@ -33,15 +33,15 @@ import static org.junit.Assert.assertTrue;
 
 public class IsLowestRuleTest {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
     private IsLowestRule rule;
-    
+
     @Before
     public void setUp() {
     	indicator = new FixedDecimalIndicator(1, -5, 3, -6, 5, -7, 0, -1, 2, -8);
         rule = new IsLowestRule(indicator, 3);
     }
-    
+
     @Test
     public void isSatisfied() {
     		assertTrue(rule.isSatisfied(0));

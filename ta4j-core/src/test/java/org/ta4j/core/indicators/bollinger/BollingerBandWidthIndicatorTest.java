@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.indicators.statistics.StandardDeviationIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class BollingerBandWidthIndicatorTest {
 
@@ -54,32 +54,32 @@ public class BollingerBandWidthIndicatorTest {
 
         SMAIndicator sma = new SMAIndicator(closePrice, 5);
         StandardDeviationIndicator standardDeviation = new StandardDeviationIndicator(closePrice, 5);
-        
+
         BollingerBandsMiddleIndicator bbmSMA = new BollingerBandsMiddleIndicator(sma);
         BollingerBandsUpperIndicator bbuSMA = new BollingerBandsUpperIndicator(bbmSMA, standardDeviation);
         BollingerBandsLowerIndicator bblSMA = new BollingerBandsLowerIndicator(bbmSMA, standardDeviation);
 
         BollingerBandWidthIndicator bandwidth = new BollingerBandWidthIndicator(bbuSMA, bbmSMA, bblSMA);
-        
-        assertDecimalEquals(bandwidth.getValue(0), 0.0);
-        assertDecimalEquals(bandwidth.getValue(1), 36.3636);
-        assertDecimalEquals(bandwidth.getValue(2), 66.6423);
-        assertDecimalEquals(bandwidth.getValue(3), 60.2443);
-        assertDecimalEquals(bandwidth.getValue(4), 71.0767);
-        assertDecimalEquals(bandwidth.getValue(5), 69.9394);
-        assertDecimalEquals(bandwidth.getValue(6), 62.7043);
-        assertDecimalEquals(bandwidth.getValue(7), 56.0178);
-        assertDecimalEquals(bandwidth.getValue(8), 27.683);
-        assertDecimalEquals(bandwidth.getValue(9), 12.6491);
-        assertDecimalEquals(bandwidth.getValue(10), 12.6491);
-        assertDecimalEquals(bandwidth.getValue(11), 24.2956);
-        assertDecimalEquals(bandwidth.getValue(12), 68.3332);
-        assertDecimalEquals(bandwidth.getValue(13), 85.1469);
-        assertDecimalEquals(bandwidth.getValue(14), 112.8481);
-        assertDecimalEquals(bandwidth.getValue(15), 108.1682);
-        assertDecimalEquals(bandwidth.getValue(16), 66.9328);
-        assertDecimalEquals(bandwidth.getValue(17), 56.5194);
-        assertDecimalEquals(bandwidth.getValue(18), 28.1091);
-        assertDecimalEquals(bandwidth.getValue(19), 32.5362);
+
+        assertDoubleEquals(bandwidth.getValue(0), 0.0);
+        assertDoubleEquals(bandwidth.getValue(1), 36.3636);
+        assertDoubleEquals(bandwidth.getValue(2), 66.6423);
+        assertDoubleEquals(bandwidth.getValue(3), 60.2443);
+        assertDoubleEquals(bandwidth.getValue(4), 71.0767);
+        assertDoubleEquals(bandwidth.getValue(5), 69.9394);
+        assertDoubleEquals(bandwidth.getValue(6), 62.7043);
+        assertDoubleEquals(bandwidth.getValue(7), 56.0178);
+        assertDoubleEquals(bandwidth.getValue(8), 27.683);
+        assertDoubleEquals(bandwidth.getValue(9), 12.6491);
+        assertDoubleEquals(bandwidth.getValue(10), 12.6491);
+        assertDoubleEquals(bandwidth.getValue(11), 24.2956);
+        assertDoubleEquals(bandwidth.getValue(12), 68.3332);
+        assertDoubleEquals(bandwidth.getValue(13), 85.1469);
+        assertDoubleEquals(bandwidth.getValue(14), 112.8481);
+        assertDoubleEquals(bandwidth.getValue(15), 108.1682);
+        assertDoubleEquals(bandwidth.getValue(16), 66.9328);
+        assertDoubleEquals(bandwidth.getValue(17), 56.5194);
+        assertDoubleEquals(bandwidth.getValue(18), 28.1091);
+        assertDoubleEquals(bandwidth.getValue(19), 32.5362);
     }
 }

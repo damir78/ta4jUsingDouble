@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
@@ -30,22 +30,24 @@ import org.ta4j.core.indicators.SMAIndicator;
 /**
  * Mean deviation indicator.
  * <p>
+ *
  * @see http://en.wikipedia.org/wiki/Mean_absolute_deviation#Average_absolute_deviation
  */
-public class MeanDeviationIndicator extends CachedIndicator<Decimal> {
+public class MeanDeviationIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
 
     private int timeFrame;
 
     private SMAIndicator sma;
-    
+
     /**
      * Constructor.
+     *
      * @param indicator the indicator
      * @param timeFrame the time frame
      */
-    public MeanDeviationIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public MeanDeviationIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
@@ -53,18 +55,18 @@ public class MeanDeviationIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal absoluteDeviations = Decimal.ZERO;
+    protected Double calculate(int index) {
+        Double absoluteDeviations = 0d;
 
-        final Decimal average = sma.getValue(index);
+        final Double average = sma.getValue(index);
         final int startIndex = Math.max(0, index - timeFrame + 1);
         final int nbValues = index - startIndex + 1;
 
         for (int i = startIndex; i <= index; i++) {
             // For each period...
-            absoluteDeviations = absoluteDeviations.plus(indicator.getValue(i).minus(average).abs());
+            absoluteDeviations = absoluteDeviations + (indicator.getValue(i) - Math.abs(average));
         }
-        return absoluteDeviations.dividedBy(Decimal.valueOf(nbValues));
+        return absoluteDeviations / nbValues;
     }
 
     @Override

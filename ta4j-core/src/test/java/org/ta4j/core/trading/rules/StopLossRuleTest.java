@@ -25,7 +25,7 @@ package org.ta4j.core.trading.rules;
 import org.junit.Before;
 import org.junit.Test;
 import org.ta4j.core.BaseTradingRecord;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
@@ -38,7 +38,7 @@ public class StopLossRuleTest {
     private TradingRecord tradingRecord;
     private ClosePriceIndicator closePrice;
     private StopLossRule rule;
-    
+
     @Before
     public void setUp() {
         tradingRecord = new BaseTradingRecord();
@@ -46,30 +46,29 @@ public class StopLossRuleTest {
                 100, 105, 110, 120, 100, 150, 110, 100
         ));
     }
-    
+
     @Test
     public void isSatisfied() {
-        final Decimal tradedAmount = Decimal.ONE;
-        
+        final Double tradedAmount = 1d;
+
         // 5% stop-loss
-        rule = new StopLossRule(closePrice, Decimal.valueOf("5"));
-        
+        rule = new StopLossRule(closePrice, Double.valueOf("5"));
+
         assertFalse(rule.isSatisfied(0, null));
         assertFalse(rule.isSatisfied(1, tradingRecord));
-        
+
         // Enter at 114
-        tradingRecord.enter(2, Decimal.valueOf("114"), tradedAmount);
+        tradingRecord.enter(2, Double.valueOf("114"), tradedAmount);
         assertFalse(rule.isSatisfied(2, tradingRecord));
         assertFalse(rule.isSatisfied(3, tradingRecord));
         assertTrue(rule.isSatisfied(4, tradingRecord));
         // Exit
         tradingRecord.exit(5);
-        
+
         // Enter at 128
-        tradingRecord.enter(5, Decimal.valueOf("128"), tradedAmount);
+        tradingRecord.enter(5, Double.valueOf("128"), tradedAmount);
         assertFalse(rule.isSatisfied(5, tradingRecord));
         assertTrue(rule.isSatisfied(6, tradingRecord));
         assertTrue(rule.isSatisfied(7, tradingRecord));
     }
 }
-        

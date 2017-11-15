@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.statistics;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,10 +30,10 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Standard error indicator.
  * <p>
  */
-public class StandardErrorIndicator extends CachedIndicator<Decimal> {
+public class StandardErrorIndicator extends CachedIndicator<Double> {
 
     private int timeFrame;
-    
+
     private StandardDeviationIndicator sdev;
 
     /**
@@ -41,16 +41,16 @@ public class StandardErrorIndicator extends CachedIndicator<Decimal> {
      * @param indicator the indicator
      * @param timeFrame the time frame
      */
-    public StandardErrorIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public StandardErrorIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.timeFrame = timeFrame;
         sdev = new StandardDeviationIndicator(indicator, timeFrame);
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         final int startIndex = Math.max(0, index - timeFrame + 1);
         final int numberOfObservations = index - startIndex + 1;
-        return sdev.getValue(index).dividedBy(Decimal.valueOf(Math.sqrt(numberOfObservations)));
+        return sdev.getValue(index)/ (Double.valueOf(Math.sqrt(numberOfObservations)));
     }
 }

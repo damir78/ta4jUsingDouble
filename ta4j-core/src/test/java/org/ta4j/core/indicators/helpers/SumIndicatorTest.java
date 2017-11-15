@@ -24,52 +24,52 @@ package org.ta4j.core.indicators.helpers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class SumIndicatorTest {
-    
-    private ConstantIndicator<Decimal> constantIndicator;
-    
-    private FixedIndicator<Decimal> mockIndicator;
-    
-    private FixedIndicator<Decimal> mockIndicator2;
+
+    private ConstantIndicator<Double> constantIndicator;
+
+    private FixedIndicator<Double> mockIndicator;
+
+    private FixedIndicator<Double> mockIndicator2;
 
     private SumIndicator sumIndicator;
-    
+
     @Before
     public void setUp() {
-        constantIndicator = new ConstantIndicator<Decimal>(Decimal.valueOf(6));
-        mockIndicator = new FixedIndicator<Decimal>(
-                Decimal.valueOf("-2.0"),
-                Decimal.valueOf("0.00"),
-                Decimal.valueOf("1.00"),
-                Decimal.valueOf("2.53"),
-                Decimal.valueOf("5.87"),
-                Decimal.valueOf("6.00"),
-                Decimal.valueOf("10.0")
+        constantIndicator = new ConstantIndicator<Double>(Double.valueOf(6));
+        mockIndicator = new FixedIndicator<Double>(
+                Double.valueOf("-2.0"),
+                Double.valueOf("0.00"),
+                Double.valueOf("1.00"),
+                Double.valueOf("2.53"),
+                Double.valueOf("5.87"),
+                Double.valueOf("6.00"),
+                Double.valueOf("10.0")
         );
-        mockIndicator2 = new FixedIndicator<Decimal>(
-                Decimal.ZERO,
-                Decimal.ONE,
-                Decimal.TWO,
-                Decimal.THREE,
-                Decimal.TEN,
-                Decimal.valueOf("-42"),
-                Decimal.valueOf("-1337")
+        mockIndicator2 = new FixedIndicator<Double>(
+                0d,
+                1d,
+                2d,
+                3d,
+                10d,
+                Double.valueOf("-42"),
+                Double.valueOf("-1337")
         );
         sumIndicator = new SumIndicator(constantIndicator, mockIndicator, mockIndicator2);
     }
 
     @Test
     public void getValue() {
-        assertDecimalEquals(sumIndicator.getValue(0), "4");
-        assertDecimalEquals(sumIndicator.getValue(1), "7");
-        assertDecimalEquals(sumIndicator.getValue(2), "9");
-        assertDecimalEquals(sumIndicator.getValue(3), "11.53");
-        assertDecimalEquals(sumIndicator.getValue(4), "21.87");
-        assertDecimalEquals(sumIndicator.getValue(5), "-30");
-        assertDecimalEquals(sumIndicator.getValue(6), "-1321");
+        assertDoubleEquals(sumIndicator.getValue(0), "4");
+        assertDoubleEquals(sumIndicator.getValue(1), "7");
+        assertDoubleEquals(sumIndicator.getValue(2), "9");
+        assertDoubleEquals(sumIndicator.getValue(3), "11.53");
+        assertDoubleEquals(sumIndicator.getValue(4), "21.87");
+        assertDoubleEquals(sumIndicator.getValue(5), "-30");
+        assertDoubleEquals(sumIndicator.getValue(6), "-1321");
     }
 }

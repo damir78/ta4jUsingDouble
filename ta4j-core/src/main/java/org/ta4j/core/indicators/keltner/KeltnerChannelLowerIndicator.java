@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.keltner;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
 
@@ -30,15 +30,15 @@ import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
  * Keltner Channel (lower line) indicator
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:keltner_channels
  */
-public class KeltnerChannelLowerIndicator extends CachedIndicator<Decimal> {
+public class KeltnerChannelLowerIndicator extends CachedIndicator<Double> {
 
     private final AverageTrueRangeIndicator averageTrueRangeIndicator;
 
     private final KeltnerChannelMiddleIndicator keltnerMiddleIndicator;
 
-    private final Decimal ratio;
+    private final Double ratio;
 
-    public KeltnerChannelLowerIndicator(KeltnerChannelMiddleIndicator keltnerMiddleIndicator, Decimal ratio, int timeFrameATR) {
+    public KeltnerChannelLowerIndicator(KeltnerChannelMiddleIndicator keltnerMiddleIndicator, Double ratio, int timeFrameATR) {
         super(keltnerMiddleIndicator);
         this.ratio = ratio;
         this.keltnerMiddleIndicator = keltnerMiddleIndicator;
@@ -46,8 +46,8 @@ public class KeltnerChannelLowerIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return keltnerMiddleIndicator.getValue(index).minus(ratio.multipliedBy(averageTrueRangeIndicator.getValue(index)));
+    protected Double calculate(int index) {
+        return keltnerMiddleIndicator.getValue(index)- (ratio* (averageTrueRangeIndicator.getValue(index)));
     }
 
 }

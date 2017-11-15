@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.ConstantIndicator;
@@ -35,32 +35,32 @@ import org.ta4j.core.indicators.helpers.ConstantIndicator;
 public class OverIndicatorRule extends AbstractRule {
 
     /** The first indicator */
-    private Indicator<Decimal> first;
+    private Indicator<Double> first;
     /** The second indicator */
-    private Indicator<Decimal> second;
+    private Indicator<Double> second;
 
     /**
      * Constructor.
      * @param indicator the indicator
      * @param threshold a threshold
      */
-    public OverIndicatorRule(Indicator<Decimal> indicator, Decimal threshold) {
-        this(indicator, new ConstantIndicator<Decimal>(threshold));
+    public OverIndicatorRule(Indicator<Double> indicator, Double threshold) {
+        this(indicator, new ConstantIndicator<Double>(threshold));
     }
-    
+
     /**
      * Constructor.
      * @param first the first indicator
      * @param second the second indicator
      */
-    public OverIndicatorRule(Indicator<Decimal> first, Indicator<Decimal> second) {
+    public OverIndicatorRule(Indicator<Double> first, Indicator<Double> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
-        final boolean satisfied = first.getValue(index).isGreaterThan(second.getValue(index));
+        final boolean satisfied = first.getValue(index)> (second.getValue(index));
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }

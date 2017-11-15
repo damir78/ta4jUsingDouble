@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.volume;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -35,14 +35,14 @@ import org.ta4j.core.indicators.helpers.VolumeIndicator;
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:vwap_intraday
  * @see https://en.wikipedia.org/wiki/Volume-weighted_average_price
  */
-public class VWAPIndicator extends CachedIndicator<Decimal> {
+public class VWAPIndicator extends CachedIndicator<Double> {
 
     private final int timeFrame;
-    
-    private final Indicator<Decimal> typicalPrice;
-    
-    private final Indicator<Decimal> volume;
-    
+
+    private final Indicator<Double> typicalPrice;
+
+    private final Indicator<Double> volume;
+
     /**
      * Constructor.
      * @param series the series
@@ -56,21 +56,21 @@ public class VWAPIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index <= 0) {
             return typicalPrice.getValue(index);
         }
         int startIndex = Math.max(0, index - timeFrame + 1);
-        Decimal cumulativeTPV = Decimal.ZERO;
-        Decimal cumulativeVolume = Decimal.ZERO;
+        Double cumulativeTPV = 0d;
+        Double cumulativeVolume = 0d;
         for (int i = startIndex; i <= index; i++) {
-            Decimal currentVolume = volume.getValue(i);
-            cumulativeTPV = cumulativeTPV.plus(typicalPrice.getValue(i).multipliedBy(currentVolume));
-            cumulativeVolume = cumulativeVolume.plus(currentVolume);
+            Double currentVolume = volume.getValue(i);
+            cumulativeTPV = cumulativeTPV+(typicalPrice.getValue(i)* (currentVolume));
+            cumulativeVolume = cumulativeVolume+(currentVolume);
         }
-        return cumulativeTPV.dividedBy(cumulativeVolume);
+        return cumulativeTPV/ (cumulativeVolume);
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

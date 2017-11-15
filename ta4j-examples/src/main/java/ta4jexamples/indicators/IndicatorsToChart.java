@@ -31,7 +31,7 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
@@ -58,11 +58,11 @@ public class IndicatorsToChart {
      * @param name the name of the chart time series
      * @return the JFreeChart time series
      */
-    private static org.jfree.data.time.TimeSeries buildChartTimeSeries(TimeSeries tickSeries, Indicator<Decimal> indicator, String name) {
+    private static org.jfree.data.time.TimeSeries buildChartTimeSeries(TimeSeries tickSeries, Indicator<Double> indicator, String name) {
         org.jfree.data.time.TimeSeries chartTimeSeries = new org.jfree.data.time.TimeSeries(name);
         for (int i = 0; i < tickSeries.getTickCount(); i++) {
             Tick tick = tickSeries.getTick(i);
-            chartTimeSeries.add(new Day(Date.from(tick.getEndTime().toInstant())), indicator.getValue(i).toDouble());
+            chartTimeSeries.add(new Day(Date.from(tick.getEndTime().toInstant())), indicator.getValue(i));
         }
         return chartTimeSeries;
     }

@@ -22,34 +22,34 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
  * Simple moving average (SMA) indicator.
  * <p>
  */
-public class SMAIndicator extends CachedIndicator<Decimal> {
+public class SMAIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Decimal> indicator;
+    private final Indicator<Double> indicator;
 
     private final int timeFrame;
 
-    public SMAIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public SMAIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal sum = Decimal.ZERO;
+    protected Double calculate(int index) {
+        Double sum = 0d;
         for (int i = Math.max(0, index - timeFrame + 1); i <= index; i++) {
-            sum = sum.plus(indicator.getValue(i));
+            sum = sum+(indicator.getValue(i));
         }
 
         final int realTimeFrame = Math.min(timeFrame, index + 1);
-        return sum.dividedBy(Decimal.valueOf(realTimeFrame));
+        return sum/ ((double) realTimeFrame);
     }
 
     @Override

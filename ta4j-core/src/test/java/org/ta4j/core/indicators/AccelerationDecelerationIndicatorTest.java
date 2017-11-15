@@ -32,7 +32,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class AccelerationDecelerationIndicatorTest {
 
@@ -56,32 +56,32 @@ public class AccelerationDecelerationIndicatorTest {
     public void calculateWithSma2AndSma3() {
         AccelerationDecelerationIndicator acceleration = new AccelerationDecelerationIndicator(series, 2, 3);
 
-        assertDecimalEquals(acceleration.getValue(0), 0);
-        assertDecimalEquals(acceleration.getValue(1), 0);
-        assertDecimalEquals(acceleration.getValue(2), 0.08333333333);
-        assertDecimalEquals(acceleration.getValue(3), 0.41666666666);
-        assertDecimalEquals(acceleration.getValue(4), -2);
+        assertDoubleEquals(acceleration.getValue(0), 0);
+        assertDoubleEquals(acceleration.getValue(1), 0);
+        assertDoubleEquals(acceleration.getValue(2), 0.08333333333);
+        assertDoubleEquals(acceleration.getValue(3), 0.41666666666);
+        assertDoubleEquals(acceleration.getValue(4), -2);
     }
 
     @Test
     public void withSma1AndSma2() {
         AccelerationDecelerationIndicator acceleration = new AccelerationDecelerationIndicator(series, 1, 2);
 
-        assertDecimalEquals(acceleration.getValue(0), 0);
-        assertDecimalEquals(acceleration.getValue(1), 0);
-        assertDecimalEquals(acceleration.getValue(2), 0);
-        assertDecimalEquals(acceleration.getValue(3), 0);
-        assertDecimalEquals(acceleration.getValue(4), 0);
+        assertDoubleEquals(acceleration.getValue(0), 0);
+        assertDoubleEquals(acceleration.getValue(1), 0);
+        assertDoubleEquals(acceleration.getValue(2), 0);
+        assertDoubleEquals(acceleration.getValue(3), 0);
+        assertDoubleEquals(acceleration.getValue(4), 0);
     }
 
     @Test
     public void withSmaDefault() {
         AccelerationDecelerationIndicator acceleration = new AccelerationDecelerationIndicator(series);
 
-        assertDecimalEquals(acceleration.getValue(0), 0);
-        assertDecimalEquals(acceleration.getValue(1), 0);
-        assertDecimalEquals(acceleration.getValue(2), 0);
-        assertDecimalEquals(acceleration.getValue(3), 0);
-        assertDecimalEquals(acceleration.getValue(4), 0);
+        assertDoubleEquals(acceleration.getValue(0), 0);
+        assertDoubleEquals(acceleration.getValue(1), 0);
+        assertDoubleEquals(acceleration.getValue(2), 0);
+        assertDoubleEquals(acceleration.getValue(3), 0);
+        assertDoubleEquals(acceleration.getValue(4), 0);
     }
 }

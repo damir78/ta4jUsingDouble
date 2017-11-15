@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.SmoothedAverageGainIndicator;
 import org.ta4j.core.indicators.helpers.SmoothedAverageLossIndicator;
@@ -45,13 +45,13 @@ public class SmoothedRSIIndicator extends RSIIndicator {
     /** Minimum number of ticks needed for smoothing */
     private static final Integer SMOOTH_MIN_TICKS = 150;
 
-    public SmoothedRSIIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public SmoothedRSIIndicator(Indicator<Double> indicator, int timeFrame) {
         super(new SmoothedAverageGainIndicator(indicator, timeFrame),
                 new SmoothedAverageLossIndicator(indicator, timeFrame));
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index < SMOOTH_MIN_TICKS) {
             log.warn(
                 "Requesting index : {}. Smoothed RSI needs {} ticks before calculated index in data series to get the best results",

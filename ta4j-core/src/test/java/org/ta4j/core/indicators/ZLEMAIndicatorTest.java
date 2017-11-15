@@ -29,7 +29,7 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class ZLEMAIndicatorTest {
 
@@ -48,15 +48,15 @@ public class ZLEMAIndicatorTest {
     public void ZLEMAUsingTimeFrame10UsingClosePrice() {
         ZLEMAIndicator zlema = new ZLEMAIndicator(new ClosePriceIndicator(data), 10);
 
-        assertDecimalEquals(zlema.getValue(9), 11.9091);
-        assertDecimalEquals(zlema.getValue(10), 8.8347);
-        assertDecimalEquals(zlema.getValue(11), 5.7739);
+        assertDoubleEquals(zlema.getValue(9), 11.9091);
+        assertDoubleEquals(zlema.getValue(10), 8.8347);
+        assertDoubleEquals(zlema.getValue(11), 5.7739);
     }
 
     @Test
     public void ZLEMAFirstValueShouldBeEqualsToFirstDataValue() {
         ZLEMAIndicator zlema = new ZLEMAIndicator(new ClosePriceIndicator(data), 10);
-        assertDecimalEquals(zlema.getValue(0), "10");
+        assertDoubleEquals(zlema.getValue(0), "10");
     }
 
     @Test
@@ -68,10 +68,10 @@ public class ZLEMAIndicatorTest {
             assertEquals(sma.getValue(i), zlema.getValue(i));
         }
     }
-    
+
     @Test
     public void smallTimeFrame() {
         ZLEMAIndicator zlema = new ZLEMAIndicator(new ClosePriceIndicator(data), 1);
-        assertDecimalEquals(zlema.getValue(0), "10");
+        assertDoubleEquals(zlema.getValue(0), "10");
     }
 }

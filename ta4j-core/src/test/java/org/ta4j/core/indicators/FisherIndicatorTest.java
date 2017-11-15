@@ -32,15 +32,15 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class FisherIndicatorTest {
 
 protected TimeSeries data;
-    
+
     @Before
     public void setUp() {
-        
+
         List<Tick> ticks = new ArrayList<Tick>();
         ticks.add(new MockTick(44.98, 45.05, 45.17, 44.96));
         ticks.add(new MockTick(45.05, 45.10, 45.15, 44.99));
@@ -64,19 +64,19 @@ protected TimeSeries data;
         ticks.add(new MockTick(43.93, 44.47, 44.58, 43.93));
         data = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void fisher() {
         FisherIndicator fisher = new FisherIndicator(data);
-        
-        assertDecimalEquals(fisher.getValue(10), -3.8634);
-        assertDecimalEquals(fisher.getValue(11), -4.0571);
-        assertDecimalEquals(fisher.getValue(12), -4.2018);
-        assertDecimalEquals(fisher.getValue(13), -4.3354);
-        assertDecimalEquals(fisher.getValue(14), -4.4245);
-        assertDecimalEquals(fisher.getValue(15), -4.5590);
-        assertDecimalEquals(fisher.getValue(16), -4.5996);
-        assertDecimalEquals(fisher.getValue(17), -4.6695);
-        assertDecimalEquals(fisher.getValue(18), -4.5763);
+
+        assertDoubleEquals(fisher.getValue(10), -3.8634);
+        assertDoubleEquals(fisher.getValue(11), -4.0571);
+        assertDoubleEquals(fisher.getValue(12), -4.2018);
+        assertDoubleEquals(fisher.getValue(13), -4.3354);
+        assertDoubleEquals(fisher.getValue(14), -4.4245);
+        assertDoubleEquals(fisher.getValue(15), -4.5590);
+        assertDoubleEquals(fisher.getValue(16), -4.5996);
+        assertDoubleEquals(fisher.getValue(17), -4.6695);
+        assertDoubleEquals(fisher.getValue(18), -4.5763);
     }
 }

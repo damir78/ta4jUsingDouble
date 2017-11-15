@@ -27,7 +27,7 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CoppockCurveIndicatorTest {
 
@@ -44,17 +44,17 @@ public class CoppockCurveIndicatorTest {
                 1253.3, 1246.96, 1257.6, 1312.41, 1365.68,
                 1408.47, 1397.91, 1310.33, 1362.16, 1379.32
         );
-        
+
         CoppockCurveIndicator cc = new CoppockCurveIndicator(new ClosePriceIndicator(data), 14, 11, 10);
 
-        assertDecimalEquals(cc.getValue(31), 23.8929);
-        assertDecimalEquals(cc.getValue(32), 19.3187);
-        assertDecimalEquals(cc.getValue(33), 16.3505);
-        assertDecimalEquals(cc.getValue(34), 14.12);
-        assertDecimalEquals(cc.getValue(35), 12.782);
-        assertDecimalEquals(cc.getValue(36), 11.3924);
-        assertDecimalEquals(cc.getValue(37), 8.3662);
-        assertDecimalEquals(cc.getValue(38), 7.4532);
-        assertDecimalEquals(cc.getValue(39), 8.79);
+        assertDoubleEquals(cc.getValue(31), 23.8929);
+        assertDoubleEquals(cc.getValue(32), 19.3187);
+        assertDoubleEquals(cc.getValue(33), 16.3505);
+        assertDoubleEquals(cc.getValue(34), 14.12);
+        assertDoubleEquals(cc.getValue(35), 12.782);
+        assertDoubleEquals(cc.getValue(36), 11.3924);
+        assertDoubleEquals(cc.getValue(37), 8.3662);
+        assertDoubleEquals(cc.getValue(38), 7.4532);
+        assertDoubleEquals(cc.getValue(39), 8.79);
     }
 }

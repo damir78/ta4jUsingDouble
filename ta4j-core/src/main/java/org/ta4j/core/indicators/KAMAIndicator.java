@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,43 +22,43 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
  * The Kaufman's Adaptive Moving Average (KAMA)  Indicator.
- * 
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average
  */
-public class KAMAIndicator extends RecursiveCachedIndicator<Decimal> {
+public class KAMAIndicator extends RecursiveCachedIndicator<Double> {
 
-    private final Indicator<Decimal> price;
-    
+    private final Indicator<Double> price;
+
     private final int timeFrameEffectiveRatio;
-    
-    private final Decimal fastest;
-    
-    private final Decimal slowest;
-    
+
+    private final Double fastest;
+
+    private final Double slowest;
+
     /**
      * Constructor.
      *
-     * @param price the price
+     * @param price                   the price
      * @param timeFrameEffectiveRatio the time frame of the effective ratio (usually 10)
-     * @param timeFrameFast the time frame fast (usually 2)
-     * @param timeFrameSlow the time frame slow (usually 30)
+     * @param timeFrameFast           the time frame fast (usually 2)
+     * @param timeFrameSlow           the time frame slow (usually 30)
      */
-    public KAMAIndicator(Indicator<Decimal> price, int timeFrameEffectiveRatio, int timeFrameFast, int timeFrameSlow) {
+    public KAMAIndicator(Indicator<Double> price, int timeFrameEffectiveRatio, int timeFrameFast, int timeFrameSlow) {
         super(price);
         this.price = price;
         this.timeFrameEffectiveRatio = timeFrameEffectiveRatio;
-        fastest = Decimal.TWO.dividedBy(Decimal.valueOf(timeFrameFast + 1));
-        slowest = Decimal.TWO.dividedBy(Decimal.valueOf(timeFrameSlow + 1));
+        fastest = 2d / (timeFrameFast + 1);
+        slowest = 2d / (timeFrameSlow + 1);
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal currentPrice = price.getValue(index);
+    protected Double calculate(int index) {
+        Double currentPrice = price.getValue(index);
         if (index < timeFrameEffectiveRatio) {
             return currentPrice;
         }
@@ -70,24 +70,24 @@ public class KAMAIndicator extends RecursiveCachedIndicator<Decimal> {
          * Volatility is the sum of the absolute value of the last ten price changes (Close - Prior Close).
          */
         int startChangeIndex = Math.max(0, index - timeFrameEffectiveRatio);
-        Decimal change = currentPrice.minus(price.getValue(startChangeIndex)).abs();
-        Decimal volatility = Decimal.ZERO;
+        Double change = currentPrice - Math.abs(price.getValue(startChangeIndex));
+        Double volatility = 0d;
         for (int i = startChangeIndex; i < index; i++) {
-            volatility = volatility.plus(price.getValue(i + 1).minus(price.getValue(i)).abs());
+            volatility = volatility + (price.getValue(i + 1) - Math.abs(price.getValue(i)));
         }
-        Decimal er = change.dividedBy(volatility);
+        Double er = change / (volatility);
         /*
          * Smoothing Constant (SC)
          * SC = [ER x (fastest SC - slowest SC) + slowest SC]2
          * SC = [ER x (2/(2+1) - 2/(30+1)) + 2/(30+1)]2
          */
-        Decimal sc = er.multipliedBy(fastest.minus(slowest)).plus(slowest).pow(2);
+        Double sc = er * (fastest - (slowest)) + Math.pow(slowest, 2d);
         /*
          * KAMA
          * Current KAMA = Prior KAMA + SC x (Price - Prior KAMA)
          */
-        Decimal priorKAMA = getValue(index - 1);
-        return priorKAMA.plus(sc.multipliedBy(currentPrice.minus(priorKAMA)));
+        Double priorKAMA = getValue(index - 1);
+        return priorKAMA + (sc * (currentPrice - (priorKAMA)));
     }
 
 }

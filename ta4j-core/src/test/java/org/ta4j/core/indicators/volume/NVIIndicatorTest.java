@@ -31,7 +31,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class NVIIndicatorTest {
 
@@ -52,15 +52,15 @@ public class NVIIndicatorTest {
         TimeSeries series = new MockTimeSeries(ticks);
 
         NVIIndicator nvi = new NVIIndicator(series);
-        assertDecimalEquals(nvi.getValue(0), 1000);
-        assertDecimalEquals(nvi.getValue(1), 1000);
-        assertDecimalEquals(nvi.getValue(2), 1000);
-        assertDecimalEquals(nvi.getValue(3), 984.0452);
-        assertDecimalEquals(nvi.getValue(4), 988.7417);
-        assertDecimalEquals(nvi.getValue(5), 997.6255);
-        assertDecimalEquals(nvi.getValue(6), 997.6255);
-        assertDecimalEquals(nvi.getValue(7), 997.6255);
-        assertDecimalEquals(nvi.getValue(8), 1000.079);
-        assertDecimalEquals(nvi.getValue(9), 1006.3116);
+        assertDoubleEquals(nvi.getValue(0), 1000);
+        assertDoubleEquals(nvi.getValue(1), 1000);
+        assertDoubleEquals(nvi.getValue(2), 1000);
+        assertDoubleEquals(nvi.getValue(3), 984.0452);
+        assertDoubleEquals(nvi.getValue(4), 988.7417);
+        assertDoubleEquals(nvi.getValue(5), 997.6255);
+        assertDoubleEquals(nvi.getValue(6), 997.6255);
+        assertDoubleEquals(nvi.getValue(7), 997.6255);
+        assertDoubleEquals(nvi.getValue(8), 1000.079);
+        assertDoubleEquals(nvi.getValue(9), 1006.3116);
     }
 }

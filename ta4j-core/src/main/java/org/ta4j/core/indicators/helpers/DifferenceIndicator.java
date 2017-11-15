@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -31,19 +31,19 @@ import org.ta4j.core.indicators.CachedIndicator;
  * <p>
  * I.e.: first - second
  */
-public class DifferenceIndicator extends CachedIndicator<Decimal> {
+public class DifferenceIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal> first;
-    
-    private Indicator<Decimal> second;
-    
+    private Indicator<Double> first;
+
+    private Indicator<Double> second;
+
     /**
      * Constructor.
      * (first minus second)
      * @param first the first indicator
      * @param second the second indicator
      */
-    public DifferenceIndicator(Indicator<Decimal> first, Indicator<Decimal> second) {
+    public DifferenceIndicator(Indicator<Double> first, Indicator<Double> second) {
         // TODO: check if first series is equal to second one
         super(first);
         this.first = first;
@@ -51,7 +51,7 @@ public class DifferenceIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return first.getValue(index).minus(second.getValue(index));
+    protected Double calculate(int index) {
+        return first.getValue(index)- (second.getValue(index));
     }
 }

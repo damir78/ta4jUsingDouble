@@ -22,19 +22,19 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
  * This class implenents a basic trailing stop loss indicator.
- * 
- * Basic idea: 
- * Your stop order limit is automatically adjusted while price is rising. 
- * On falling prices the initial StopLossDistance is reduced. 
+ *
+ * Basic idea:
+ * Your stop order limit is automatically adjusted while price is rising.
+ * On falling prices the initial StopLossDistance is reduced.
  * Sell signal: When StopLossDistance becomes '0'
- * 
+ *
  * Usage:
- *  
+ *
  * // Buying rule
  * Rule buyingRule = new BooleanRule(true); // No real buying rule
  *
@@ -43,63 +43,63 @@ import org.ta4j.core.Indicator;
  *
  * // Strategy
  * Strategy strategy = new Strategy(buyingRule, sellingRule);
- * 
+ *
  * Hints:
- * There are two constructors for two use cases: 
+ * There are two constructors for two use cases:
  *  - Constructor 1: No initialStopLimit is needed. It is taken from the first indicator value
- *  - Constructor 2: You can set an initialStopLimit 
- * It may influence the trade signals of the strategy depending which constructor you choose.  
- * 
+ *  - Constructor 2: You can set an initialStopLimit
+ * It may influence the trade signals of the strategy depending which constructor you choose.
+ *
  * @author Bastian Engelmann
  */
-public class TrailingStopLossIndicator extends CachedIndicator<Decimal> {
-    
-    private final Indicator<Decimal> indicator;
+public class TrailingStopLossIndicator extends CachedIndicator<Double> {
 
-    private Decimal stopLossLimit;
-    
-    private final Decimal stopLossDistance;
-    
+    private final Indicator<Double> indicator;
+
+    private Double stopLossLimit;
+
+    private final Double stopLossDistance;
+
     /**
      * Constructor.
      * @param indicator an indicator
      * @param stopLossDistance the stop-loss distance (absolute)
      */
-    public TrailingStopLossIndicator(Indicator<Decimal> indicator, Decimal stopLossDistance) {
-        this(indicator, stopLossDistance, Decimal.NaN);
+    public TrailingStopLossIndicator(Indicator<Double> indicator, Double stopLossDistance) {
+        this(indicator, stopLossDistance, Double.NaN);
     }
-    
+
     /**
      * Constructor.
      * @param indicator an indicator
      * @param stopLossDistance the stop-loss distance (absolute)
      * @param initialStopLossLimit the initial stop-loss limit
      */
-    public TrailingStopLossIndicator(Indicator<Decimal> indicator, Decimal stopLossDistance, Decimal initialStopLossLimit) {
+    public TrailingStopLossIndicator(Indicator<Double> indicator, Double stopLossDistance, Double initialStopLossLimit) {
         super(indicator);
         this.indicator = indicator;
         this.stopLossDistance = stopLossDistance;
         this.stopLossLimit = initialStopLossLimit;
     }
-    
+
     /**
      * Simple implementation of the trailing stop-loss concept.
      * Logic:
      * IF CurrentPrice - StopLossDistance > StopLossLimit THEN StopLossLimit = CurrentPrice - StopLossDistance
      * @param index
-     * @return Decimal
+     * @return Double
      */
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (stopLossLimit.isNaN()) {
             // Case without initial stop-loss limit value
-            stopLossLimit = indicator.getValue(0).minus(stopLossDistance);
+            stopLossLimit = indicator.getValue(0)- (stopLossDistance);
         }
-        Decimal currentValue = indicator.getValue(index);
-        Decimal referenceValue = stopLossLimit.plus(stopLossDistance);
-        
-        if (currentValue.isGreaterThan(referenceValue)) {
-            stopLossLimit = currentValue.minus(stopLossDistance);
+        Double currentValue = indicator.getValue(index);
+        Double referenceValue = stopLossLimit+(stopLossDistance);
+
+        if (currentValue> (referenceValue)) {
+            stopLossLimit = currentValue- (stopLossDistance);
         }
         return stopLossLimit;
     }

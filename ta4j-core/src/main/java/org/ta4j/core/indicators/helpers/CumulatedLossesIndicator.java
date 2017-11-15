@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,24 +30,24 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Cumulated losses indicator.
  * <p>
  */
-public class CumulatedLossesIndicator extends CachedIndicator<Decimal> {
+public class CumulatedLossesIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Decimal> indicator;
+    private final Indicator<Double> indicator;
 
     private final int timeFrame;
 
-    public CumulatedLossesIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public CumulatedLossesIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal sumOfLosses = Decimal.ZERO;
+    protected Double calculate(int index) {
+        Double sumOfLosses = 0d;
         for (int i = Math.max(1, index - timeFrame + 1); i <= index; i++) {
-            if (indicator.getValue(i).isLessThan(indicator.getValue(i - 1))) {
-                sumOfLosses = sumOfLosses.plus(indicator.getValue(i - 1).minus(indicator.getValue(i)));
+            if (indicator.getValue(i)< (indicator.getValue(i - 1))) {
+                sumOfLosses = sumOfLosses+(indicator.getValue(i - 1)- (indicator.getValue(i)));
             }
         }
         return sumOfLosses;

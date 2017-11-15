@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.LowestValueIndicator;
@@ -36,17 +36,17 @@ import org.ta4j.core.indicators.helpers.LowestValueIndicator;
 public class IsLowestRule extends AbstractRule {
 
 	/** The actual indicator */
-	private Indicator<Decimal> ref;
+	private Indicator<Double> ref;
 	/** The timeFrame */
 	private int timeFrame;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param ref
 	 * @param timeFrame
 	 */
-	public IsLowestRule(Indicator<Decimal> ref, int timeFrame) {
+	public IsLowestRule(Indicator<Double> ref, int timeFrame) {
 		this.ref = ref;
 		this.timeFrame = timeFrame;
 	}
@@ -54,8 +54,8 @@ public class IsLowestRule extends AbstractRule {
 	@Override
 	public boolean isSatisfied(int index, TradingRecord tradingRecord) {
 		LowestValueIndicator lowest = new LowestValueIndicator(ref, timeFrame);
-		Decimal lowestVal = lowest.getValue(index);
-		Decimal refVal = ref.getValue(index);
+		Double lowestVal = lowest.getValue(index);
+		Double refVal = ref.getValue(index);
 
 		final boolean satisfied = !refVal.isNaN() && !lowestVal.isNaN() && refVal.equals(lowestVal);
 		traceIsSatisfied(index, satisfied);

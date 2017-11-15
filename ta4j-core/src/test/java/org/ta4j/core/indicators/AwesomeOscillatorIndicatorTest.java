@@ -33,7 +33,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class AwesomeOscillatorIndicatorTest {
     private TimeSeries series;
@@ -56,33 +56,33 @@ public class AwesomeOscillatorIndicatorTest {
     public void calculateWithSma2AndSma3() {
         AwesomeOscillatorIndicator awesome = new AwesomeOscillatorIndicator(new MedianPriceIndicator(series), 2, 3);
 
-        assertDecimalEquals(awesome.getValue(0), 0);
-        assertDecimalEquals(awesome.getValue(1), 0);
-        assertDecimalEquals(awesome.getValue(2), 1d/6);
-        assertDecimalEquals(awesome.getValue(3), 1);
-        assertDecimalEquals(awesome.getValue(4), -3);
+        assertDoubleEquals(awesome.getValue(0), 0);
+        assertDoubleEquals(awesome.getValue(1), 0);
+        assertDoubleEquals(awesome.getValue(2), 1d/6);
+        assertDoubleEquals(awesome.getValue(3), 1);
+        assertDoubleEquals(awesome.getValue(4), -3);
     }
 
     @Test
     public void withSma1AndSma2() {
         AwesomeOscillatorIndicator awesome = new AwesomeOscillatorIndicator(new MedianPriceIndicator(series), 1, 2);
 
-        assertDecimalEquals(awesome.getValue(0), 0);
-        assertDecimalEquals(awesome.getValue(1), "-1.5");
-        assertDecimalEquals(awesome.getValue(2), "3.5");
-        assertDecimalEquals(awesome.getValue(3), -4);
-        assertDecimalEquals(awesome.getValue(4), -1);
+        assertDoubleEquals(awesome.getValue(0), 0);
+        assertDoubleEquals(awesome.getValue(1), "-1.5");
+        assertDoubleEquals(awesome.getValue(2), "3.5");
+        assertDoubleEquals(awesome.getValue(3), -4);
+        assertDoubleEquals(awesome.getValue(4), -1);
     }
 
     @Test
     public void withSmaDefault() {
         AwesomeOscillatorIndicator awesome = new AwesomeOscillatorIndicator(new MedianPriceIndicator(series));
 
-        assertDecimalEquals(awesome.getValue(0), 0);
-        assertDecimalEquals(awesome.getValue(1), 0);
-        assertDecimalEquals(awesome.getValue(2), 0);
-        assertDecimalEquals(awesome.getValue(3), 0);
-        assertDecimalEquals(awesome.getValue(4), 0);
+        assertDoubleEquals(awesome.getValue(0), 0);
+        assertDoubleEquals(awesome.getValue(1), 0);
+        assertDoubleEquals(awesome.getValue(2), 0);
+        assertDoubleEquals(awesome.getValue(3), 0);
+        assertDoubleEquals(awesome.getValue(4), 0);
     }
 
 }

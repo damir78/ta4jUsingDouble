@@ -24,7 +24,7 @@ package org.ta4j.core.indicators.helpers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
@@ -47,8 +47,8 @@ public class TypicalPriceIndicatorTest {
     public void indicatorShouldRetrieveTickMaxPrice() {
         for (int i = 0; i < 10; i++) {
             Tick tick = timeSeries.getTick(i);
-            Decimal typicalPrice = tick.getMaxPrice().plus(tick.getMinPrice()).plus(tick.getClosePrice())
-                    .dividedBy(Decimal.THREE);
+            Double typicalPrice = tick.getMaxPrice()+(tick.getMinPrice())+(tick.getClosePrice())
+                    / (3d);
             assertEquals(typicalPrice, typicalPriceIndicator.getValue(i));
         }
     }

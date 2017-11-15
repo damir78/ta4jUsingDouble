@@ -24,12 +24,12 @@ package org.ta4j.core.indicators.helpers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class PriceVariationIndicatorTest {
 
@@ -45,11 +45,11 @@ public class PriceVariationIndicatorTest {
 
     @Test
     public void indicatorShouldRetrieveTickVariation() {
-        assertDecimalEquals(variationIndicator.getValue(0), 1);
+        assertDoubleEquals(variationIndicator.getValue(0), 1);
         for (int i = 1; i < 10; i++) {
-            Decimal previousTickClosePrice = timeSeries.getTick(i - 1).getClosePrice();
-            Decimal currentTickClosePrice = timeSeries.getTick(i).getClosePrice();
-            assertEquals(variationIndicator.getValue(i), currentTickClosePrice.dividedBy(previousTickClosePrice));
+            Double previousTickClosePrice = timeSeries.getTick(i - 1).getClosePrice();
+            Double currentTickClosePrice = timeSeries.getTick(i).getClosePrice();
+            assertEquals(variationIndicator.getValue(i), currentTickClosePrice/ (previousTickClosePrice));
         }
     }
 }

@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CumulatedGainsIndicatorTest {
 
@@ -42,18 +42,18 @@ public class CumulatedGainsIndicatorTest {
     public void averageGainUsingTimeFrame5UsingClosePrice() {
         CumulatedGainsIndicator gains = new CumulatedGainsIndicator(new ClosePriceIndicator(data), 5);
 
-        assertDecimalEquals(gains.getValue(0), 0);
-        assertDecimalEquals(gains.getValue(1), 1);
-        assertDecimalEquals(gains.getValue(2), 2);
-        assertDecimalEquals(gains.getValue(3), 3);
-        assertDecimalEquals(gains.getValue(4), 3);
-        assertDecimalEquals(gains.getValue(5), 4);
-        assertDecimalEquals(gains.getValue(6), 4);
-        assertDecimalEquals(gains.getValue(7), 3);
-        assertDecimalEquals(gains.getValue(8), 2);
-        assertDecimalEquals(gains.getValue(9), 2);
-        assertDecimalEquals(gains.getValue(10), 2);
-        assertDecimalEquals(gains.getValue(11), 1);
-        assertDecimalEquals(gains.getValue(12), 1);
+        assertDoubleEquals(gains.getValue(0), 0);
+        assertDoubleEquals(gains.getValue(1), 1);
+        assertDoubleEquals(gains.getValue(2), 2);
+        assertDoubleEquals(gains.getValue(3), 3);
+        assertDoubleEquals(gains.getValue(4), 3);
+        assertDoubleEquals(gains.getValue(5), 4);
+        assertDoubleEquals(gains.getValue(6), 4);
+        assertDoubleEquals(gains.getValue(7), 3);
+        assertDoubleEquals(gains.getValue(8), 2);
+        assertDoubleEquals(gains.getValue(9), 2);
+        assertDoubleEquals(gains.getValue(10), 2);
+        assertDoubleEquals(gains.getValue(11), 1);
+        assertDoubleEquals(gains.getValue(12), 1);
     }
 }

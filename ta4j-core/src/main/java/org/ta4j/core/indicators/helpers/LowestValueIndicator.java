@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,26 +30,26 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Lowest value indicator.
  * <p>
  */
-public class LowestValueIndicator extends CachedIndicator<Decimal> {
+public class LowestValueIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Decimal> indicator;
+    private final Indicator<Double> indicator;
 
     private final int timeFrame;
 
-    public LowestValueIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public LowestValueIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (indicator.getValue(index).isNaN() && timeFrame != 1)
             return new LowestValueIndicator(indicator,timeFrame-1).getValue(index-1);
         int end = Math.max(0, index - timeFrame + 1);
-        Decimal lowest = indicator.getValue(index);
+        Double lowest = indicator.getValue(index);
         for (int i = index - 1; i >= end; i--) {
-            if (lowest.isGreaterThan(indicator.getValue(i))) {
+            if (lowest> (indicator.getValue(i))) {
                 lowest = indicator.getValue(i);
             }
         }

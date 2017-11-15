@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.volume;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.RecursiveCachedIndicator;
 
@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.RecursiveCachedIndicator;
  * On-balance volume indicator.
  * <p>
  */
-public class OnBalanceVolumeIndicator extends RecursiveCachedIndicator<Decimal> {
+public class OnBalanceVolumeIndicator extends RecursiveCachedIndicator<Double> {
 
     private final TimeSeries series;
 
@@ -40,17 +40,17 @@ public class OnBalanceVolumeIndicator extends RecursiveCachedIndicator<Decimal> 
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
-            return Decimal.ZERO;
+            return 0d;
         }
-        Decimal yesterdayClose = series.getTick(index - 1).getClosePrice();
-        Decimal todayClose = series.getTick(index).getClosePrice();
+        Double yesterdayClose = series.getTick(index - 1).getClosePrice();
+        Double todayClose = series.getTick(index).getClosePrice();
 
-        if (yesterdayClose.isGreaterThan(todayClose)) {
-            return getValue(index - 1).minus(series.getTick(index).getVolume());
-        } else if (yesterdayClose.isLessThan(todayClose)) {
-            return getValue(index - 1).plus(series.getTick(index).getVolume());
+        if (yesterdayClose> (todayClose)) {
+            return getValue(index - 1)- (series.getTick(index).getVolume());
+        } else if (yesterdayClose< (todayClose)) {
+            return getValue(index - 1)+(series.getTick(index).getVolume());
         }
         return getValue(index - 1);
     }

@@ -51,7 +51,7 @@ public class MovingMomentumStrategy {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        
+
         // The bias is bullish when the shorter-moving average moves above the longer moving average.
         // The bias is bearish when the shorter-moving average moves below the longer moving average.
         EMAIndicator shortEma = new EMAIndicator(closePrice, 9);
@@ -61,17 +61,17 @@ public class MovingMomentumStrategy {
 
         MACDIndicator macd = new MACDIndicator(closePrice, 9, 26);
         EMAIndicator emaMacd = new EMAIndicator(macd, 18);
-        
+
         // Entry rule
         Rule entryRule = new OverIndicatorRule(shortEma, longEma) // Trend
-                .and(new CrossedDownIndicatorRule(stochasticOscillK, Decimal.valueOf(20))) // Signal 1
+                .and(new CrossedDownIndicatorRule(stochasticOscillK, Double.valueOf(20))) // Signal 1
                 .and(new OverIndicatorRule(macd, emaMacd)); // Signal 2
-        
+
         // Exit rule
         Rule exitRule = new UnderIndicatorRule(shortEma, longEma) // Trend
-                .and(new CrossedUpIndicatorRule(stochasticOscillK, Decimal.valueOf(80))) // Signal 1
+                .and(new CrossedUpIndicatorRule(stochasticOscillK, Double.valueOf(80))) // Signal 1
                 .and(new UnderIndicatorRule(macd, emaMacd)); // Signal 2
-        
+
         return new BaseStrategy(entryRule, exitRule);
     }
 

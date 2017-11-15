@@ -24,7 +24,7 @@ package org.ta4j.core.trading.rules;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.FixedDecimalIndicator;
 
@@ -33,15 +33,15 @@ import static org.junit.Assert.assertTrue;
 
 public class CrossedUpIndicatorRuleTest {
 
-    private Indicator<Decimal> evaluatedIndicator;
+    private Indicator<Double> evaluatedIndicator;
     private CrossedUpIndicatorRule rule;
-    
+
     @Before
     public void setUp() {
         evaluatedIndicator = new FixedDecimalIndicator(8, 9, 10, 12, 9, 11, 12, 13);
-        rule = new CrossedUpIndicatorRule(evaluatedIndicator, Decimal.TEN);
+        rule = new CrossedUpIndicatorRule(evaluatedIndicator, 10d);
     }
-    
+
     @Test
     public void isSatisfied() {
         assertFalse(rule.isSatisfied(0));
@@ -54,4 +54,3 @@ public class CrossedUpIndicatorRuleTest {
         assertFalse(rule.isSatisfied(7));
     }
 }
-        

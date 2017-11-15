@@ -56,29 +56,29 @@ public class CandlestickChart {
      */
     private static OHLCDataset createOHLCDataset(TimeSeries series) {
         final int nbTicks = series.getTickCount();
-        
+
         Date[] dates = new Date[nbTicks];
         double[] opens = new double[nbTicks];
         double[] highs = new double[nbTicks];
         double[] lows = new double[nbTicks];
         double[] closes = new double[nbTicks];
         double[] volumes = new double[nbTicks];
-        
+
         for (int i = 0; i < nbTicks; i++) {
             Tick tick = series.getTick(i);
             dates[i] = new Date(tick.getEndTime().toEpochSecond() * 1000);
-            opens[i] = tick.getOpenPrice().toDouble();
-            highs[i] = tick.getMaxPrice().toDouble();
-            lows[i] = tick.getMinPrice().toDouble();
-            closes[i] = tick.getClosePrice().toDouble();
-            volumes[i] = tick.getVolume().toDouble();
+            opens[i] = tick.getOpenPrice();
+            highs[i] = tick.getMaxPrice();
+            lows[i] = tick.getMinPrice();
+            closes[i] = tick.getClosePrice();
+            volumes[i] = tick.getVolume();
         }
-        
+
         OHLCDataset dataset = new DefaultHighLowDataset("btc", dates, highs, lows, opens, closes, volumes);
-        
+
         return dataset;
     }
-    
+
     /**
      * Builds an additional JFreeChart dataset from a ta4j time series.
      * @param series a time series
@@ -90,7 +90,7 @@ public class CandlestickChart {
         org.jfree.data.time.TimeSeries chartTimeSeries = new org.jfree.data.time.TimeSeries("Btc price");
         for (int i = 0; i < series.getTickCount(); i++) {
             Tick tick = series.getTick(i);
-            chartTimeSeries.add(new Second(new Date(tick.getEndTime().toEpochSecond() * 1000)), indicator.getValue(i).toDouble());
+            chartTimeSeries.add(new Second(new Date(tick.getEndTime().toEpochSecond() * 1000)), indicator.getValue(i));
         }
         dataset.addSeries(chartTimeSeries);
         return dataset;
@@ -113,23 +113,23 @@ public class CandlestickChart {
         RefineryUtilities.centerFrameOnScreen(frame);
         frame.setVisible(true);
     }
-    
+
     public static void main(String[] args) {
         /**
          * Getting time series
          */
         TimeSeries series = CsvTradesLoader.loadBitstampSeries();
-        
+
         /**
          * Creating the OHLC dataset
          */
         OHLCDataset ohlcDataset = createOHLCDataset(series);
-        
+
         /**
          * Creating the additional dataset
          */
         TimeSeriesCollection xyDataset = createAdditionalDataset(series);
-        
+
         /**
          * Creating the chart
          */
@@ -157,7 +157,7 @@ public class CandlestickChart {
         NumberAxis numberAxis = (NumberAxis) plot.getRangeAxis();
         numberAxis.setAutoRangeIncludesZero(false);
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
-        
+
         /**
          * Displaying the chart
          */

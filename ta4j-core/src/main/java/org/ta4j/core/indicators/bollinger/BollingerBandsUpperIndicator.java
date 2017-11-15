@@ -22,28 +22,28 @@
  */
 package org.ta4j.core.indicators.bollinger;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
 /**
  * Buy - Occurs when the price line cross from down to up de Bollinger Band Low.
  * Sell - Occurs when the price line cross from up to down de Bollinger Band High.
- * 
+ *
  */
-public class BollingerBandsUpperIndicator extends CachedIndicator<Decimal> {
+public class BollingerBandsUpperIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Decimal> indicator;
+    private final Indicator<Double> indicator;
 
     private final BollingerBandsMiddleIndicator bbm;
 
-    private final Decimal k;
+    private final Double k;
 
-    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator<Decimal> indicator) {
-        this(bbm, indicator, Decimal.TWO);
+    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator<Double> indicator) {
+        this(bbm, indicator, 2d);
     }
 
-    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator<Decimal> indicator, Decimal k) {
+    public BollingerBandsUpperIndicator(BollingerBandsMiddleIndicator bbm, Indicator<Double> indicator, Double k) {
         super(indicator);
         this.bbm = bbm;
         this.indicator = indicator;
@@ -51,14 +51,14 @@ public class BollingerBandsUpperIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return bbm.getValue(index).plus(indicator.getValue(index).multipliedBy(k));
+    protected Double calculate(int index) {
+        return bbm.getValue(index)+(indicator.getValue(index)* (k));
     }
 
     /**
      * @return the K multiplier
      */
-    public Decimal getK() {
+    public Double getK() {
         return k;
     }
 

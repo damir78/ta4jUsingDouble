@@ -30,11 +30,11 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 
 public class AverageDirectionalMovementDownIndicatorTest {
-    
+
     @Test
     public void averageDirectionalMovement()
     {
@@ -43,20 +43,20 @@ public class AverageDirectionalMovementDownIndicatorTest {
         MockTick tick3 = new MockTick(0, 0, 15, 3);
         MockTick tick4 = new MockTick(0, 0, 14, 2);
         MockTick tick5 = new MockTick(0, 0, 13, 0.2);
-        
+
         List<Tick> ticks = new ArrayList<Tick>();
         ticks.add(tick1);
         ticks.add(tick2);
         ticks.add(tick3);
         ticks.add(tick4);
         ticks.add(tick5);
-        
+
         MockTimeSeries series = new MockTimeSeries(ticks);
         AverageDirectionalMovementDownIndicator admdown = new AverageDirectionalMovementDownIndicator(series, 3);
-        assertDecimalEquals(admdown.getValue(0), 1);
-        assertDecimalEquals(admdown.getValue(1), 4d/3);
-        assertDecimalEquals(admdown.getValue(2), 4d/3 * 2d/3);
-        assertDecimalEquals(admdown.getValue(3), (4d/3 * 2d/3) * 2d/3 + 1d/3);
-        assertDecimalEquals(admdown.getValue(4), ((4d/3 * 2d/3) * 2d/3 + 1d/3) * 2d/3 + 1.8 * 1d/3);
+        assertDoubleEquals(admdown.getValue(0), 1);
+        assertDoubleEquals(admdown.getValue(1), 4d/3);
+        assertDoubleEquals(admdown.getValue(2), 4d/3 * 2d/3);
+        assertDoubleEquals(admdown.getValue(3), (4d/3 * 2d/3) * 2d/3 + 1d/3);
+        assertDoubleEquals(admdown.getValue(4), ((4d/3 * 2d/3) * 2d/3 + 1d/3) * 2d/3 + 1.8 * 1d/3);
     }
 }

@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
@@ -30,25 +30,25 @@ import org.ta4j.core.Indicator;
  * <p>
  * @see https://en.wikipedia.org/wiki/Double_exponential_moving_average
  */
-public class DoubleEMAIndicator extends CachedIndicator<Decimal> {
+public class DoubleEMAIndicator extends CachedIndicator<Double> {
 
     private final int timeFrame;
 
     private final EMAIndicator ema;
 
-    public DoubleEMAIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public DoubleEMAIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.timeFrame = timeFrame;
         this.ema = new EMAIndicator(indicator, timeFrame);
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         EMAIndicator emaEma = new EMAIndicator(ema, timeFrame);
-        return ema.getValue(index).multipliedBy(Decimal.TWO)
-                .minus(emaEma.getValue(index));
+        return ema.getValue(index)* (2d)
+                - (emaEma.getValue(index));
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

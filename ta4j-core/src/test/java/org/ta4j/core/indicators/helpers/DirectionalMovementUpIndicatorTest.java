@@ -30,7 +30,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class DirectionalMovementUpIndicatorTest {
 
@@ -44,9 +44,9 @@ public class DirectionalMovementUpIndicatorTest {
         ticks.add(todayTick);
         MockTimeSeries series = new MockTimeSeries(ticks);
         DirectionalMovementUpIndicator dup = new DirectionalMovementUpIndicator(series);
-        assertDecimalEquals(dup.getValue(1), 0);
+        assertDoubleEquals(dup.getValue(1), 0);
     }
-    
+
     @Test
     public void zeroDirectionalMovement2() {
         MockTick yesterdayTick = new MockTick(0, 0, 6, 12);
@@ -56,7 +56,7 @@ public class DirectionalMovementUpIndicatorTest {
         ticks.add(todayTick);
         MockTimeSeries series = new MockTimeSeries(ticks);
         DirectionalMovementUpIndicator dup = new DirectionalMovementUpIndicator(series);
-        assertDecimalEquals(dup.getValue(1), 0);
+        assertDoubleEquals(dup.getValue(1), 0);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class DirectionalMovementUpIndicatorTest {
         ticks.add(todayTick);
         MockTimeSeries series = new MockTimeSeries(ticks);
         DirectionalMovementUpIndicator dup = new DirectionalMovementUpIndicator(series);
-        assertDecimalEquals(dup.getValue(1), 0);
+        assertDoubleEquals(dup.getValue(1), 0);
     }
 
     @Test
@@ -80,6 +80,6 @@ public class DirectionalMovementUpIndicatorTest {
         ticks.add(todayTick);
         MockTimeSeries series = new MockTimeSeries(ticks);
         DirectionalMovementUpIndicator dup = new DirectionalMovementUpIndicator(series);
-        assertDecimalEquals(dup.getValue(1), 6);
+        assertDoubleEquals(dup.getValue(1), 6);
     }
 }

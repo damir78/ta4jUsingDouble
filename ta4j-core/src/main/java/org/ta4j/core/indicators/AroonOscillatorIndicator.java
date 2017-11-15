@@ -23,7 +23,7 @@
 package org.ta4j.core.indicators;
 
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 
 /**
@@ -31,7 +31,7 @@ import org.ta4j.core.TimeSeries;
  * <p>
  * @see !http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:aroon_oscillator
  */
-public class AroonOscillatorIndicator extends CachedIndicator<Decimal>{
+public class AroonOscillatorIndicator extends CachedIndicator<Double>{
 
     private final AroonDownIndicator aroonDownIndicator;
     private final AroonUpIndicator aroonUpIndicator;
@@ -45,8 +45,8 @@ public class AroonOscillatorIndicator extends CachedIndicator<Decimal>{
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return aroonUpIndicator.getValue(index).minus(aroonDownIndicator.getValue(index));
+    protected Double calculate(int index) {
+        return aroonUpIndicator.getValue(index)- (aroonDownIndicator.getValue(index));
     }
 
     @Override

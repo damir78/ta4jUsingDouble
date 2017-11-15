@@ -29,7 +29,7 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class SMAIndicatorTest {
 
@@ -44,19 +44,19 @@ public class SMAIndicatorTest {
     public void SMAUsingTimeFrame3UsingClosePrice() {
         SMAIndicator sma = new SMAIndicator(new ClosePriceIndicator(data), 3);
 
-        assertDecimalEquals(sma.getValue(0), 1);
-        assertDecimalEquals(sma.getValue(1), 1.5);
-        assertDecimalEquals(sma.getValue(2), 2);
-        assertDecimalEquals(sma.getValue(3), 3);
-        assertDecimalEquals(sma.getValue(4), 10d/3);
-        assertDecimalEquals(sma.getValue(5), 11d/3);
-        assertDecimalEquals(sma.getValue(6), 4);
-        assertDecimalEquals(sma.getValue(7), 13d/3);
-        assertDecimalEquals(sma.getValue(8), 4);
-        assertDecimalEquals(sma.getValue(9), 10d/3);
-        assertDecimalEquals(sma.getValue(10), 10d/3);
-        assertDecimalEquals(sma.getValue(11), 10d/3);
-        assertDecimalEquals(sma.getValue(12), 3);
+        assertDoubleEquals(sma.getValue(0), 1);
+        assertDoubleEquals(sma.getValue(1), 1.5);
+        assertDoubleEquals(sma.getValue(2), 2);
+        assertDoubleEquals(sma.getValue(3), 3);
+        assertDoubleEquals(sma.getValue(4), 10d/3);
+        assertDoubleEquals(sma.getValue(5), 11d/3);
+        assertDoubleEquals(sma.getValue(6), 4);
+        assertDoubleEquals(sma.getValue(7), 13d/3);
+        assertDoubleEquals(sma.getValue(8), 4);
+        assertDoubleEquals(sma.getValue(9), 10d/3);
+        assertDoubleEquals(sma.getValue(10), 10d/3);
+        assertDoubleEquals(sma.getValue(11), 10d/3);
+        assertDoubleEquals(sma.getValue(12), 3);
     }
 
     @Test

@@ -39,27 +39,27 @@ public interface Tick extends Serializable {
     /**
      * @return the open price of the period
      */
-    Decimal getOpenPrice();
+    Double getOpenPrice();
 
     /**
      * @return the min price of the period
      */
-    Decimal getMinPrice();
+    Double getMinPrice();
 
     /**
      * @return the max price of the period
      */
-    Decimal getMaxPrice();
-    
+    Double getMaxPrice();
+
     /**
      * @return the close price of the period
      */
-    Decimal getClosePrice();
+    Double getClosePrice();
 
     /**
      * @return the whole traded volume in the period
      */
-    Decimal getVolume();
+    Double getVolume();
 
     /**
      * @return the number of trades in the period
@@ -69,7 +69,7 @@ public interface Tick extends Serializable {
     /**
      * @return the whole traded amount of the period
      */
-    Decimal getAmount();
+    Double getAmount();
 
     /**
      * @return the time period of the tick
@@ -95,7 +95,7 @@ public interface Tick extends Serializable {
                 && !timestamp.isBefore(getBeginTime())
                 && timestamp.isBefore(getEndTime());
     }
-    
+
     /**
      * @return a human-friendly string of the end timestamp
      */
@@ -114,18 +114,18 @@ public interface Tick extends Serializable {
      * @return true if this is a bearish tick, false otherwise
      */
     default boolean isBearish() {
-    	Decimal openPrice = getOpenPrice();
-    	Decimal closePrice = getClosePrice();
-        return (openPrice != null) && (closePrice != null) && closePrice.isLessThan(openPrice);
+    	Double openPrice = getOpenPrice();
+    	Double closePrice = getClosePrice();
+        return (openPrice != null) && (closePrice != null) && closePrice< (openPrice);
     }
 
     /**
      * @return true if this is a bullish tick, false otherwise
      */
     default boolean isBullish() {
-    	Decimal openPrice = getOpenPrice();
-    	Decimal closePrice = getClosePrice();
-        return (openPrice != null) && (closePrice != null) && openPrice.isLessThan(closePrice);
+    	Double openPrice = getOpenPrice();
+    	Double closePrice = getClosePrice();
+        return (openPrice != null) && (closePrice != null) && openPrice< (closePrice);
     }
 
     /**
@@ -134,7 +134,7 @@ public interface Tick extends Serializable {
      * @param tradePrice the price
      */
     default void addTrade(double tradeVolume, double tradePrice) {
-        addTrade(Decimal.valueOf(tradeVolume), Decimal.valueOf(tradePrice));
+        addTrade(Double.valueOf(tradeVolume), Double.valueOf(tradePrice));
     }
 
     /**
@@ -143,7 +143,7 @@ public interface Tick extends Serializable {
      * @param tradePrice the price
      */
     default void addTrade(String tradeVolume, String tradePrice) {
-        addTrade(Decimal.valueOf(tradeVolume), Decimal.valueOf(tradePrice));
+        addTrade(Double.valueOf(tradeVolume), Double.valueOf(tradePrice));
     }
 
     /**
@@ -151,5 +151,5 @@ public interface Tick extends Serializable {
      * @param tradeVolume the traded volume
      * @param tradePrice the price
      */
-    void addTrade(Decimal tradeVolume, Decimal tradePrice);
+    void addTrade(Double tradeVolume, Double tradePrice);
 }

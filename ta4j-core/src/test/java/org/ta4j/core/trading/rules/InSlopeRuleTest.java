@@ -24,7 +24,7 @@ package org.ta4j.core.trading.rules;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.FixedDecimalIndicator;
 
@@ -33,24 +33,24 @@ import static org.junit.Assert.assertTrue;
 
 public class InSlopeRuleTest {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
     private InSlopeRule rulePositiveSlope;
     private InSlopeRule ruleNegativeSlope;
-    
+
     @Before
     public void setUp() {
         indicator = new FixedDecimalIndicator(50, 70, 80, 90, 99, 60, 30, 20, 10, 0);
-        rulePositiveSlope = new InSlopeRule(indicator, Decimal.valueOf(20), Decimal.valueOf(30));
-        ruleNegativeSlope = new InSlopeRule(indicator, Decimal.valueOf(-40), Decimal.valueOf(-20));
+        rulePositiveSlope = new InSlopeRule(indicator, Double.valueOf(20), Double.valueOf(30));
+        ruleNegativeSlope = new InSlopeRule(indicator, Double.valueOf(-40), Double.valueOf(-20));
     }
-    
+
     @Test
     public void isSatisfied() {
         assertFalse(rulePositiveSlope.isSatisfied(0));
         assertTrue(rulePositiveSlope.isSatisfied(1));
         assertFalse(rulePositiveSlope.isSatisfied(2));
         assertFalse(rulePositiveSlope.isSatisfied(9));
-        
+
         assertFalse(ruleNegativeSlope.isSatisfied(0));
         assertFalse(ruleNegativeSlope.isSatisfied(1));
         assertTrue(ruleNegativeSlope.isSatisfied(5));

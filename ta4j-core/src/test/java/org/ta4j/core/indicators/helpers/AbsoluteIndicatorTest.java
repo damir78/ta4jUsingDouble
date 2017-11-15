@@ -23,21 +23,21 @@
 package org.ta4j.core.indicators.helpers;
 
 import org.junit.Test;
-import org.ta4j.core.Decimal;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class AbsoluteIndicatorTest {
 
     @Test
     public void constantIndicators() {
-        AbsoluteIndicator positiveInd = new AbsoluteIndicator(new ConstantIndicator<Decimal>(Decimal.valueOf(1337)));
-        AbsoluteIndicator zeroInd = new AbsoluteIndicator(new ConstantIndicator<Decimal>(Decimal.ZERO));
-        AbsoluteIndicator negativeInd = new AbsoluteIndicator(new ConstantIndicator<Decimal>(Decimal.valueOf(-42.42)));
+        AbsoluteIndicator positiveInd = new AbsoluteIndicator(new ConstantIndicator<Double>(Double.valueOf(1337)));
+        AbsoluteIndicator zeroInd = new AbsoluteIndicator(new ConstantIndicator<Double>(0d));
+        AbsoluteIndicator negativeInd = new AbsoluteIndicator(new ConstantIndicator<Double>(Double.valueOf(-42.42)));
         for (int i = 0; i < 10; i++) {
-            assertDecimalEquals(positiveInd.getValue(i), 1337);
-            assertDecimalEquals(zeroInd.getValue(i), 0);
-            assertDecimalEquals(negativeInd.getValue(i), 42.42);
+            assertDoubleEquals(positiveInd.getValue(i), 1337);
+            assertDoubleEquals(zeroInd.getValue(i), 0);
+            assertDoubleEquals(negativeInd.getValue(i), 42.42);
         }
     }
 }

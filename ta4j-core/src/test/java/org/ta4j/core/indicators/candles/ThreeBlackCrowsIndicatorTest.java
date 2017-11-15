@@ -24,7 +24,7 @@ package org.ta4j.core.indicators.candles;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTick;
@@ -54,10 +54,10 @@ public class ThreeBlackCrowsIndicatorTest {
         ticks.add(new MockTick(13, 16, 16, 11));
         series = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void getValue() {
-        ThreeBlackCrowsIndicator tbc = new ThreeBlackCrowsIndicator(series, 3, Decimal.valueOf("0.1"));
+        ThreeBlackCrowsIndicator tbc = new ThreeBlackCrowsIndicator(series, 3, Double.valueOf("0.1"));
         assertFalse(tbc.getValue(0));
         assertFalse(tbc.getValue(1));
         assertFalse(tbc.getValue(2));

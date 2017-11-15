@@ -32,13 +32,13 @@ import org.ta4j.core.mocks.MockTick;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CovarianceIndicatorTest {
     private TimeSeries data;
 
-    private Indicator<Decimal> close, volume;
-    
+    private Indicator<Double> close, volume;
+
     @Before
     public void setUp() {
         List<Tick> ticks = new ArrayList<Tick>();
@@ -73,38 +73,38 @@ public class CovarianceIndicatorTest {
     public void usingTimeFrame5UsingClosePriceAndVolume() {
         CovarianceIndicator covar = new CovarianceIndicator(close, volume, 5);
 
-		assertDecimalEquals(covar.getValue(0), 0);
-		assertDecimalEquals(covar.getValue(1), 26.25);
-		assertDecimalEquals(covar.getValue(2), 63.3333);
-		assertDecimalEquals(covar.getValue(3), 143.75);
-		assertDecimalEquals(covar.getValue(4), 156);
-		assertDecimalEquals(covar.getValue(5), 60.8);
-		assertDecimalEquals(covar.getValue(6), 15.2);
-		assertDecimalEquals(covar.getValue(7), -17.6);
-		assertDecimalEquals(covar.getValue(8), 4);
-		assertDecimalEquals(covar.getValue(9), 11.6);
-		assertDecimalEquals(covar.getValue(10), -14.4);
-		assertDecimalEquals(covar.getValue(11), -100.2);
-		assertDecimalEquals(covar.getValue(12), -70.0);
-		assertDecimalEquals(covar.getValue(13), 24.6);
-		assertDecimalEquals(covar.getValue(14), 35.0);
-		assertDecimalEquals(covar.getValue(15), -19.0);
-		assertDecimalEquals(covar.getValue(16), -47.8);
-		assertDecimalEquals(covar.getValue(17), 11.4);
-		assertDecimalEquals(covar.getValue(18), 55.8);
-		assertDecimalEquals(covar.getValue(19), 33.4);
+		assertDoubleEquals(covar.getValue(0), 0);
+		assertDoubleEquals(covar.getValue(1), 26.25);
+		assertDoubleEquals(covar.getValue(2), 63.3333);
+		assertDoubleEquals(covar.getValue(3), 143.75);
+		assertDoubleEquals(covar.getValue(4), 156);
+		assertDoubleEquals(covar.getValue(5), 60.8);
+		assertDoubleEquals(covar.getValue(6), 15.2);
+		assertDoubleEquals(covar.getValue(7), -17.6);
+		assertDoubleEquals(covar.getValue(8), 4);
+		assertDoubleEquals(covar.getValue(9), 11.6);
+		assertDoubleEquals(covar.getValue(10), -14.4);
+		assertDoubleEquals(covar.getValue(11), -100.2);
+		assertDoubleEquals(covar.getValue(12), -70.0);
+		assertDoubleEquals(covar.getValue(13), 24.6);
+		assertDoubleEquals(covar.getValue(14), 35.0);
+		assertDoubleEquals(covar.getValue(15), -19.0);
+		assertDoubleEquals(covar.getValue(16), -47.8);
+		assertDoubleEquals(covar.getValue(17), 11.4);
+		assertDoubleEquals(covar.getValue(18), 55.8);
+		assertDoubleEquals(covar.getValue(19), 33.4);
     }
 
     @Test
     public void firstValueShouldBeZero() {
         CovarianceIndicator covar = new CovarianceIndicator(close, volume, 5);
-        assertDecimalEquals(covar.getValue(0), 0);
+        assertDoubleEquals(covar.getValue(0), 0);
     }
 
     @Test
     public void shouldBeZeroWhenTimeFrameIs1() {
         CovarianceIndicator covar = new CovarianceIndicator(close, volume, 1);
-        assertDecimalEquals(covar.getValue(3), 0);
-        assertDecimalEquals(covar.getValue(8), 0);
+        assertDoubleEquals(covar.getValue(3), 0);
+        assertDoubleEquals(covar.getValue(8), 0);
     }
 }

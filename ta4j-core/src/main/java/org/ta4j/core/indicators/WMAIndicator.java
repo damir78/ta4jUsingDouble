@@ -22,45 +22,45 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
  * WMA indicator.
  * <p>
  */
-public class WMAIndicator extends CachedIndicator<Decimal> {
+public class WMAIndicator extends CachedIndicator<Double> {
 
     private int timeFrame;
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
 
-    public WMAIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public WMAIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
             return indicator.getValue(0);
         }
-        Decimal value = Decimal.ZERO;
+        Double value = 0d;
         if(index - timeFrame < 0) {
-            
+
             for(int i = index + 1; i > 0; i--) {
-                value = value.plus(Decimal.valueOf(i).multipliedBy(indicator.getValue(i-1)));
+                value = value+(Double.valueOf(i)* (indicator.getValue(i-1)));
             }
-            return value.dividedBy(Decimal.valueOf(((index + 1) * (index + 2)) / 2));
+            return value/ (Double.valueOf(((index + 1) * (index + 2)) / 2));
         }
-        
+
         int actualIndex = index;
         for(int i = timeFrame; i > 0; i--) {
-            value = value.plus(Decimal.valueOf(i).multipliedBy(indicator.getValue(actualIndex)));
+            value = value+(Double.valueOf(i)* (indicator.getValue(actualIndex)));
             actualIndex--;
         }
-        return value.dividedBy(Decimal.valueOf((timeFrame * (timeFrame + 1)) / 2));
+        return value/ (Double.valueOf((timeFrame * (timeFrame + 1)) / 2));
     }
 
     @Override

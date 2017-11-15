@@ -32,7 +32,7 @@ import org.ta4j.core.mocks.MockTick;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class StochasticOscillatorKIndicatorTest {
 
@@ -65,8 +65,8 @@ public class StochasticOscillatorKIndicatorTest {
 
         StochasticOscillatorKIndicator sof = new StochasticOscillatorKIndicator(data, 14);
 
-        assertDecimalEquals(sof.getValue(0), 313/3.5);
-        assertDecimalEquals(sof.getValue(12), 1000/10.81);
-        assertDecimalEquals(sof.getValue(13), 57.8168);
+        assertDoubleEquals(sof.getValue(0), 313/3.5);
+        assertDoubleEquals(sof.getValue(12), 1000/10.81);
+        assertDoubleEquals(sof.getValue(13), 57.8168);
     }
 }

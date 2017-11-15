@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
@@ -30,21 +30,21 @@ import org.ta4j.core.Indicator;
  * <p>
  * Receive {@link StochasticOscillatorKIndicator} and returns its {@link SMAIndicator SMAIndicator(3)}.
  */
-public class StochasticOscillatorDIndicator extends CachedIndicator<Decimal> {
+public class StochasticOscillatorDIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
 
     public StochasticOscillatorDIndicator(StochasticOscillatorKIndicator k) {
         this(new SMAIndicator(k, 3));
     }
 
-    public StochasticOscillatorDIndicator(Indicator<Decimal> indicator) {
+    public StochasticOscillatorDIndicator(Indicator<Double> indicator) {
         super(indicator);
         this.indicator = indicator;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         return indicator.getValue(index);
     }
 

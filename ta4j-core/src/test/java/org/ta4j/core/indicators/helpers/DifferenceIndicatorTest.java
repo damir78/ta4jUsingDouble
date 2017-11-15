@@ -24,41 +24,41 @@ package org.ta4j.core.indicators.helpers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class DifferenceIndicatorTest {
-    
-    private ConstantIndicator<Decimal> constantIndicator;
-    
-    private FixedIndicator<Decimal> mockIndicator;
+
+    private ConstantIndicator<Double> constantIndicator;
+
+    private FixedIndicator<Double> mockIndicator;
 
     private DifferenceIndicator differenceIndicator;
-    
+
     @Before
     public void setUp() {
-        constantIndicator = new ConstantIndicator<Decimal>(Decimal.valueOf(6));
-        mockIndicator = new FixedIndicator<Decimal>(
-                Decimal.valueOf("-2.0"),
-                Decimal.valueOf("0.00"),
-                Decimal.valueOf("1.00"),
-                Decimal.valueOf("2.53"),
-                Decimal.valueOf("5.87"),
-                Decimal.valueOf("6.00"),
-                Decimal.valueOf("10.0")
+        constantIndicator = new ConstantIndicator<Double>(Double.valueOf(6));
+        mockIndicator = new FixedIndicator<Double>(
+                Double.valueOf("-2.0"),
+                Double.valueOf("0.00"),
+                Double.valueOf("1.00"),
+                Double.valueOf("2.53"),
+                Double.valueOf("5.87"),
+                Double.valueOf("6.00"),
+                Double.valueOf("10.0")
         );
         differenceIndicator = new DifferenceIndicator(constantIndicator, mockIndicator);
     }
 
     @Test
     public void getValue() {
-        assertDecimalEquals(differenceIndicator.getValue(0), "8");
-        assertDecimalEquals(differenceIndicator.getValue(1), "6");
-        assertDecimalEquals(differenceIndicator.getValue(2), "5");
-        assertDecimalEquals(differenceIndicator.getValue(3), "3.47");
-        assertDecimalEquals(differenceIndicator.getValue(4), "0.13");
-        assertDecimalEquals(differenceIndicator.getValue(5), "0");
-        assertDecimalEquals(differenceIndicator.getValue(6), "-4");
+        assertDoubleEquals(differenceIndicator.getValue(0), "8");
+        assertDoubleEquals(differenceIndicator.getValue(1), "6");
+        assertDoubleEquals(differenceIndicator.getValue(2), "5");
+        assertDoubleEquals(differenceIndicator.getValue(3), "3.47");
+        assertDoubleEquals(differenceIndicator.getValue(4), "0.13");
+        assertDoubleEquals(differenceIndicator.getValue(5), "0");
+        assertDoubleEquals(differenceIndicator.getValue(6), "-4");
     }
 }

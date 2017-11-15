@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
 import org.ta4j.core.indicators.helpers.MaxPriceIndicator;
@@ -31,18 +31,18 @@ import org.ta4j.core.indicators.helpers.MinPriceIndicator;
 /**
  * The Class RandomWalkIndexHighIndicator.
  */
-public class RandomWalkIndexHighIndicator extends CachedIndicator<Decimal> {
+public class RandomWalkIndexHighIndicator extends CachedIndicator<Double> {
 
     private final MaxPriceIndicator maxPrice;
-    
+
     private final MinPriceIndicator minPrice;
-    
+
     private final AverageTrueRangeIndicator averageTrueRange;
-    
-    private final Decimal sqrtTimeFrame;
-    
+
+    private final Double sqrtTimeFrame;
+
     private final int timeFrame;
-    
+
     /**
      * Constructor.
      *
@@ -55,15 +55,15 @@ public class RandomWalkIndexHighIndicator extends CachedIndicator<Decimal> {
         maxPrice = new MaxPriceIndicator(series);
         minPrice = new MinPriceIndicator(series);
         averageTrueRange = new AverageTrueRangeIndicator(series, timeFrame);
-        sqrtTimeFrame = Decimal.valueOf(timeFrame).sqrt();
+        sqrtTimeFrame = Math.sqrt(timeFrame);
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return maxPrice.getValue(index).minus(minPrice.getValue(Math.max(0, index - timeFrame)))
-                .dividedBy(averageTrueRange.getValue(index).multipliedBy(sqrtTimeFrame));
+    protected Double calculate(int index) {
+        return maxPrice.getValue(index) - (minPrice.getValue(Math.max(0, index - timeFrame)))
+                / (averageTrueRange.getValue(index) * (sqrtTimeFrame));
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

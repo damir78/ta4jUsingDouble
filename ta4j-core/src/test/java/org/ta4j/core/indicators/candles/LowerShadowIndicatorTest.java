@@ -32,7 +32,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class LowerShadowIndicatorTest {
 
@@ -49,14 +49,14 @@ public class LowerShadowIndicatorTest {
         ticks.add(new MockTick(11, 12, 12, 10));
         series = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void getValue() {
         LowerShadowIndicator lowerShadow = new LowerShadowIndicator(series);
-        assertDecimalEquals(lowerShadow.getValue(0), 0);
-        assertDecimalEquals(lowerShadow.getValue(1), 0);
-        assertDecimalEquals(lowerShadow.getValue(2), 1);
-        assertDecimalEquals(lowerShadow.getValue(3), 3);
-        assertDecimalEquals(lowerShadow.getValue(4), 1);
+        assertDoubleEquals(lowerShadow.getValue(0), 0);
+        assertDoubleEquals(lowerShadow.getValue(1), 0);
+        assertDoubleEquals(lowerShadow.getValue(2), 1);
+        assertDoubleEquals(lowerShadow.getValue(3), 3);
+        assertDoubleEquals(lowerShadow.getValue(4), 1);
     }
 }

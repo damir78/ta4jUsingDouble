@@ -24,24 +24,24 @@ package org.ta4j.core.indicators.helpers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class ConstantIndicatorTest {
-    private ConstantIndicator<Decimal> constantIndicator;
+    private ConstantIndicator<Double> constantIndicator;
 
     @Before
     public void setUp() {
 
-        constantIndicator = new ConstantIndicator<Decimal>(Decimal.valueOf("30.33"));
+        constantIndicator = new ConstantIndicator<Double>(Double.valueOf("30.33"));
     }
 
     @Test
     public void constantIndicator() {
-        assertDecimalEquals(constantIndicator.getValue(0), "30.33");
-        assertDecimalEquals(constantIndicator.getValue(1), "30.33");
-        assertDecimalEquals(constantIndicator.getValue(10), "30.33");
-        assertDecimalEquals(constantIndicator.getValue(30), "30.33");
+        assertDoubleEquals(constantIndicator.getValue(0), "30.33");
+        assertDoubleEquals(constantIndicator.getValue(1), "30.33");
+        assertDoubleEquals(constantIndicator.getValue(10), "30.33");
+        assertDoubleEquals(constantIndicator.getValue(30), "30.33");
     }
 }

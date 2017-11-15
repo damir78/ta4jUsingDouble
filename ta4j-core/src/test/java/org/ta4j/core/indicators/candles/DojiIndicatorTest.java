@@ -24,7 +24,7 @@ package org.ta4j.core.indicators.candles;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTick;
@@ -52,19 +52,19 @@ public class DojiIndicatorTest {
         ticks.add(new MockTick(11, 12, 12, 10));
         series = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void getValueAtIndex0() {
-        DojiIndicator doji = new DojiIndicator(new MockTimeSeries(0d), 10, Decimal.valueOf("0.03"));
+        DojiIndicator doji = new DojiIndicator(new MockTimeSeries(0d), 10, Double.valueOf("0.03"));
         assertTrue(doji.getValue(0));
-        
-        doji = new DojiIndicator(new MockTimeSeries(1d), 10, Decimal.valueOf("0.03"));
+
+        doji = new DojiIndicator(new MockTimeSeries(1d), 10, Double.valueOf("0.03"));
         assertFalse(doji.getValue(0));
     }
-    
+
     @Test
     public void getValue() {
-        DojiIndicator doji = new DojiIndicator(series, 3, Decimal.valueOf("0.1"));
+        DojiIndicator doji = new DojiIndicator(series, 3, Double.valueOf("0.1"));
         assertTrue(doji.getValue(0));
         assertFalse(doji.getValue(1));
         assertFalse(doji.getValue(2));

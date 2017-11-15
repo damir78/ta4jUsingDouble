@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class VolumeIndicatorTest {
 
@@ -56,13 +56,13 @@ public class VolumeIndicatorTest {
         ticks.add(new MockTick(0, 155));
         ticks.add(new MockTick(0, 160));
         VolumeIndicator volumeIndicator = new VolumeIndicator(new MockTimeSeries(ticks), 3);
-        
-        assertDecimalEquals(volumeIndicator.getValue(0), 10);
-        assertDecimalEquals(volumeIndicator.getValue(1), 21);
-        assertDecimalEquals(volumeIndicator.getValue(2), 33);
-        assertDecimalEquals(volumeIndicator.getValue(3), 36);
-        assertDecimalEquals(volumeIndicator.getValue(4), 175);
-        assertDecimalEquals(volumeIndicator.getValue(5), 318);
-        assertDecimalEquals(volumeIndicator.getValue(6), 465);
+
+        assertDoubleEquals(volumeIndicator.getValue(0), 10);
+        assertDoubleEquals(volumeIndicator.getValue(1), 21);
+        assertDoubleEquals(volumeIndicator.getValue(2), 33);
+        assertDoubleEquals(volumeIndicator.getValue(3), 36);
+        assertDoubleEquals(volumeIndicator.getValue(4), 175);
+        assertDoubleEquals(volumeIndicator.getValue(5), 318);
+        assertDoubleEquals(volumeIndicator.getValue(6), 465);
     }
 }

@@ -24,7 +24,7 @@ package org.ta4j.core.trading.rules;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.FixedDecimalIndicator;
 
@@ -33,15 +33,15 @@ import static org.junit.Assert.assertTrue;
 
 public class OverIndicatorRuleTest {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
     private OverIndicatorRule rule;
-    
+
     @Before
     public void setUp() {
         indicator = new FixedDecimalIndicator(20, 15, 10, 5, 0, -5, -10, 100);
-        rule = new OverIndicatorRule(indicator, Decimal.valueOf(5));
+        rule = new OverIndicatorRule(indicator, Double.valueOf(5));
     }
-    
+
     @Test
     public void isSatisfied() {
         assertTrue(rule.isSatisfied(0));
@@ -54,4 +54,3 @@ public class OverIndicatorRuleTest {
         assertTrue(rule.isSatisfied(7));
     }
 }
-        

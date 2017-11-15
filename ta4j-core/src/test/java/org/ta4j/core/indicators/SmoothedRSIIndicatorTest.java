@@ -24,14 +24,15 @@ package org.ta4j.core.indicators;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
+import org.ta4j.core.MathUtils;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class SmoothedRSIIndicatorTest {
 
@@ -54,31 +55,31 @@ public class SmoothedRSIIndicatorTest {
     public void rsiUsingTimeFrame14UsingClosePrice() {
         SmoothedRSIIndicator rsi = new SmoothedRSIIndicator(new ClosePriceIndicator(data), 2);
 
-        assertDecimalEquals(rsi.getValue(2), 0.0);
-        assertDecimalEquals(rsi.getValue(3), 0.0);
-        assertDecimalEquals(rsi.getValue(4), 0.0);
-        assertDecimalEquals(rsi.getValue(5), 9.638554217);
-        assertDecimalEquals(rsi.getValue(6), 48.97959184);
-        assertDecimalEquals(rsi.getValue(7), 34.12322275);
-        assertDecimalEquals(rsi.getValue(8), 13.55932203);
-        assertDecimalEquals(rsi.getValue(9), 55.99232982);
-        assertDecimalEquals(rsi.getValue(10), 22.64443583);
-        assertDecimalEquals(rsi.getValue(11), 78.39740119);
-        assertDecimalEquals(rsi.getValue(12), 88.55224651);
+        assertDoubleEquals(rsi.getValue(2), 0.0);
+        assertDoubleEquals(rsi.getValue(3), 0.0);
+        assertDoubleEquals(rsi.getValue(4), 0.0);
+        assertDoubleEquals(rsi.getValue(5), 9.638554217);
+        assertDoubleEquals(rsi.getValue(6), 48.97959184);
+        assertDoubleEquals(rsi.getValue(7), 34.12322275);
+        assertDoubleEquals(rsi.getValue(8), 13.55932203);
+        assertDoubleEquals(rsi.getValue(9), 55.99232982);
+        assertDoubleEquals(rsi.getValue(10), 22.64443583);
+        assertDoubleEquals(rsi.getValue(11), 78.39740119);
+        assertDoubleEquals(rsi.getValue(12), 88.55224651);
     }
 
     @Test
     public void smoothedRsiFirstValueShouldBeZero() {
         SmoothedRSIIndicator rsi = new SmoothedRSIIndicator(new ClosePriceIndicator(data), 14);
 
-        assertEquals(Decimal.ZERO, rsi.getValue(0));
+        assertEquals(0d, rsi.getValue(0), MathUtils.DELTA);
     }
 
     @Test
     public void smoothedRsiIsNeverHundredIfLossPresentInDataSeries() {
         SmoothedRSIIndicator rsi = new SmoothedRSIIndicator(new ClosePriceIndicator(data), 3);
 
-        assertNotEquals(Decimal.HUNDRED, rsi.getValue(14));
-        assertNotEquals(Decimal.HUNDRED, rsi.getValue(15));
+        assertNotEquals(100d, rsi.getValue(14));
+        assertNotEquals(100d, rsi.getValue(15));
     }
 }

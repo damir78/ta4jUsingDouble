@@ -114,7 +114,7 @@ public class Trade implements Serializable {
      * @return the order
      */
     public Order operate(int index) {
-        return operate(index, Decimal.NaN, Decimal.NaN);
+        return operate(index, Double.NaN, Double.NaN);
     }
 
     /**
@@ -124,7 +124,7 @@ public class Trade implements Serializable {
      * @param amount the amount
      * @return the order
      */
-    public Order operate(int index, Decimal price, Decimal amount) {
+    public Order operate(int index, Double price, Double amount) {
         Order order = null;
         if (isNew()) {
             order = new Order(index, startingType, price, amount);

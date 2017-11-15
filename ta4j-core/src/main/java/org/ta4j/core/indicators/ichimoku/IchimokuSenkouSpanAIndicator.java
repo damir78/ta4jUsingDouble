@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.ichimoku;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -31,7 +31,7 @@ import org.ta4j.core.indicators.CachedIndicator;
  * <p>
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud
  */
-public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Decimal> {
+public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Double> {
 
     /** The Tenkan-sen indicator */
     private final IchimokuTenkanSenIndicator conversionLine;
@@ -46,7 +46,7 @@ public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Decimal> {
     public IchimokuSenkouSpanAIndicator(TimeSeries series) {
         this(series, new IchimokuTenkanSenIndicator(series), new IchimokuKijunSenIndicator(series));
     }
-    
+
     /**
      * Constructor.
      * @param series the series
@@ -56,7 +56,7 @@ public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Decimal> {
     public IchimokuSenkouSpanAIndicator(TimeSeries series, int timeFrameConversionLine, int timeFrameBaseLine) {
         this(series, new IchimokuTenkanSenIndicator(series, timeFrameConversionLine), new IchimokuKijunSenIndicator(series, timeFrameBaseLine));
     }
-    
+
     /**
      * Constructor.
      * @param series the series
@@ -70,7 +70,7 @@ public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return conversionLine.getValue(index).plus(baseLine.getValue(index)).dividedBy(Decimal.TWO);
+    protected Double calculate(int index) {
+        return conversionLine.getValue(index)+(baseLine.getValue(index))/ (2d);
     }
 }

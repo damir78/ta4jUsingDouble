@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.candles;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -36,23 +36,23 @@ import org.ta4j.core.indicators.SMAIndicator;
 public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
 
     private final TimeSeries series;
-    
+
     /** Lower shadow */
     private final LowerShadowIndicator lowerShadowInd;
     /** Average lower shadow */
     private final SMAIndicator averageLowerShadowInd;
     /** Factor used when checking if a candle has a very short lower shadow */
-    private final Decimal factor;
-    
+    private final Double factor;
+
     private int whiteCandleIndex = -1;
-    
+
     /**
      * Constructor.
      * @param series a time series
      * @param timeFrame the number of ticks used to calculate the average lower shadow
      * @param factor the factor used when checking if a candle has a very short lower shadow
      */
-    public ThreeBlackCrowsIndicator(TimeSeries series, int timeFrame, Decimal factor) {
+    public ThreeBlackCrowsIndicator(TimeSeries series, int timeFrame, Double factor) {
         super(series);
         this.series = series;
         lowerShadowInd = new LowerShadowIndicator(series);
@@ -72,19 +72,19 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
                 && isBlackCrow(index - 1)
                 && isBlackCrow(index);
     }
-    
+
     /**
      * @param index the tick/candle index
      * @return true if the tick/candle has a very short lower shadow, false otherwise
      */
     private boolean hasVeryShortLowerShadow(int index) {
-        Decimal currentLowerShadow = lowerShadowInd.getValue(index);
+        Double currentLowerShadow = lowerShadowInd.getValue(index);
         // We use the white candle index to remove to bias of the previous crows
-        Decimal averageLowerShadow = averageLowerShadowInd.getValue(whiteCandleIndex);
-        
-        return currentLowerShadow.isLessThan(averageLowerShadow.multipliedBy(factor));
+        Double averageLowerShadow = averageLowerShadowInd.getValue(whiteCandleIndex);
+
+        return currentLowerShadow< (averageLowerShadow* (factor));
     }
-    
+
     /**
      * @param index the current tick/candle index
      * @return true if the current tick/candle is declining, false otherwise
@@ -92,17 +92,17 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
     private boolean isDeclining(int index) {
         Tick prevTick = series.getTick(index-1);
         Tick currTick = series.getTick(index);
-        final Decimal prevOpenPrice = prevTick.getOpenPrice();
-        final Decimal prevClosePrice = prevTick.getClosePrice();
-        final Decimal currOpenPrice = currTick.getOpenPrice();
-        final Decimal currClosePrice = currTick.getClosePrice();
-        
+        final Double prevOpenPrice = prevTick.getOpenPrice();
+        final Double prevClosePrice = prevTick.getClosePrice();
+        final Double currOpenPrice = currTick.getOpenPrice();
+        final Double currClosePrice = currTick.getClosePrice();
+
         // Opens within the body of the previous candle
-        return currOpenPrice.isLessThan(prevOpenPrice) && currOpenPrice.isGreaterThan(prevClosePrice)
+        return currOpenPrice< (prevOpenPrice) && currOpenPrice> (prevClosePrice)
                 // Closes below the previous close price
-                && currClosePrice.isLessThan(prevClosePrice);
+                && currClosePrice< (prevClosePrice);
     }
-    
+
     /**
      * @param index the current tick/candle index
      * @return true if the current tick/candle is a black crow, false otherwise
@@ -114,7 +114,7 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
             if (prevTick.isBullish()) {
                 // First crow case
                 return hasVeryShortLowerShadow(index)
-                        && currTick.getOpenPrice().isLessThan(prevTick.getMaxPrice());
+                        && currTick.getOpenPrice()< (prevTick.getMaxPrice());
             } else {
                 return hasVeryShortLowerShadow(index) && isDeclining(index);
             }

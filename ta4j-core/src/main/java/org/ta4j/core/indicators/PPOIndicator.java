@@ -22,20 +22,20 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
  * Percentage price oscillator (PPO) indicator.
  * <p>
  */
-public class PPOIndicator extends CachedIndicator<Decimal> {
+public class PPOIndicator extends CachedIndicator<Double> {
 
     private final EMAIndicator shortTermEma;
 
     private final EMAIndicator longTermEma;
 
-    public PPOIndicator(Indicator<Decimal> indicator, int shortTimeFrame, int longTimeFrame) {
+    public PPOIndicator(Indicator<Double> indicator, int shortTimeFrame, int longTimeFrame) {
         super(indicator);
         if (shortTimeFrame > longTimeFrame) {
             throw new IllegalArgumentException("Long term period count must be greater than short term period count");
@@ -45,11 +45,11 @@ public class PPOIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal shortEmaValue = shortTermEma.getValue(index);
-        Decimal longEmaValue = longTermEma.getValue(index);
-        return shortEmaValue.minus(longEmaValue)
-                .dividedBy(longEmaValue)
-                .multipliedBy(Decimal.HUNDRED);
+    protected Double calculate(int index) {
+        Double shortEmaValue = shortTermEma.getValue(index);
+        Double longEmaValue = longTermEma.getValue(index);
+        return shortEmaValue- (longEmaValue)
+                / (longEmaValue)
+                * (100d);
     }
 }

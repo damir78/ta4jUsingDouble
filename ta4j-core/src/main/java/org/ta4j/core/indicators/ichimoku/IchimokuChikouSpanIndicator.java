@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.ichimoku;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -32,14 +32,14 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
  * <p>
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud
  */
-public class IchimokuChikouSpanIndicator extends CachedIndicator<Decimal> {
+public class IchimokuChikouSpanIndicator extends CachedIndicator<Double> {
 
     /** The close price */
     private final ClosePriceIndicator closePriceIndicator;
-    
+
     /** The time delay */
     private final int timeDelay;
-    
+
     /**
      * Constructor.
      * @param series the series
@@ -47,7 +47,7 @@ public class IchimokuChikouSpanIndicator extends CachedIndicator<Decimal> {
     public IchimokuChikouSpanIndicator(TimeSeries series) {
         this(series, 26);
     }
-    
+
     /**
      * Constructor.
      * @param series the series
@@ -60,7 +60,7 @@ public class IchimokuChikouSpanIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         return closePriceIndicator.getValue(Math.max(0, index - timeDelay));
     }
 

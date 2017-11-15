@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Trade;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -36,18 +36,18 @@ public class StopLossRule extends AbstractRule {
 
     /** The close price indicator */
     private ClosePriceIndicator closePrice;
-    
+
     /** The loss ratio threshold (e.g. 0.97 for 3%) */
-    private Decimal lossRatioThreshold;
+    private Double lossRatioThreshold;
 
     /**
      * Constructor.
      * @param closePrice the close price indicator
      * @param lossPercentage the loss percentage
      */
-    public StopLossRule(ClosePriceIndicator closePrice, Decimal lossPercentage) {
+    public StopLossRule(ClosePriceIndicator closePrice, Double lossPercentage) {
         this.closePrice = closePrice;
-        this.lossRatioThreshold = Decimal.HUNDRED.minus(lossPercentage).dividedBy(Decimal.HUNDRED);
+        this.lossRatioThreshold = 100d- (lossPercentage)/ (100d);
     }
 
     @Override
@@ -57,13 +57,13 @@ public class StopLossRule extends AbstractRule {
         if (tradingRecord != null) {
             Trade currentTrade = tradingRecord.getCurrentTrade();
             if (currentTrade.isOpened()) {
-                Decimal entryPrice = currentTrade.getEntry().getPrice();
-                Decimal currentPrice = closePrice.getValue(index);
-                Decimal threshold = entryPrice.multipliedBy(lossRatioThreshold);
+                Double entryPrice = currentTrade.getEntry().getPrice();
+                Double currentPrice = closePrice.getValue(index);
+                Double threshold = entryPrice* (lossRatioThreshold);
                 if (currentTrade.getEntry().isBuy()) {
-                    satisfied = currentPrice.isLessThanOrEqual(threshold);
+                    satisfied = currentPrice<=(threshold);
                 } else {
-                    satisfied = currentPrice.isGreaterThanOrEqual(threshold);
+                    satisfied = currentPrice>=(threshold);
                 }
             }
         }

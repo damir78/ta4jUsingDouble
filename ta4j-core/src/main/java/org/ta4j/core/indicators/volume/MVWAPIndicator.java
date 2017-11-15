@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.volume;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
@@ -31,10 +31,10 @@ import org.ta4j.core.indicators.SMAIndicator;
  * The Moving volume weighted average price (MVWAP) Indicator.
  * @see http://www.investopedia.com/articles/trading/11/trading-with-vwap-mvwap.asp
  */
-public class MVWAPIndicator extends CachedIndicator<Decimal> {
+public class MVWAPIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Decimal> sma;
-    
+    private final Indicator<Double> sma;
+
     /**
      * Constructor.
      * @param vwap the vwap
@@ -46,7 +46,7 @@ public class MVWAPIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         return sma.getValue(index);
     }
 

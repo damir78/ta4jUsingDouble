@@ -32,7 +32,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 /**
  * The Class RandomWalkIndexHighIndicatorTest.
@@ -66,26 +66,26 @@ public class RandomWalkIndexHighIndicatorTest {
         ticks.add(new MockTick(43.56, 43.95, 43.99, 43.53));
         ticks.add(new MockTick(43.93, 44.47, 44.58, 43.93));
         data = new MockTimeSeries(ticks);
-        
+
     }
-    
+
     @Test
     public void randomWalkIndexHigh()
     {
         RandomWalkIndexHighIndicator rwih = new RandomWalkIndexHighIndicator(data, 5);
-        
-        assertDecimalEquals(rwih.getValue(6), 0.2118);
-        assertDecimalEquals(rwih.getValue(7), 0.1581);
-        assertDecimalEquals(rwih.getValue(8), 0.3741);
-        assertDecimalEquals(rwih.getValue(9), 0.5798);
-        assertDecimalEquals(rwih.getValue(10), 0.7518);
-        assertDecimalEquals(rwih.getValue(11), 0.9861);
-        assertDecimalEquals(rwih.getValue(12), 0.9652);
-        assertDecimalEquals(rwih.getValue(13), 0.5408);
-        assertDecimalEquals(rwih.getValue(14), -0.1607);
-        assertDecimalEquals(rwih.getValue(15), -1.0879);
-        assertDecimalEquals(rwih.getValue(16), -1.1186);
-        assertDecimalEquals(rwih.getValue(17), -1.4072);
-        assertDecimalEquals(rwih.getValue(18), -0.6779);
+
+        assertDoubleEquals(rwih.getValue(6), 0.2118);
+        assertDoubleEquals(rwih.getValue(7), 0.1581);
+        assertDoubleEquals(rwih.getValue(8), 0.3741);
+        assertDoubleEquals(rwih.getValue(9), 0.5798);
+        assertDoubleEquals(rwih.getValue(10), 0.7518);
+        assertDoubleEquals(rwih.getValue(11), 0.9861);
+        assertDoubleEquals(rwih.getValue(12), 0.9652);
+        assertDoubleEquals(rwih.getValue(13), 0.5408);
+        assertDoubleEquals(rwih.getValue(14), -0.1607);
+        assertDoubleEquals(rwih.getValue(15), -1.0879);
+        assertDoubleEquals(rwih.getValue(16), -1.1186);
+        assertDoubleEquals(rwih.getValue(17), -1.4072);
+        assertDoubleEquals(rwih.getValue(18), -0.6779);
     }
 }

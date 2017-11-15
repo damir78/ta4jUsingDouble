@@ -31,7 +31,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class OnBalanceVolumeIndicatorTest {
 
@@ -47,14 +47,14 @@ public class OnBalanceVolumeIndicatorTest {
         ticks.add(new MockTick(now, 0, 6, 0, 0, 0, 10, 0));
 
         OnBalanceVolumeIndicator obv = new OnBalanceVolumeIndicator(new MockTimeSeries(ticks));
-        assertDecimalEquals(obv.getValue(0), 0);
-        assertDecimalEquals(obv.getValue(1), -2);
-        assertDecimalEquals(obv.getValue(2), 1);
-        assertDecimalEquals(obv.getValue(3), 9);
-        assertDecimalEquals(obv.getValue(4), 9);
-        assertDecimalEquals(obv.getValue(5), -1);
+        assertDoubleEquals(obv.getValue(0), 0);
+        assertDoubleEquals(obv.getValue(1), -2);
+        assertDoubleEquals(obv.getValue(2), 1);
+        assertDoubleEquals(obv.getValue(3), 9);
+        assertDoubleEquals(obv.getValue(4), 9);
+        assertDoubleEquals(obv.getValue(5), -1);
     }
-    
+
     @Test
     public void stackOverflowError() {
         List<Tick> bigListOfTicks = new ArrayList<Tick>();
@@ -65,6 +65,6 @@ public class OnBalanceVolumeIndicatorTest {
         OnBalanceVolumeIndicator obv = new OnBalanceVolumeIndicator(bigSeries);
         // If a StackOverflowError is thrown here, then the RecursiveCachedIndicator
         // does not work as intended.
-        assertDecimalEquals(obv.getValue(9999), 0);
+        assertDoubleEquals(obv.getValue(9999), 0);
     }
 }

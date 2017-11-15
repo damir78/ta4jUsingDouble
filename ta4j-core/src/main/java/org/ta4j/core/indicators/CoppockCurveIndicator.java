@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.SumIndicator;
 
@@ -31,22 +31,22 @@ import org.ta4j.core.indicators.helpers.SumIndicator;
  * <p>
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:coppock_curve
  */
-public class CoppockCurveIndicator extends CachedIndicator<Decimal> {
+public class CoppockCurveIndicator extends CachedIndicator<Double> {
 
     private final WMAIndicator wma;
-    
+
     /**
       * Constructor with default values: <br/>
       * - longRoCTimeFrame=14 <br/>
       * - shortRoCTimeFrame=11 <br/>
       * - wmaTimeFrame=10
-      * 
+      *
       * @param indicator
     */
-    public CoppockCurveIndicator(Indicator<Decimal> indicator) {
+    public CoppockCurveIndicator(Indicator<Double> indicator) {
         this(indicator, 14, 11, 10);
     }
-    
+
     /**
      * Constructor.
      * @param indicator the indicator (usually close price)
@@ -54,7 +54,7 @@ public class CoppockCurveIndicator extends CachedIndicator<Decimal> {
      * @param shortRoCTimeFrame the time frame for short term RoC
      * @param wmaTimeFrame the time frame (for WMA)
      */
-    public CoppockCurveIndicator(Indicator<Decimal> indicator, int longRoCTimeFrame, int shortRoCTimeFrame, int wmaTimeFrame) {
+    public CoppockCurveIndicator(Indicator<Double> indicator, int longRoCTimeFrame, int shortRoCTimeFrame, int wmaTimeFrame) {
         super(indicator);
         SumIndicator sum = new SumIndicator(
                 new ROCIndicator(indicator, longRoCTimeFrame),
@@ -64,7 +64,7 @@ public class CoppockCurveIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         return wma.getValue(index);
     }
 }

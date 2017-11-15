@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.RecursiveCachedIndicator;
 
@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.RecursiveCachedIndicator;
  * Average of {@link DirectionalMovementUpIndicator directional movement up indicator}.
  * <p>
  */
-public class AverageDirectionalMovementUpIndicator extends RecursiveCachedIndicator<Decimal> {
+public class AverageDirectionalMovementUpIndicator extends RecursiveCachedIndicator<Double> {
 
     private final int timeFrame;
 
@@ -43,12 +43,12 @@ public class AverageDirectionalMovementUpIndicator extends RecursiveCachedIndica
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
-            return Decimal.ONE;
+            return 1d;
         }
-        Decimal nbPeriods = Decimal.valueOf(timeFrame);
-        Decimal nbPeriodsMinusOne = Decimal.valueOf(timeFrame - 1);
-        return getValue(index - 1).multipliedBy(nbPeriodsMinusOne).dividedBy(nbPeriods).plus(dmup.getValue(index).dividedBy(nbPeriods));
+        Double nbPeriods = Double.valueOf(timeFrame);
+        Double nbPeriodsMinusOne = Double.valueOf(timeFrame - 1);
+        return getValue(index - 1)* (nbPeriodsMinusOne)/ (nbPeriods)+(dmup.getValue(index)/ (nbPeriods));
     }
 }

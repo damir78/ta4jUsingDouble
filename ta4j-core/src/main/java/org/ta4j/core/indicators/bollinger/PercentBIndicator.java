@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.bollinger;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
@@ -32,14 +32,14 @@ import org.ta4j.core.indicators.statistics.StandardDeviationIndicator;
  * %B indicator.
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_perce
  */
-public class PercentBIndicator extends CachedIndicator<Decimal> {
-    
-    private final Indicator<Decimal> indicator;
+public class PercentBIndicator extends CachedIndicator<Double> {
+
+    private final Indicator<Double> indicator;
 
     private final BollingerBandsUpperIndicator bbu;
-    
+
     private final BollingerBandsMiddleIndicator bbm;
-    
+
     private final BollingerBandsLowerIndicator bbl;
 
     /**
@@ -48,7 +48,7 @@ public class PercentBIndicator extends CachedIndicator<Decimal> {
      * @param timeFrame the time frame
      * @param k the K multiplier (usually 2.0)
      */
-    public PercentBIndicator(Indicator<Decimal> indicator, int timeFrame, Decimal k) {
+    public PercentBIndicator(Indicator<Double> indicator, int timeFrame, Double k) {
         super(indicator);
         this.indicator = indicator;
         this.bbm = new BollingerBandsMiddleIndicator(new SMAIndicator(indicator, timeFrame));
@@ -58,10 +58,10 @@ public class PercentBIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal value = indicator.getValue(index);
-        Decimal upValue = bbu.getValue(index);
-        Decimal lowValue = bbl.getValue(index);
-        return value.minus(lowValue).dividedBy(upValue.minus(lowValue));
+    protected Double calculate(int index) {
+        Double value = indicator.getValue(index);
+        Double upValue = bbu.getValue(index);
+        Double lowValue = bbl.getValue(index);
+        return value- (lowValue)/ (upValue- (lowValue));
     }
 }

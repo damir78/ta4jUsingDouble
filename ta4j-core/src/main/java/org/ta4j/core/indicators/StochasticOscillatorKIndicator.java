@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.*;
@@ -34,10 +34,10 @@ import org.ta4j.core.indicators.helpers.*;
  * Receives timeSeries and timeFrame and calculates the StochasticOscillatorKIndicator
  * over ClosePriceIndicator, or receives an indicator, MaxPriceIndicator and
  * MinPriceIndicator and returns StochasticOsiclatorK over this indicator.
- * 
+ *
  */
-public class StochasticOscillatorKIndicator extends CachedIndicator<Decimal> {
-    private final Indicator<Decimal> indicator;
+public class StochasticOscillatorKIndicator extends CachedIndicator<Double> {
+    private final Indicator<Double> indicator;
 
     private final int timeFrame;
 
@@ -50,7 +50,7 @@ public class StochasticOscillatorKIndicator extends CachedIndicator<Decimal> {
                 timeSeries));
     }
 
-    public StochasticOscillatorKIndicator(Indicator<Decimal> indicator, int timeFrame,
+    public StochasticOscillatorKIndicator(Indicator<Double> indicator, int timeFrame,
             MaxPriceIndicator maxPriceIndicator, MinPriceIndicator minPriceIndicator) {
         super(indicator);
         this.indicator = indicator;
@@ -60,16 +60,16 @@ public class StochasticOscillatorKIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         HighestValueIndicator highestHigh = new HighestValueIndicator(maxPriceIndicator, timeFrame);
         LowestValueIndicator lowestMin = new LowestValueIndicator(minPriceIndicator, timeFrame);
 
-        Decimal highestHighPrice = highestHigh.getValue(index);
-        Decimal lowestLowPrice = lowestMin.getValue(index);
+        Double highestHighPrice = highestHigh.getValue(index);
+        Double lowestLowPrice = lowestMin.getValue(index);
 
-        return indicator.getValue(index).minus(lowestLowPrice)
-                .dividedBy(highestHighPrice.minus(lowestLowPrice))
-                .multipliedBy(Decimal.HUNDRED);
+        return indicator.getValue(index)- (lowestLowPrice)
+                / (highestHighPrice- (lowestLowPrice))
+                * (100d);
     }
 
     @Override

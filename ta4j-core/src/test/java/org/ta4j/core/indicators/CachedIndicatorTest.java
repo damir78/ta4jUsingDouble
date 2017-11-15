@@ -25,7 +25,8 @@ package org.ta4j.core.indicators;
 import org.junit.Before;
 import org.junit.Test;
 import org.ta4j.core.BaseStrategy;
-import org.ta4j.core.Decimal;
+
+import org.ta4j.core.MathUtils;
 import org.ta4j.core.Strategy;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -37,7 +38,7 @@ import org.ta4j.core.trading.rules.UnderIndicatorRule;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CachedIndicatorTest {
 
@@ -51,22 +52,22 @@ public class CachedIndicatorTest {
     @Test
     public void ifCacheWorks() {
         SMAIndicator sma = new SMAIndicator(new ClosePriceIndicator(series), 3);
-        Decimal firstTime = sma.getValue(4);
-        Decimal secondTime = sma.getValue(4);
+        Double firstTime = sma.getValue(4);
+        Double secondTime = sma.getValue(4);
         assertEquals(firstTime, secondTime);
     }
 
     @Test
     public void getValueWithNullTimeSeries() {
-        
-        ConstantIndicator<Decimal> constant = new ConstantIndicator<Decimal>(Decimal.TEN);
-        assertEquals(Decimal.TEN, constant.getValue(0));
-        assertEquals(Decimal.TEN, constant.getValue(100));
+
+        ConstantIndicator<Double> constant = new ConstantIndicator<Double>(10d);
+        assertEquals(10d, constant.getValue(0), MathUtils.DELTA);
+        assertEquals(10d, constant.getValue(100), MathUtils.DELTA);
         assertNull(constant.getTimeSeries());
 
         SMAIndicator sma = new SMAIndicator(constant, 10);
-        assertEquals(Decimal.TEN, sma.getValue(0));
-        assertEquals(Decimal.TEN, sma.getValue(100));
+        assertEquals(10d, sma.getValue(0), MathUtils.DELTA);
+        assertEquals(10d, sma.getValue(100), MathUtils.DELTA);
         assertNull(sma.getTimeSeries());
     }
 
@@ -75,7 +76,7 @@ public class CachedIndicatorTest {
         double[] data = new double[200];
         Arrays.fill(data, 10);
         SMAIndicator sma = new SMAIndicator(new ClosePriceIndicator(new MockTimeSeries(data)), 100);
-        assertDecimalEquals(sma.getValue(105), 10);
+        assertDoubleEquals(sma.getValue(105), 10);
     }
 
     @Test
@@ -84,10 +85,10 @@ public class CachedIndicatorTest {
         Arrays.fill(data, 1);
         TimeSeries timeSeries = new MockTimeSeries(data);
         SMAIndicator sma = new SMAIndicator(new ClosePriceIndicator(timeSeries), 10);
-        assertDecimalEquals(sma.getValue(5), 1);
-        assertDecimalEquals(sma.getValue(10), 1);
+        assertDoubleEquals(sma.getValue(5), 1);
+        assertDoubleEquals(sma.getValue(10), 1);
         timeSeries.setMaximumTickCount(12);
-        assertDecimalEquals(sma.getValue(19), 1);
+        assertDoubleEquals(sma.getValue(19), 1);
     }
 
     @Test
@@ -97,10 +98,10 @@ public class CachedIndicatorTest {
         // Theoretical values for SMA(2) cache: 0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5
         timeSeries.setMaximumTickCount(6);
         // Theoretical values for SMA(2) cache: null, null, 2, 2.5, 3.5, 4.5, 5.5, 6.5
-        
+
         Strategy strategy = new BaseStrategy(
-                new OverIndicatorRule(sma, Decimal.THREE),
-                new UnderIndicatorRule(sma, Decimal.THREE)
+                new OverIndicatorRule(sma, 3d),
+                new UnderIndicatorRule(sma, 3d)
         );
         // Theoretical shouldEnter results: false, false, false, false, true, true, true, true
         // Theoretical shouldExit results: false, false, true, true, false, false, false, false
@@ -136,13 +137,13 @@ public class CachedIndicatorTest {
         TimeSeries timeSeries = new MockTimeSeries(1, 1, 1, 1, 1);
         timeSeries.setMaximumTickCount(3);
         assertEquals(2, timeSeries.getRemovedTicksCount());
-        
+
         SMAIndicator sma = new SMAIndicator(new ClosePriceIndicator(timeSeries), 2);
         for (int i = 0; i < 5; i++) {
-            assertDecimalEquals(sma.getValue(i), 1);
+            assertDoubleEquals(sma.getValue(i), 1);
         }
     }
-    
+
     @Test
     public void recursiveCachedIndicatorOnMovingTimeSeriesShouldNotCauseStackOverflow() {
         // Added to check issue #120: https://github.com/mdeverdelhan/ta4j/issues/120
@@ -153,7 +154,7 @@ public class CachedIndicatorTest {
 
         ZLEMAIndicator zlema = new ZLEMAIndicator(new ClosePriceIndicator(series), 1);
         try {
-            assertDecimalEquals(zlema.getValue(8), "4996");
+            assertDoubleEquals(zlema.getValue(8), "4996");
         } catch (Throwable t) {
             fail(t.getMessage());
         }

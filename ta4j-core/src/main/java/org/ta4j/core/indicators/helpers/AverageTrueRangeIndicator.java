@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.RecursiveCachedIndicator;
 
@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.RecursiveCachedIndicator;
  * Average true range indicator.
  * <p>
  */
-public class AverageTrueRangeIndicator extends RecursiveCachedIndicator<Decimal> {
+public class AverageTrueRangeIndicator extends RecursiveCachedIndicator<Double> {
 
     private final int timeFrame;
     private final TrueRangeIndicator tr;
@@ -40,14 +40,14 @@ public class AverageTrueRangeIndicator extends RecursiveCachedIndicator<Decimal>
         this.timeFrame = timeFrame;
         this.tr = new TrueRangeIndicator(series);
     }
-    
+
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
-            return Decimal.ONE;
+            return 1d;
         }
-        Decimal nbPeriods = Decimal.valueOf(timeFrame);
-        Decimal nbPeriodsMinusOne = Decimal.valueOf(timeFrame - 1);
-        return getValue(index - 1).multipliedBy(nbPeriodsMinusOne).plus(tr.getValue(index)).dividedBy(nbPeriods);
+        Double nbPeriods = Double.valueOf(timeFrame);
+        Double nbPeriodsMinusOne = Double.valueOf(timeFrame - 1);
+        return getValue(index - 1)* (nbPeriodsMinusOne)+(tr.getValue(index))/ (nbPeriods);
     }
 }

@@ -28,7 +28,7 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class DoubleEMAIndicatorTest {
 
@@ -50,16 +50,16 @@ public class DoubleEMAIndicatorTest {
     public void doubleEMAUsingTimeFrame5UsingClosePrice() {
         DoubleEMAIndicator doubleEma = new DoubleEMAIndicator(closePrice, 5);
 
-        assertDecimalEquals(doubleEma.getValue(0), 0.73);
-        assertDecimalEquals(doubleEma.getValue(1), 0.7225);
-        assertDecimalEquals(doubleEma.getValue(2), 0.7983);
+        assertDoubleEquals(doubleEma.getValue(0), 0.73);
+        assertDoubleEquals(doubleEma.getValue(1), 0.7225);
+        assertDoubleEquals(doubleEma.getValue(2), 0.7983);
 
-        assertDecimalEquals(doubleEma.getValue(6), 0.7872);
-        assertDecimalEquals(doubleEma.getValue(7), 0.7381);
-        assertDecimalEquals(doubleEma.getValue(8), 0.6887);
+        assertDoubleEquals(doubleEma.getValue(6), 0.7872);
+        assertDoubleEquals(doubleEma.getValue(7), 0.7381);
+        assertDoubleEquals(doubleEma.getValue(8), 0.6887);
 
-        assertDecimalEquals(doubleEma.getValue(12), 0.7184);
-        assertDecimalEquals(doubleEma.getValue(13), 0.6938);
-        assertDecimalEquals(doubleEma.getValue(14), 0.6859);
+        assertDoubleEquals(doubleEma.getValue(12), 0.7184);
+        assertDoubleEquals(doubleEma.getValue(13), 0.6938);
+        assertDoubleEquals(doubleEma.getValue(14), 0.6859);
     }
 }

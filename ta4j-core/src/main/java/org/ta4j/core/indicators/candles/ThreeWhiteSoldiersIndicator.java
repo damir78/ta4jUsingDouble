@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.candles;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -36,23 +36,23 @@ import org.ta4j.core.indicators.SMAIndicator;
 public class ThreeWhiteSoldiersIndicator extends CachedIndicator<Boolean> {
 
     private final TimeSeries series;
-    
+
     /** Upper shadow */
     private final UpperShadowIndicator upperShadowInd;
     /** Average upper shadow */
     private final SMAIndicator averageUpperShadowInd;
     /** Factor used when checking if a candle has a very short upper shadow */
-    private final Decimal factor;
-    
+    private final Double factor;
+
     private int blackCandleIndex = -1;
-    
+
     /**
      * Constructor.
      * @param series a time series
      * @param timeFrame the number of ticks used to calculate the average upper shadow
      * @param factor the factor used when checking if a candle has a very short upper shadow
      */
-    public ThreeWhiteSoldiersIndicator(TimeSeries series, int timeFrame, Decimal factor) {
+    public ThreeWhiteSoldiersIndicator(TimeSeries series, int timeFrame, Double factor) {
         super(series);
         this.series = series;
         upperShadowInd = new UpperShadowIndicator(series);
@@ -72,19 +72,19 @@ public class ThreeWhiteSoldiersIndicator extends CachedIndicator<Boolean> {
                 && isWhiteSoldier(index - 1)
                 && isWhiteSoldier(index);
     }
-    
+
     /**
      * @param index the tick/candle index
      * @return true if the tick/candle has a very short upper shadow, false otherwise
      */
     private boolean hasVeryShortUpperShadow(int index) {
-        Decimal currentUpperShadow = upperShadowInd.getValue(index);
+        Double currentUpperShadow = upperShadowInd.getValue(index);
         // We use the black candle index to remove to bias of the previous soldiers
-        Decimal averageUpperShadow = averageUpperShadowInd.getValue(blackCandleIndex);
-        
-        return currentUpperShadow.isLessThan(averageUpperShadow.multipliedBy(factor));
+        Double averageUpperShadow = averageUpperShadowInd.getValue(blackCandleIndex);
+
+        return currentUpperShadow< (averageUpperShadow* (factor));
     }
-    
+
     /**
      * @param index the current tick/candle index
      * @return true if the current tick/candle is growing, false otherwise
@@ -92,17 +92,17 @@ public class ThreeWhiteSoldiersIndicator extends CachedIndicator<Boolean> {
     private boolean isGrowing(int index) {
         Tick prevTick = series.getTick(index-1);
         Tick currTick = series.getTick(index);
-        final Decimal prevOpenPrice = prevTick.getOpenPrice();
-        final Decimal prevClosePrice = prevTick.getClosePrice();
-        final Decimal currOpenPrice = currTick.getOpenPrice();
-        final Decimal currClosePrice = currTick.getClosePrice();
-        
+        final Double prevOpenPrice = prevTick.getOpenPrice();
+        final Double prevClosePrice = prevTick.getClosePrice();
+        final Double currOpenPrice = currTick.getOpenPrice();
+        final Double currClosePrice = currTick.getClosePrice();
+
         // Opens within the body of the previous candle
-        return currOpenPrice.isGreaterThan(prevOpenPrice) && currOpenPrice.isLessThan(prevClosePrice)
+        return currOpenPrice> (prevOpenPrice) && currOpenPrice< (prevClosePrice)
                 // Closes above the previous close price
-                && currClosePrice.isGreaterThan(prevClosePrice);
+                && currClosePrice> (prevClosePrice);
     }
-    
+
     /**
      * @param index the current tick/candle index
      * @return true if the current tick/candle is a white soldier, false otherwise
@@ -114,7 +114,7 @@ public class ThreeWhiteSoldiersIndicator extends CachedIndicator<Boolean> {
             if (prevTick.isBearish()) {
                 // First soldier case
                 return hasVeryShortUpperShadow(index)
-                        && currTick.getOpenPrice().isGreaterThan(prevTick.getMinPrice());
+                        && currTick.getOpenPrice()> (prevTick.getMinPrice());
             } else {
                 return hasVeryShortUpperShadow(index) && isGrowing(index);
             }

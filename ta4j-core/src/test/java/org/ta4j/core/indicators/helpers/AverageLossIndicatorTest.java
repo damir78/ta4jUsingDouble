@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class AverageLossIndicatorTest {
 
@@ -42,32 +42,32 @@ public class AverageLossIndicatorTest {
     public void averageLossUsingTimeFrame5UsingClosePrice() {
         AverageLossIndicator averageLoss = new AverageLossIndicator(new ClosePriceIndicator(data), 5);
 
-        assertDecimalEquals(averageLoss.getValue(5), "0.2");
-        assertDecimalEquals(averageLoss.getValue(6), "0.2");
-        assertDecimalEquals(averageLoss.getValue(7), "0.4");
-        assertDecimalEquals(averageLoss.getValue(8), "0.6");
-        assertDecimalEquals(averageLoss.getValue(9), "0.4");
-        assertDecimalEquals(averageLoss.getValue(10), "0.4");
-        assertDecimalEquals(averageLoss.getValue(11), "0.6");
-        assertDecimalEquals(averageLoss.getValue(12), "0.6");
+        assertDoubleEquals(averageLoss.getValue(5), "0.2");
+        assertDoubleEquals(averageLoss.getValue(6), "0.2");
+        assertDoubleEquals(averageLoss.getValue(7), "0.4");
+        assertDoubleEquals(averageLoss.getValue(8), "0.6");
+        assertDoubleEquals(averageLoss.getValue(9), "0.4");
+        assertDoubleEquals(averageLoss.getValue(10), "0.4");
+        assertDoubleEquals(averageLoss.getValue(11), "0.6");
+        assertDoubleEquals(averageLoss.getValue(12), "0.6");
 
     }
 
     @Test
     public void averageLossMustReturnZeroWhenTheDataGain() {
         AverageLossIndicator averageLoss = new AverageLossIndicator(new ClosePriceIndicator(data), 4);
-        assertDecimalEquals(averageLoss.getValue(3), 0);
+        assertDoubleEquals(averageLoss.getValue(3), 0);
     }
 
     @Test
     public void averageLossWhenTimeFrameIsGreaterThanIndex() {
         AverageLossIndicator averageLoss = new AverageLossIndicator(new ClosePriceIndicator(data), 1000);
-        assertDecimalEquals(averageLoss.getValue(12), 5d / data.getTickCount());
+        assertDoubleEquals(averageLoss.getValue(12), 5d / data.getTickCount());
     }
 
     @Test
     public void averageLossWhenIndexIsZeroMustBeZero() {
         AverageLossIndicator averageLoss = new AverageLossIndicator(new ClosePriceIndicator(data), 10);
-        assertDecimalEquals(averageLoss.getValue(0), 0);
+        assertDoubleEquals(averageLoss.getValue(0), 0);
     }
 }

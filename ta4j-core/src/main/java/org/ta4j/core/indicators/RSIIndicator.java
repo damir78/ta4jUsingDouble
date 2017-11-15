@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,8 +22,9 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
+import org.ta4j.core.MathUtils;
 import org.ta4j.core.indicators.helpers.AverageGainIndicator;
 import org.ta4j.core.indicators.helpers.AverageLossIndicator;
 
@@ -39,39 +40,39 @@ import org.ta4j.core.indicators.helpers.AverageLossIndicator;
  *
  * @see SmoothedRSIIndicator
  */
-public class RSIIndicator extends CachedIndicator<Decimal> {
+public class RSIIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal> averageGainIndicator;
-    private Indicator<Decimal> averageLossIndicator;
-    
-    public RSIIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    private Indicator<Double> averageGainIndicator;
+    private Indicator<Double> averageLossIndicator;
+
+    public RSIIndicator(Indicator<Double> indicator, int timeFrame) {
         this(new AverageGainIndicator(indicator, timeFrame),
                 new AverageLossIndicator(indicator, timeFrame));
     }
 
-    public RSIIndicator(Indicator<Decimal> avgGainIndicator, Indicator<Decimal> avgLossIndicator) {
+    public RSIIndicator(Indicator<Double> avgGainIndicator, Indicator<Double> avgLossIndicator) {
         super(avgGainIndicator);
         averageGainIndicator = avgGainIndicator;
         averageLossIndicator = avgLossIndicator;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
-            return Decimal.ZERO;
+            return 0d;
         }
 
         // Relative strength
-        Decimal averageLoss = averageLossIndicator.getValue(index);
-        if (averageLoss.isZero()) {
-            return Decimal.HUNDRED;
+        Double averageLoss = averageLossIndicator.getValue(index);
+        if (MathUtils.isZero(averageLoss)) {
+            return 100d;
         }
-        Decimal averageGain = averageGainIndicator.getValue(index);
-        Decimal relativeStrength = averageGain.dividedBy(averageLoss);
+        Double averageGain = averageGainIndicator.getValue(index);
+        Double relativeStrength = averageGain / (averageLoss);
 
         // Nominal case
-        Decimal ratio = Decimal.HUNDRED.dividedBy(Decimal.ONE.plus(relativeStrength));
-        return Decimal.HUNDRED.minus(ratio);
+        Double ratio = 100d / (1d + (relativeStrength));
+        return 100d - (ratio);
     }
 
 }

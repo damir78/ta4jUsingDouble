@@ -24,7 +24,7 @@ package org.ta4j.core.trading.rules;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.FixedDecimalIndicator;
 
@@ -33,15 +33,15 @@ import static org.junit.Assert.assertTrue;
 
 public class InPipeRuleTest {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
     private InPipeRule rule;
-    
+
     @Before
     public void setUp() {
         indicator = new FixedDecimalIndicator(50, 70, 80, 90, 99, 60, 30, 20, 10, 0);
-        rule = new InPipeRule(indicator, Decimal.valueOf(80), Decimal.valueOf(20));
+        rule = new InPipeRule(indicator, Double.valueOf(80), Double.valueOf(20));
     }
-    
+
     @Test
     public void isSatisfied() {
         assertTrue(rule.isSatisfied(0));
@@ -56,4 +56,3 @@ public class InPipeRuleTest {
         assertFalse(rule.isSatisfied(9));
     }
 }
-        

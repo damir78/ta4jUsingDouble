@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.volume;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.RecursiveCachedIndicator;
@@ -33,7 +33,7 @@ import org.ta4j.core.indicators.RecursiveCachedIndicator;
  * @see http://www.metastock.com/Customer/Resources/TAAZ/Default.aspx?p=92
  * @see http://www.investopedia.com/terms/p/pvi.asp
  */
-public class PVIIndicator extends RecursiveCachedIndicator<Decimal> {
+public class PVIIndicator extends RecursiveCachedIndicator<Double> {
 
     private final TimeSeries series;
 
@@ -41,24 +41,24 @@ public class PVIIndicator extends RecursiveCachedIndicator<Decimal> {
         super(series);
         this.series = series;
     }
-    
+
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
-            return Decimal.THOUSAND;
+            return 1000d;
         }
-        
+
         Tick currentTick = series.getTick(index);
         Tick previousTick = series.getTick(index - 1);
-        Decimal previousValue = getValue(index - 1);
-        
-        if (currentTick.getVolume().isGreaterThan(previousTick.getVolume())) {
-            Decimal currentPrice = currentTick.getClosePrice();
-            Decimal previousPrice = previousTick.getClosePrice();
-            Decimal priceChangeRatio = currentPrice.minus(previousPrice).dividedBy(previousPrice);
-            return previousValue.plus(priceChangeRatio.multipliedBy(previousValue));
+        Double previousValue = getValue(index - 1);
+
+        if (currentTick.getVolume()> (previousTick.getVolume())) {
+            Double currentPrice = currentTick.getClosePrice();
+            Double previousPrice = previousTick.getClosePrice();
+            Double priceChangeRatio = currentPrice- (previousPrice)/ (previousPrice);
+            return previousValue+(priceChangeRatio* (previousValue));
         }
         return previousValue;
     }
-	
+
 }

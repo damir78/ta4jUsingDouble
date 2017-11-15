@@ -34,7 +34,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 
 public class AroonOscillatorIndicatorTest {
@@ -221,16 +221,16 @@ public class AroonOscillatorIndicatorTest {
     public void test(){
         AroonOscillatorIndicator aroonOscillator = new AroonOscillatorIndicator(data, 25);
 
-        assertDecimalEquals(aroonOscillator.getValue(data.getBeginIndex()), 0);
-        assertDecimalEquals(aroonOscillator.getValue(data.getBeginIndex()+25), 84);
-        assertDecimalEquals(aroonOscillator.getValue(data.getBeginIndex()+26), 80);
-        assertDecimalEquals(aroonOscillator.getValue(data.getBeginIndex()+27), 76);
+        assertDoubleEquals(aroonOscillator.getValue(data.getBeginIndex()), 0);
+        assertDoubleEquals(aroonOscillator.getValue(data.getBeginIndex()+25), 84);
+        assertDoubleEquals(aroonOscillator.getValue(data.getBeginIndex()+26), 80);
+        assertDoubleEquals(aroonOscillator.getValue(data.getBeginIndex()+27), 76);
 
-        assertDecimalEquals(aroonOscillator.getValue(data.getEndIndex()-5), 56d);
-        assertDecimalEquals(aroonOscillator.getValue(data.getEndIndex()-4), 52d);
-        assertDecimalEquals(aroonOscillator.getValue(data.getEndIndex()-3), 48d);
-        assertDecimalEquals(aroonOscillator.getValue(data.getEndIndex()-2), 44d);
-        assertDecimalEquals(aroonOscillator.getValue(data.getEndIndex()-1), 40d);
-        assertDecimalEquals(aroonOscillator.getValue(data.getEndIndex()), 32d);
+        assertDoubleEquals(aroonOscillator.getValue(data.getEndIndex()-5), 56d);
+        assertDoubleEquals(aroonOscillator.getValue(data.getEndIndex()-4), 52d);
+        assertDoubleEquals(aroonOscillator.getValue(data.getEndIndex()-3), 48d);
+        assertDoubleEquals(aroonOscillator.getValue(data.getEndIndex()-2), 44d);
+        assertDoubleEquals(aroonOscillator.getValue(data.getEndIndex()-1), 40d);
+        assertDoubleEquals(aroonOscillator.getValue(data.getEndIndex()), 32d);
     }
 }

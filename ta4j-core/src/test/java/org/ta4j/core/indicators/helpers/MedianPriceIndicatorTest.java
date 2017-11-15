@@ -24,7 +24,7 @@ package org.ta4j.core.indicators.helpers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTick;
@@ -54,7 +54,7 @@ public class MedianPriceIndicatorTest {
         ticks.add(new MockTick(0, 0, 8, 1));
         ticks.add(new MockTick(0, 0, 83, 32));
         ticks.add(new MockTick(0, 0, 9, 3));
-        
+
 
         this.timeSeries = new MockTimeSeries(ticks);
         average = new MedianPriceIndicator(timeSeries);
@@ -62,10 +62,10 @@ public class MedianPriceIndicatorTest {
 
     @Test
     public void indicatorShouldRetrieveTickClosePrice() {
-        Decimal result;
+        Double result;
         for (int i = 0; i < 10; i++) {
-            result = timeSeries.getTick(i).getMaxPrice().plus(timeSeries.getTick(i).getMinPrice())
-                    .dividedBy(Decimal.TWO);
+            result = timeSeries.getTick(i).getMaxPrice()+(timeSeries.getTick(i).getMinPrice())
+                    / (2d);
             assertEquals(average.getValue(i), result);
         }
     }

@@ -33,13 +33,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CorrelationCoefficientIndicatorTest {
     private TimeSeries data;
 
-    private Indicator<Decimal> close, volume;
-    
+    private Indicator<Double> close, volume;
+
     @Before
     public void setUp() {
         List<Tick> ticks = new ArrayList<Tick>();
@@ -75,25 +75,25 @@ public class CorrelationCoefficientIndicatorTest {
         CorrelationCoefficientIndicator coef = new CorrelationCoefficientIndicator(close, volume, 5);
 
         assertTrue(coef.getValue(0).isNaN());
-        
-		assertDecimalEquals(coef.getValue(1), 1);
-		assertDecimalEquals(coef.getValue(2), 0.8773);
-		assertDecimalEquals(coef.getValue(3), 0.9073);
-		assertDecimalEquals(coef.getValue(4), 0.9219);
-		assertDecimalEquals(coef.getValue(5), 0.9205);
-		assertDecimalEquals(coef.getValue(6), 0.4565);
-		assertDecimalEquals(coef.getValue(7), -0.4622);
-		assertDecimalEquals(coef.getValue(8), 0.05747);
-		assertDecimalEquals(coef.getValue(9), 0.1442);
-		assertDecimalEquals(coef.getValue(10), -0.1263);
-		assertDecimalEquals(coef.getValue(11), -0.5345);
-		assertDecimalEquals(coef.getValue(12), -0.7275);
-		assertDecimalEquals(coef.getValue(13), 0.1676);
-		assertDecimalEquals(coef.getValue(14), 0.2506);
-		assertDecimalEquals(coef.getValue(15), -0.2938);
-		assertDecimalEquals(coef.getValue(16), -0.3586);
-		assertDecimalEquals(coef.getValue(17), 0.1713);
-		assertDecimalEquals(coef.getValue(18), 0.9841);
-		assertDecimalEquals(coef.getValue(19), 0.9799);
+
+		assertDoubleEquals(coef.getValue(1), 1);
+		assertDoubleEquals(coef.getValue(2), 0.8773);
+		assertDoubleEquals(coef.getValue(3), 0.9073);
+		assertDoubleEquals(coef.getValue(4), 0.9219);
+		assertDoubleEquals(coef.getValue(5), 0.9205);
+		assertDoubleEquals(coef.getValue(6), 0.4565);
+		assertDoubleEquals(coef.getValue(7), -0.4622);
+		assertDoubleEquals(coef.getValue(8), 0.05747);
+		assertDoubleEquals(coef.getValue(9), 0.1442);
+		assertDoubleEquals(coef.getValue(10), -0.1263);
+		assertDoubleEquals(coef.getValue(11), -0.5345);
+		assertDoubleEquals(coef.getValue(12), -0.7275);
+		assertDoubleEquals(coef.getValue(13), 0.1676);
+		assertDoubleEquals(coef.getValue(14), 0.2506);
+		assertDoubleEquals(coef.getValue(15), -0.2938);
+		assertDoubleEquals(coef.getValue(16), -0.3586);
+		assertDoubleEquals(coef.getValue(17), 0.1713);
+		assertDoubleEquals(coef.getValue(18), 0.9841);
+		assertDoubleEquals(coef.getValue(19), 0.9799);
     }
 }

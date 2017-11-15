@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -31,10 +31,10 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Directional up indicator.
  * <p>
  */
-public class DirectionalUpIndicator extends CachedIndicator<Decimal>{
+public class DirectionalUpIndicator extends CachedIndicator<Double>{
 
-    private final Indicator<Decimal> admup;
-    private final Indicator<Decimal> atr;
+    private final Indicator<Double> admup;
+    private final Indicator<Double> atr;
     private int timeFrame;
 
     public DirectionalUpIndicator(TimeSeries series, int timeFrame) {
@@ -45,8 +45,8 @@ public class DirectionalUpIndicator extends CachedIndicator<Decimal>{
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return admup.getValue(index).dividedBy(atr.getValue(index));
+    protected Double calculate(int index) {
+        return admup.getValue(index)/ (atr.getValue(index));
     }
 
     @Override

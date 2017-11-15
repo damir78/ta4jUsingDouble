@@ -36,7 +36,7 @@ public class TimeSeriesManager {
 
     /** The logger */
     private final Logger log = LoggerFactory.getLogger(getClass());
-    
+
     /** The managed time series */
     private TimeSeries timeSeries;
 
@@ -45,7 +45,7 @@ public class TimeSeriesManager {
      */
     public TimeSeriesManager() {
 	}
-    
+
     /**
      * Constructor.
      * @param timeSeries the time series to be managed
@@ -60,14 +60,14 @@ public class TimeSeriesManager {
     public void setTimeSeries(TimeSeries timeSeries) {
 		this.timeSeries = timeSeries;
 	}
-    
+
     /**
      * @return the managed time series
      */
     public TimeSeries getTimeSeries() {
 		return timeSeries;
 	}
-    
+
     /**
      * Runs the provided strategy over the managed series.
      * <p>
@@ -89,7 +89,7 @@ public class TimeSeriesManager {
      * @return the trading record coming from the run
      */
     public TradingRecord run(Strategy strategy, int startIndex, int finishIndex) {
-        return run(strategy, OrderType.BUY, Decimal.NaN, startIndex, finishIndex);
+        return run(strategy, OrderType.BUY, Double.NaN, startIndex, finishIndex);
     }
 
     /**
@@ -101,7 +101,7 @@ public class TimeSeriesManager {
      * @return the trading record coming from the run
      */
     public TradingRecord run(Strategy strategy, OrderType orderType) {
-        return run(strategy, orderType, Decimal.NaN);
+        return run(strategy, orderType, Double.NaN);
     }
 
     /**
@@ -115,7 +115,7 @@ public class TimeSeriesManager {
      * @return the trading record coming from the run
      */
     public TradingRecord run(Strategy strategy, OrderType orderType, int startIndex, int finishIndex) {
-        return run(strategy, orderType, Decimal.NaN, startIndex, finishIndex);
+        return run(strategy, orderType, Double.NaN, startIndex, finishIndex);
     }
 
     /**
@@ -126,7 +126,7 @@ public class TimeSeriesManager {
      * @param amount the amount used to open/close the trades
      * @return the trading record coming from the run
      */
-    public TradingRecord run(Strategy strategy, OrderType orderType, Decimal amount) {
+    public TradingRecord run(Strategy strategy, OrderType orderType, Double amount) {
         return run(strategy, orderType, amount, timeSeries.getBeginIndex(), timeSeries.getEndIndex());
     }
 
@@ -140,15 +140,15 @@ public class TimeSeriesManager {
      * @param finishIndex the finish index for the run (included)
      * @return the trading record coming from the run
      */
-    public TradingRecord run(Strategy strategy, OrderType orderType, Decimal amount, int startIndex, int finishIndex) {
+    public TradingRecord run(Strategy strategy, OrderType orderType, Double amount, int startIndex, int finishIndex) {
 
         int runBeginIndex = Math.max(startIndex, timeSeries.getBeginIndex());
         int runEndIndex = Math.min(finishIndex, timeSeries.getEndIndex());
-        
+
         log.trace("Running strategy (indexes: {} -> {}): {} (starting with {})", runBeginIndex, runEndIndex, strategy, orderType);
         TradingRecord tradingRecord = new BaseTradingRecord(orderType);
         for (int i = runBeginIndex; i <= runEndIndex; i++) {
-            // For each tick between both indexes...       
+            // For each tick between both indexes...
             if (strategy.shouldOperate(i, tradingRecord)) {
                 tradingRecord.operate(i, timeSeries.getTick(i).getClosePrice(), amount);
             }

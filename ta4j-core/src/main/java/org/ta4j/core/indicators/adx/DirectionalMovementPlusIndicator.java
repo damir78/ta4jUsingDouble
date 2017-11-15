@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.adx;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.helpers.AverageDirectionalMovementUpIndicator;
@@ -34,7 +34,7 @@ import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
  * <p>
  * @see !http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:average_directional_index_adx
  */
-public class DirectionalMovementPlusIndicator extends CachedIndicator<Decimal> {
+public class DirectionalMovementPlusIndicator extends CachedIndicator<Double> {
     private final AverageDirectionalMovementUpIndicator averageDirectionalMovementUpIndicator;
     private final AverageTrueRangeIndicator trueRangeIndicator;
     private final int timeFrame;
@@ -47,8 +47,8 @@ public class DirectionalMovementPlusIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return averageDirectionalMovementUpIndicator.getValue(index).dividedBy(trueRangeIndicator.getValue(index)).multipliedBy(Decimal.HUNDRED);
+    protected Double calculate(int index) {
+        return averageDirectionalMovementUpIndicator.getValue(index)/ (trueRangeIndicator.getValue(index))* (100d);
     }
 
     @Override

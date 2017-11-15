@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.analysis.criteria;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.Trade;
 import org.ta4j.core.TradingRecord;
@@ -38,16 +38,16 @@ public class MaximumDrawdownCriterion extends AbstractAnalysisCriterion {
     @Override
     public double calculate(TimeSeries series, TradingRecord tradingRecord) {
         CashFlow cashFlow = new CashFlow(series, tradingRecord);
-        Decimal maximumDrawdown = calculateMaximumDrawdown(series, cashFlow);
-        return maximumDrawdown.toDouble();
+        Double maximumDrawdown = calculateMaximumDrawdown(series, cashFlow);
+        return maximumDrawdown;
     }
 
     @Override
     public double calculate(TimeSeries series, Trade trade) {
         if (trade != null && trade.getEntry() != null && trade.getExit() != null) {
             CashFlow cashFlow = new CashFlow(series, trade);
-            Decimal maximumDrawdown = calculateMaximumDrawdown(series, cashFlow);
-            return maximumDrawdown.toDouble();
+            Double maximumDrawdown = calculateMaximumDrawdown(series, cashFlow);
+            return maximumDrawdown;
         }
         return 0;
     }
@@ -63,19 +63,19 @@ public class MaximumDrawdownCriterion extends AbstractAnalysisCriterion {
      * @param cashFlow the cash flow
      * @return the maximum drawdown from a cash flow over a series
      */
-    private Decimal calculateMaximumDrawdown(TimeSeries series, CashFlow cashFlow) {
-        Decimal maximumDrawdown = Decimal.ZERO;
-        Decimal maxPeak = Decimal.ZERO;
+    private Double calculateMaximumDrawdown(TimeSeries series, CashFlow cashFlow) {
+        Double maximumDrawdown = 0d;
+        Double maxPeak = 0d;
         if (!series.isEmpty()) {
         	// The series is not empty
 	        for (int i = series.getBeginIndex(); i <= series.getEndIndex(); i++) {
-	            Decimal value = cashFlow.getValue(i);
-	            if (value.isGreaterThan(maxPeak)) {
+	            Double value = cashFlow.getValue(i);
+	            if (value> (maxPeak)) {
 	                maxPeak = value;
 	            }
-	
-	            Decimal drawdown = maxPeak.minus(value).dividedBy(maxPeak);
-	            if (drawdown.isGreaterThan(maximumDrawdown)) {
+
+	            Double drawdown = maxPeak- (value)/ (maxPeak);
+	            if (drawdown> (maximumDrawdown)) {
 	                maximumDrawdown = drawdown;
 	            }
 	        }

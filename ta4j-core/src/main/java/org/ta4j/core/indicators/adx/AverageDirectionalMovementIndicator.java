@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.adx;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.DirectionalMovementIndicator;
 import org.ta4j.core.indicators.RecursiveCachedIndicator;
@@ -31,7 +31,7 @@ import org.ta4j.core.indicators.RecursiveCachedIndicator;
  * Average directional movement indicator (ADMI/ADX).
  * <p>
  */
-public class AverageDirectionalMovementIndicator extends RecursiveCachedIndicator<Decimal> {
+public class AverageDirectionalMovementIndicator extends RecursiveCachedIndicator<Double> {
 
     private final int timeFrame;
     private final DirectionalMovementIndicator dm;
@@ -43,13 +43,13 @@ public class AverageDirectionalMovementIndicator extends RecursiveCachedIndicato
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
-            return Decimal.ONE;
+            return 1d;
         }
-        Decimal nbPeriods = Decimal.valueOf(timeFrame);
-        Decimal nbPeriodsMinusOne = Decimal.valueOf(timeFrame - 1);
-        return getValue(index - 1).multipliedBy(nbPeriodsMinusOne).dividedBy(nbPeriods).plus(dm.getValue(index).dividedBy(nbPeriods));
+        int nbPeriods = timeFrame;
+        int nbPeriodsMinusOne = (timeFrame - 1);
+        return getValue(index - 1) * (nbPeriodsMinusOne) / (nbPeriods) + (dm.getValue(index) / (nbPeriods));
     }
 
     @Override

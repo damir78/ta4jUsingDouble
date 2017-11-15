@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.keltner;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -33,7 +33,7 @@ import org.ta4j.core.indicators.helpers.TypicalPriceIndicator;
  * Keltner Channel (middle line) indicator
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:keltner_channels
  */
-public class KeltnerChannelMiddleIndicator extends CachedIndicator<Decimal> {
+public class KeltnerChannelMiddleIndicator extends CachedIndicator<Double> {
 
     private final EMAIndicator emaIndicator;
 
@@ -41,13 +41,13 @@ public class KeltnerChannelMiddleIndicator extends CachedIndicator<Decimal> {
         this(new TypicalPriceIndicator(series), timeFrameEMA);
     }
 
-    public KeltnerChannelMiddleIndicator(Indicator<Decimal> indicator, int timeFrameEMA) {
+    public KeltnerChannelMiddleIndicator(Indicator<Double> indicator, int timeFrameEMA) {
         super(indicator);
         emaIndicator = new EMAIndicator(indicator, timeFrameEMA);
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         return emaIndicator.getValue(index);
     }
 

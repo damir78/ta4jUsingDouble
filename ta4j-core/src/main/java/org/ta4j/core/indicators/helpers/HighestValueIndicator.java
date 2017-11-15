@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,26 +30,26 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Highest value indicator.
  * <p>
  */
-public class HighestValueIndicator extends CachedIndicator<Decimal> {
+public class HighestValueIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Decimal> indicator;
+    private final Indicator<Double> indicator;
 
     private final int timeFrame;
 
-    public HighestValueIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public HighestValueIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (indicator.getValue(index).isNaN() && timeFrame != 1)
             return new LowestValueIndicator(indicator,timeFrame-1).getValue(index-1);
         int end = Math.max(0, index - timeFrame + 1);
-        Decimal highest = indicator.getValue(index);
+        Double highest = indicator.getValue(index);
         for (int i = index - 1; i >= end; i--) {
-            if (highest.isLessThan(indicator.getValue(i))) {
+            if (highest< (indicator.getValue(i))) {
                 highest = indicator.getValue(i);
             }
         }

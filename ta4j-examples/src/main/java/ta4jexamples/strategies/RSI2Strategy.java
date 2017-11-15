@@ -56,21 +56,21 @@ public class RSI2Strategy {
         // We use a 2-period RSI indicator to identify buying
         // or selling opportunities within the bigger trend.
         RSIIndicator rsi = new RSIIndicator(closePrice, 2);
-        
+
         // Entry rule
         // The long-term trend is up when a security is above its 200-period SMA.
         Rule entryRule = new OverIndicatorRule(shortSma, longSma) // Trend
-                .and(new CrossedDownIndicatorRule(rsi, Decimal.valueOf(5))) // Signal 1
+                .and(new CrossedDownIndicatorRule(rsi, Double.valueOf(5))) // Signal 1
                 .and(new OverIndicatorRule(shortSma, closePrice)); // Signal 2
-        
+
         // Exit rule
         // The long-term trend is down when a security is below its 200-period SMA.
         Rule exitRule = new UnderIndicatorRule(shortSma, longSma) // Trend
-                .and(new CrossedUpIndicatorRule(rsi, Decimal.valueOf(95))) // Signal 1
+                .and(new CrossedUpIndicatorRule(rsi, Double.valueOf(95))) // Signal 1
                 .and(new UnderIndicatorRule(shortSma, closePrice)); // Signal 2
-        
+
         // TODO: Finalize the strategy
-        
+
         return new BaseStrategy(entryRule, exitRule);
     }
 

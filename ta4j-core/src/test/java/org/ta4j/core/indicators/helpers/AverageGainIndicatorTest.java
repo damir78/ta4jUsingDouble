@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class AverageGainIndicatorTest {
 
@@ -42,31 +42,31 @@ public class AverageGainIndicatorTest {
     public void averageGainUsingTimeFrame5UsingClosePrice() {
         AverageGainIndicator averageGain = new AverageGainIndicator(new ClosePriceIndicator(data), 5);
 
-        assertDecimalEquals(averageGain.getValue(5), "0.8");
-        assertDecimalEquals(averageGain.getValue(6), "0.8");
-        assertDecimalEquals(averageGain.getValue(7), "0.6");
-        assertDecimalEquals(averageGain.getValue(8), "0.4");
-        assertDecimalEquals(averageGain.getValue(9), "0.4");
-        assertDecimalEquals(averageGain.getValue(10), "0.4");
-        assertDecimalEquals(averageGain.getValue(11), "0.2");
-        assertDecimalEquals(averageGain.getValue(12), "0.2");
+        assertDoubleEquals(averageGain.getValue(5), "0.8");
+        assertDoubleEquals(averageGain.getValue(6), "0.8");
+        assertDoubleEquals(averageGain.getValue(7), "0.6");
+        assertDoubleEquals(averageGain.getValue(8), "0.4");
+        assertDoubleEquals(averageGain.getValue(9), "0.4");
+        assertDoubleEquals(averageGain.getValue(10), "0.4");
+        assertDoubleEquals(averageGain.getValue(11), "0.2");
+        assertDoubleEquals(averageGain.getValue(12), "0.2");
     }
 
     @Test
     public void averageGainMustReturnZeroWhenTheDataDoesntGain() {
         AverageGainIndicator averageGain = new AverageGainIndicator(new ClosePriceIndicator(data), 3);
-        assertDecimalEquals(averageGain.getValue(9), 0);
+        assertDoubleEquals(averageGain.getValue(9), 0);
     }
 
     @Test
     public void averageGainWhenTimeFrameIsGreaterThanIndicatorDataShouldBeCalculatedWithDataSize() {
         AverageGainIndicator averageGain = new AverageGainIndicator(new ClosePriceIndicator(data), 1000);
-        assertDecimalEquals(averageGain.getValue(12), 6d / data.getTickCount());
+        assertDoubleEquals(averageGain.getValue(12), 6d / data.getTickCount());
     }
 
     @Test
     public void averageGainWhenIndexIsZeroMustBeZero() {
         AverageGainIndicator averageGain = new AverageGainIndicator(new ClosePriceIndicator(data), 10);
-        assertDecimalEquals(averageGain.getValue(0), 0);
+        assertDoubleEquals(averageGain.getValue(0), 0);
     }
 }

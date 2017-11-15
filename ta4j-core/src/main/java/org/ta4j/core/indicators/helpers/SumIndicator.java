@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -31,26 +31,26 @@ import org.ta4j.core.indicators.CachedIndicator;
  * <p>
  * I.e.: operand0 + operand1 + ... + operandN
  */
-public class SumIndicator extends CachedIndicator<Decimal> {
+public class SumIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal>[] operands;
-    
+    private Indicator<Double>[] operands;
+
     /**
      * Constructor.
      * (operand0 plus operand1 plus ... plus operandN)
      * @param operands the operand indicators for the sum
      */
-    public SumIndicator(Indicator<Decimal>... operands) {
+    public SumIndicator(Indicator<Double>... operands) {
         // TODO: check if first series is equal to the other ones
         super(operands[0]);
         this.operands = operands;
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal sum = Decimal.ZERO;
+    protected Double calculate(int index) {
+        Double sum = 0d;
         for (int i = 0; i < operands.length; i++) {
-            sum = sum.plus(operands[i].getValue(index));
+            sum = sum+(operands[i].getValue(index));
         }
         return sum;
     }

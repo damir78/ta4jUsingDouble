@@ -24,13 +24,13 @@ package org.ta4j.core.indicators.bollinger;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
 import static org.junit.Assert.assertTrue;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class PercentBIndicatorTest {
 
@@ -52,27 +52,27 @@ public class PercentBIndicatorTest {
     @Test
     public void percentBUsingSMAAndStandardDeviation() {
 
-        PercentBIndicator pcb = new PercentBIndicator(closePrice, 5, Decimal.TWO);
-        
+        PercentBIndicator pcb = new PercentBIndicator(closePrice, 5, 2d);
+
         assertTrue(pcb.getValue(0).isNaN());
-        assertDecimalEquals(pcb.getValue(1), 0.75);
-        assertDecimalEquals(pcb.getValue(2), 0.8244);
-        assertDecimalEquals(pcb.getValue(3), 0.6627);
-        assertDecimalEquals(pcb.getValue(4), 0.8517);
-        assertDecimalEquals(pcb.getValue(5), 0.90328);
-        assertDecimalEquals(pcb.getValue(6), 0.83);
-        assertDecimalEquals(pcb.getValue(7), 0.6552);
-        assertDecimalEquals(pcb.getValue(8), 0.5737);
-        assertDecimalEquals(pcb.getValue(9), 0.1047);
-        assertDecimalEquals(pcb.getValue(10), 0.5);
-        assertDecimalEquals(pcb.getValue(11), 0.0284);
-        assertDecimalEquals(pcb.getValue(12), 0.0344);
-        assertDecimalEquals(pcb.getValue(13), 0.2064);
-        assertDecimalEquals(pcb.getValue(14), 0.1835);
-        assertDecimalEquals(pcb.getValue(15), 0.2131);
-        assertDecimalEquals(pcb.getValue(16), 0.3506);
-        assertDecimalEquals(pcb.getValue(17), 0.5737);
-        assertDecimalEquals(pcb.getValue(18), 0.5);
-        assertDecimalEquals(pcb.getValue(19), 0.7673);
+        assertDoubleEquals(pcb.getValue(1), 0.75);
+        assertDoubleEquals(pcb.getValue(2), 0.8244);
+        assertDoubleEquals(pcb.getValue(3), 0.6627);
+        assertDoubleEquals(pcb.getValue(4), 0.8517);
+        assertDoubleEquals(pcb.getValue(5), 0.90328);
+        assertDoubleEquals(pcb.getValue(6), 0.83);
+        assertDoubleEquals(pcb.getValue(7), 0.6552);
+        assertDoubleEquals(pcb.getValue(8), 0.5737);
+        assertDoubleEquals(pcb.getValue(9), 0.1047);
+        assertDoubleEquals(pcb.getValue(10), 0.5);
+        assertDoubleEquals(pcb.getValue(11), 0.0284);
+        assertDoubleEquals(pcb.getValue(12), 0.0344);
+        assertDoubleEquals(pcb.getValue(13), 0.2064);
+        assertDoubleEquals(pcb.getValue(14), 0.1835);
+        assertDoubleEquals(pcb.getValue(15), 0.2131);
+        assertDoubleEquals(pcb.getValue(16), 0.3506);
+        assertDoubleEquals(pcb.getValue(17), 0.5737);
+        assertDoubleEquals(pcb.getValue(18), 0.5);
+        assertDoubleEquals(pcb.getValue(19), 0.7673);
     }
 }

@@ -30,7 +30,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 
 import java.util.ArrayList;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CCIIndicatorTest {
 
@@ -59,17 +59,17 @@ public class CCIIndicatorTest {
         CCIIndicator cci = new CCIIndicator(series, 20);
 
         // Incomplete time frame
-        assertDecimalEquals(cci.getValue(0), 0);
-        assertDecimalEquals(cci.getValue(1), -66.6667);
-        assertDecimalEquals(cci.getValue(2), -100d);
-        assertDecimalEquals(cci.getValue(10), 14.365);
-        assertDecimalEquals(cci.getValue(11), 54.2544);
+        assertDoubleEquals(cci.getValue(0), 0);
+        assertDoubleEquals(cci.getValue(1), -66.6667);
+        assertDoubleEquals(cci.getValue(2), -100d);
+        assertDoubleEquals(cci.getValue(10), 14.365);
+        assertDoubleEquals(cci.getValue(11), 54.2544);
 
         // Complete time frame
         double[] results20to30 = new double[] { 101.9185, 31.1946, 6.5578, 33.6078, 34.9686, 13.6027,
             -10.6789, -11.471, -29.2567, -128.6, -72.7273 };
         for (int i = 0; i < results20to30.length; i++) {
-            assertDecimalEquals(cci.getValue(i + 19), results20to30[i]);
+            assertDoubleEquals(cci.getValue(i + 19), results20to30[i]);
         }
     }
 }

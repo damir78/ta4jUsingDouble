@@ -32,14 +32,14 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class MVWAPIndicatorTest {
 protected TimeSeries data;
-    
+
     @Before
     public void setUp() {
-        
+
         List<Tick> ticks = new ArrayList<Tick>();
         ticks.add(new MockTick(44.98, 45.05, 45.17, 44.96, 1));
         ticks.add(new MockTick(45.05, 45.10, 45.15, 44.99, 2));
@@ -63,22 +63,22 @@ protected TimeSeries data;
         ticks.add(new MockTick(43.93, 44.47, 44.58, 43.93, 1));
         data = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void mvwap() {
         VWAPIndicator vwap = new VWAPIndicator(data, 5);
         MVWAPIndicator mvwap = new MVWAPIndicator(vwap, 8);
-        
-        assertDecimalEquals(mvwap.getValue(8), 45.1271);
-        assertDecimalEquals(mvwap.getValue(9), 45.1399);
-        assertDecimalEquals(mvwap.getValue(10), 45.1530);
-        assertDecimalEquals(mvwap.getValue(11), 45.1790);
-        assertDecimalEquals(mvwap.getValue(12), 45.2227);
-        assertDecimalEquals(mvwap.getValue(13), 45.2533);
-        assertDecimalEquals(mvwap.getValue(14), 45.2769);
-        assertDecimalEquals(mvwap.getValue(15), 45.2844);
-        assertDecimalEquals(mvwap.getValue(16), 45.2668);
-        assertDecimalEquals(mvwap.getValue(17), 45.1386);
-        assertDecimalEquals(mvwap.getValue(18), 44.9487);
+
+        assertDoubleEquals(mvwap.getValue(8), 45.1271);
+        assertDoubleEquals(mvwap.getValue(9), 45.1399);
+        assertDoubleEquals(mvwap.getValue(10), 45.1530);
+        assertDoubleEquals(mvwap.getValue(11), 45.1790);
+        assertDoubleEquals(mvwap.getValue(12), 45.2227);
+        assertDoubleEquals(mvwap.getValue(13), 45.2533);
+        assertDoubleEquals(mvwap.getValue(14), 45.2769);
+        assertDoubleEquals(mvwap.getValue(15), 45.2844);
+        assertDoubleEquals(mvwap.getValue(16), 45.2668);
+        assertDoubleEquals(mvwap.getValue(17), 45.1386);
+        assertDoubleEquals(mvwap.getValue(18), 44.9487);
     }
 }

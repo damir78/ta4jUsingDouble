@@ -43,32 +43,32 @@ public interface TradingRecord extends Serializable {
      * @return the current trade
      */
     Trade getCurrentTrade();
-    
+
     /**
      * Operates an order in the trading record.
      * @param index the index to operate the order
      */
     default void operate(int index) {
-        operate(index, Decimal.NaN, Decimal.NaN);
+        operate(index, Double.NaN, Double.NaN);
     }
-    
+
     /**
      * Operates an order in the trading record.
      * @param index the index to operate the order
      * @param price the price of the order
      * @param amount the amount to be ordered
      */
-    void operate(int index, Decimal price, Decimal amount);
-    
+    void operate(int index, Double price, Double amount);
+
     /**
      * Operates an entry order in the trading record.
      * @param index the index to operate the entry
      * @return true if the entry has been operated, false otherwise
      */
     default boolean enter(int index) {
-        return enter(index, Decimal.NaN, Decimal.NaN);
+        return enter(index, Double.NaN, Double.NaN);
     }
-    
+
     /**
      * Operates an entry order in the trading record.
      * @param index the index to operate the entry
@@ -76,17 +76,17 @@ public interface TradingRecord extends Serializable {
      * @param amount the amount to be ordered
      * @return true if the entry has been operated, false otherwise
      */
-    boolean enter(int index, Decimal price, Decimal amount);
-    
+    boolean enter(int index, Double price, Double amount);
+
     /**
      * Operates an exit order in the trading record.
      * @param index the index to operate the exit
      * @return true if the exit has been operated, false otherwise
      */
     default boolean exit(int index) {
-        return exit(index, Decimal.NaN, Decimal.NaN);
+        return exit(index, Double.NaN, Double.NaN);
     }
-    
+
     /**
      * Operates an exit order in the trading record.
      * @param index the index to operate the exit
@@ -94,27 +94,27 @@ public interface TradingRecord extends Serializable {
      * @param amount the amount to be ordered
      * @return true if the exit has been operated, false otherwise
      */
-    boolean exit(int index, Decimal price, Decimal amount);
-    
+    boolean exit(int index, Double price, Double amount);
+
     /**
      * @return true if no trade is open, false otherwise
      */
     default boolean isClosed() {
         return !getCurrentTrade().isOpened();
     }
-    
+
     /**
      * @return the recorded trades
      */
     List<Trade> getTrades();
-    
+
     /**
      * @return the number of recorded trades
      */
     default int getTradeCount() {
         return getTrades().size();
     }
-    
+
     /**
      * @return the last trade recorded
      */
@@ -125,23 +125,23 @@ public interface TradingRecord extends Serializable {
         }
         return null;
     }
-    
+
     /**
      * @return the last order recorded
      */
     Order getLastOrder();
-    
+
     /**
      * @param orderType the type of the order to get the last of
      * @return the last order (of the provided type) recorded
      */
     Order getLastOrder(OrderType orderType);
-    
+
     /**
      * @return the last entry order recorded
      */
     Order getLastEntry();
-    
+
     /**
      * @return the last exit order recorded
      */

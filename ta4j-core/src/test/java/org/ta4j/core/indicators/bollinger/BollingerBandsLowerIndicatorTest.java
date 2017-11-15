@@ -24,14 +24,14 @@ package org.ta4j.core.indicators.bollinger;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.indicators.statistics.StandardDeviationIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class BollingerBandsLowerIndicatorTest {
 
@@ -58,26 +58,26 @@ public class BollingerBandsLowerIndicatorTest {
         StandardDeviationIndicator standardDeviation = new StandardDeviationIndicator(closePrice, timeFrame);
         BollingerBandsLowerIndicator bblSMA = new BollingerBandsLowerIndicator(bbmSMA, standardDeviation);
 
-        assertDecimalEquals(bblSMA.getK(), 2);
+        assertDoubleEquals(bblSMA.getK(), 2);
 
-        assertDecimalEquals(bblSMA.getValue(0), 1);
-        assertDecimalEquals(bblSMA.getValue(1), 0.5);
-        assertDecimalEquals(bblSMA.getValue(2), 0.367);
-        assertDecimalEquals(bblSMA.getValue(3), 1.367);
-        assertDecimalEquals(bblSMA.getValue(4), 2.3905);
-        assertDecimalEquals(bblSMA.getValue(5), 2.7239);
-        assertDecimalEquals(bblSMA.getValue(6), 2.367);
+        assertDoubleEquals(bblSMA.getValue(0), 1);
+        assertDoubleEquals(bblSMA.getValue(1), 0.5);
+        assertDoubleEquals(bblSMA.getValue(2), 0.367);
+        assertDoubleEquals(bblSMA.getValue(3), 1.367);
+        assertDoubleEquals(bblSMA.getValue(4), 2.3905);
+        assertDoubleEquals(bblSMA.getValue(5), 2.7239);
+        assertDoubleEquals(bblSMA.getValue(6), 2.367);
 
-        BollingerBandsLowerIndicator bblSMAwithK = new BollingerBandsLowerIndicator(bbmSMA, standardDeviation, Decimal.valueOf("1.5"));
+        BollingerBandsLowerIndicator bblSMAwithK = new BollingerBandsLowerIndicator(bbmSMA, standardDeviation, Double.valueOf("1.5"));
 
-        assertDecimalEquals(bblSMAwithK.getK(), 1.5);
+        assertDoubleEquals(bblSMAwithK.getK(), 1.5);
 
-        assertDecimalEquals(bblSMAwithK.getValue(0), 1);
-        assertDecimalEquals(bblSMAwithK.getValue(1), 0.75);
-        assertDecimalEquals(bblSMAwithK.getValue(2), 0.7752);
-        assertDecimalEquals(bblSMAwithK.getValue(3), 1.7752);
-        assertDecimalEquals(bblSMAwithK.getValue(4), 2.6262);
-        assertDecimalEquals(bblSMAwithK.getValue(5), 2.9595);
-        assertDecimalEquals(bblSMAwithK.getValue(6), 2.7752);
+        assertDoubleEquals(bblSMAwithK.getValue(0), 1);
+        assertDoubleEquals(bblSMAwithK.getValue(1), 0.75);
+        assertDoubleEquals(bblSMAwithK.getValue(2), 0.7752);
+        assertDoubleEquals(bblSMAwithK.getValue(3), 1.7752);
+        assertDoubleEquals(bblSMAwithK.getValue(4), 2.6262);
+        assertDoubleEquals(bblSMAwithK.getValue(5), 2.9595);
+        assertDoubleEquals(bblSMAwithK.getValue(6), 2.7752);
     }
 }

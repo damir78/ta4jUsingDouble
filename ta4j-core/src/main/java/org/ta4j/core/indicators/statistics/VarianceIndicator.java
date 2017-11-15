@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.statistics;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
@@ -31,9 +31,9 @@ import org.ta4j.core.indicators.SMAIndicator;
  * Variance indicator.
  * <p>
  */
-public class VarianceIndicator extends CachedIndicator<Decimal> {
+public class VarianceIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
 
     private int timeFrame;
 
@@ -41,10 +41,11 @@ public class VarianceIndicator extends CachedIndicator<Decimal> {
 
     /**
      * Constructor.
+     *
      * @param indicator the indicator
      * @param timeFrame the time frame
      */
-    public VarianceIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public VarianceIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
@@ -52,16 +53,16 @@ public class VarianceIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         final int startIndex = Math.max(0, index - timeFrame + 1);
         final int numberOfObservations = index - startIndex + 1;
-        Decimal variance = Decimal.ZERO;
-        Decimal average = sma.getValue(index);
+        Double variance = 0d;
+        Double average = sma.getValue(index);
         for (int i = startIndex; i <= index; i++) {
-            Decimal pow = indicator.getValue(i).minus(average).pow(2);
-            variance = variance.plus(pow);
+            Double pow = indicator.getValue(i) - Math.pow(average, 2d);
+            variance = variance + (pow);
         }
-        variance = variance.dividedBy(Decimal.valueOf(numberOfObservations));
+        variance = variance / numberOfObservations;
         return variance;
     }
 

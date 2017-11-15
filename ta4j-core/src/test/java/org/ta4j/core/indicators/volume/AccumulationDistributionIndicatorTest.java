@@ -32,7 +32,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class AccumulationDistributionIndicatorTest {
 
@@ -45,13 +45,13 @@ public class AccumulationDistributionIndicatorTest {
         ticks.add(new MockTick(now, 0d, 9d, 15d, 6d, 0d, 300d, 0));//3-6 *300 /9
         ticks.add(new MockTick(now, 0d, 20d, 40d, 5d, 0d, 50d, 0));//15-20 *50 / 35
         ticks.add(new MockTick(now, 0d, 30d, 30d, 3d, 0d, 600d, 0));//27-0 *600 /27
-        
+
         TimeSeries series = new MockTimeSeries(ticks);
         AccumulationDistributionIndicator ac = new AccumulationDistributionIndicator(series);
-        assertDecimalEquals(ac.getValue(0), 0);
-        assertDecimalEquals(ac.getValue(1), -100d / 3);
-        assertDecimalEquals(ac.getValue(2), -100d -(100d / 3));
-        assertDecimalEquals(ac.getValue(3), (-250d/35) + (-100d -(100d / 3)));
-        assertDecimalEquals(ac.getValue(4), 600d + ((-250d/35) + (-100d -(100d / 3))));
+        assertDoubleEquals(ac.getValue(0), 0);
+        assertDoubleEquals(ac.getValue(1), -100d / 3);
+        assertDoubleEquals(ac.getValue(2), -100d -(100d / 3));
+        assertDoubleEquals(ac.getValue(3), (-250d/35) + (-100d -(100d / 3)));
+        assertDoubleEquals(ac.getValue(4), 600d + ((-250d/35) + (-100d -(100d / 3))));
     }
 }

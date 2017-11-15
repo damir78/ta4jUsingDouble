@@ -30,7 +30,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 
 public class DirectionalMovementIndicatorTest {
@@ -42,14 +42,14 @@ public class DirectionalMovementIndicatorTest {
         ticks.add(new MockTick(0, 0, 12, 2));
         ticks.add(new MockTick(0, 0, 15, 2));
         MockTimeSeries series = new MockTimeSeries(ticks);
-        
+
         DirectionalMovementIndicator dm = new DirectionalMovementIndicator(series, 3);
-        assertDecimalEquals(dm.getValue(0), 0);
+        assertDoubleEquals(dm.getValue(0), 0);
         double dup = (2d / 3 + 2d/3) / (2d/3 + 12d/3);
         double ddown = (2d/3) /(2d/3 + 12d/3);
-        assertDecimalEquals(dm.getValue(1), (dup - ddown) / (dup + ddown) * 100d);
+        assertDoubleEquals(dm.getValue(1), (dup - ddown) / (dup + ddown) * 100d);
         dup = ((2d / 3 + 2d/3) * 2d/3 + 1) / ((2d/3 + 12d/3) * 2d/3 + 15d/3);
         ddown = (4d/9) /((2d/3 + 12d/3) * 2d/3 + 15d/3);
-        assertDecimalEquals(dm.getValue(2), (dup - ddown) / (dup + ddown) * 100d);
+        assertDoubleEquals(dm.getValue(2), (dup - ddown) / (dup + ddown) * 100d);
     }
 }

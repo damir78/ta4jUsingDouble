@@ -23,7 +23,7 @@
 package org.ta4j.core.indicators.helpers;
 
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -33,7 +33,7 @@ import org.ta4j.core.indicators.CachedIndicator;
  * <p>
  * @see http://www.investopedia.com/terms/c/close_location_value.asp
  */
-public class CloseLocationValueIndicator extends CachedIndicator<Decimal> {
+public class CloseLocationValueIndicator extends CachedIndicator<Double> {
 
     private TimeSeries series;
 
@@ -43,10 +43,10 @@ public class CloseLocationValueIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         Tick tick = series.getTick(index);
 
-        return ((tick.getClosePrice().minus(tick.getMinPrice())).minus(tick.getMaxPrice().minus(tick.getClosePrice())))
-                 .dividedBy(tick.getMaxPrice().minus(tick.getMinPrice()));
+        return ((tick.getClosePrice()- (tick.getMinPrice()))- (tick.getMaxPrice()- (tick.getClosePrice())))
+                 / (tick.getMaxPrice()- (tick.getMinPrice()));
     }
 }

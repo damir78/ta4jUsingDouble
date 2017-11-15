@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.Rule;
 import org.ta4j.core.TradingRecord;
@@ -37,17 +37,17 @@ import org.ta4j.core.indicators.helpers.PreviousValueIndicator;
 public class IsRisingRule extends AbstractRule {
 
 	/** The actual indicator */
-	private Indicator<Decimal> ref;
+	private Indicator<Double> ref;
 	/** The timeFrame */
 	private int timeFrame;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param ref
 	 * @param timeFrame
 	 */
-	public IsRisingRule(Indicator<Decimal> ref, int timeFrame) {
+	public IsRisingRule(Indicator<Double> ref, int timeFrame) {
 		this.ref = ref;
 		this.timeFrame = timeFrame;
 	}
@@ -59,7 +59,7 @@ public class IsRisingRule extends AbstractRule {
 			PreviousValueIndicator prev = new PreviousValueIndicator(ref, i);
 			gtPrev = gtPrev.and(new OverIndicatorRule(prev, new PreviousValueIndicator(prev)));
 		}
-		
+
 		final boolean satisfied = gtPrev.isSatisfied(index, tradingRecord);
 		traceIsSatisfied(index, satisfied);
 		return satisfied;

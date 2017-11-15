@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,8 +22,9 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
+import org.ta4j.core.MathUtils;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.ConstantIndicator;
 
@@ -34,33 +35,33 @@ import org.ta4j.core.indicators.helpers.ConstantIndicator;
  */
 public class IsEqualRule extends AbstractRule {
 
-      /** The first indicator */
-    private Indicator<Decimal> first;
+    /** The first indicator */
+    private Indicator<Double> first;
     /** The second indicator */
-    private Indicator<Decimal> second;
-    
+    private Indicator<Double> second;
+
     /**
      * Constructor.
      * @param first the first indicator
      * @param value
      */
-    public IsEqualRule(Indicator<Decimal> indicator, Decimal value) {
-    	this(indicator, new ConstantIndicator<Decimal>(value));
+    public IsEqualRule(Indicator<Double> indicator, Double value) {
+        this(indicator, new ConstantIndicator<Double>(value));
     }
-    
+
     /**
      * Constructor.
      * @param first the first indicator
      * @param second the second indicator
      */
-    public IsEqualRule(Indicator<Decimal> first, Indicator<Decimal> second) {
+    public IsEqualRule(Indicator<Double> first, Indicator<Double> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
-        final boolean satisfied = first.getValue(index).isEqual(second.getValue(index));
+        final boolean satisfied = MathUtils.isEqual(first.getValue(index), second.getValue(index));
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }

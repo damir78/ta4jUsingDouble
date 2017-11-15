@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -22,7 +22,8 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
+import org.ta4j.core.MathUtils;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.MeanDeviationIndicator;
 import org.ta4j.core.indicators.helpers.TypicalPriceIndicator;
@@ -30,11 +31,12 @@ import org.ta4j.core.indicators.helpers.TypicalPriceIndicator;
 /**
  * Commodity Channel Index (CCI) indicator.
  * <p>
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:commodity_channel_in
  */
-public class CCIIndicator extends CachedIndicator<Decimal> {
+public class CCIIndicator extends CachedIndicator<Double> {
 
-    public static final Decimal FACTOR = Decimal.valueOf("0.015");
+    public static final Double FACTOR = Double.valueOf("0.015");
 
     private TypicalPriceIndicator typicalPriceInd;
 
@@ -46,7 +48,8 @@ public class CCIIndicator extends CachedIndicator<Decimal> {
 
     /**
      * Constructor.
-     * @param series the time series
+     *
+     * @param series    the time series
      * @param timeFrame the time frame
      */
     public CCIIndicator(TimeSeries series, int timeFrame) {
@@ -58,14 +61,14 @@ public class CCIIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        final Decimal typicalPrice = typicalPriceInd.getValue(index);
-        final Decimal typicalPriceAvg = smaInd.getValue(index);
-        final Decimal meanDeviation = meanDeviationInd.getValue(index);
-        if (meanDeviation.isZero()) {
-            return Decimal.ZERO;
+    protected Double calculate(int index) {
+        final Double typicalPrice = typicalPriceInd.getValue(index);
+        final Double typicalPriceAvg = smaInd.getValue(index);
+        final Double meanDeviation = meanDeviationInd.getValue(index);
+        if (MathUtils.isZero(meanDeviation)) {
+            return 0d;
         }
-        return (typicalPrice.minus(typicalPriceAvg)).dividedBy(meanDeviation.multipliedBy(FACTOR));
+        return (typicalPrice - (typicalPriceAvg)) / (meanDeviation * (FACTOR));
     }
 
     @Override

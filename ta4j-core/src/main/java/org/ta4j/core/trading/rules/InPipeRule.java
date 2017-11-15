@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.ConstantIndicator;
@@ -35,11 +35,11 @@ import org.ta4j.core.indicators.helpers.ConstantIndicator;
 public class InPipeRule extends AbstractRule {
 
     /** The upper indicator */
-    private Indicator<Decimal> upper;
+    private Indicator<Double> upper;
     /** The lower indicator */
-    private Indicator<Decimal> lower;
+    private Indicator<Double> lower;
     /** The evaluated indicator */
-    private Indicator<Decimal> ref;
+    private Indicator<Double> ref;
 
     /**
      * Constructor.
@@ -47,8 +47,8 @@ public class InPipeRule extends AbstractRule {
      * @param upper the upper threshold
      * @param lower the lower threshold
      */
-    public InPipeRule(Indicator<Decimal> ref, Decimal upper, Decimal lower) {
-        this(ref, new ConstantIndicator<Decimal>(upper), new ConstantIndicator<Decimal>(lower));
+    public InPipeRule(Indicator<Double> ref, Double upper, Double lower) {
+        this(ref, new ConstantIndicator<Double>(upper), new ConstantIndicator<Double>(lower));
     }
 
     /**
@@ -57,7 +57,7 @@ public class InPipeRule extends AbstractRule {
      * @param upper the upper indicator
      * @param lower the lower indicator
      */
-    public InPipeRule(Indicator<Decimal> ref, Indicator<Decimal> upper, Indicator<Decimal> lower) {
+    public InPipeRule(Indicator<Double> ref, Indicator<Double> upper, Indicator<Double> lower) {
         this.upper = upper;
         this.lower = lower;
         this.ref = ref;
@@ -65,8 +65,8 @@ public class InPipeRule extends AbstractRule {
 
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
-        final boolean satisfied = ref.getValue(index).isLessThanOrEqual(upper.getValue(index))
-                && ref.getValue(index).isGreaterThanOrEqual(lower.getValue(index));
+        final boolean satisfied = ref.getValue(index)<=(upper.getValue(index))
+                && ref.getValue(index)>=(lower.getValue(index));
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }

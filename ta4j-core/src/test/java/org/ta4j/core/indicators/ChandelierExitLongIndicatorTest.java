@@ -25,7 +25,7 @@ package org.ta4j.core.indicators;
 import org.junit.Before;
 import org.junit.Test;
 import org.ta4j.core.BaseTimeSeries;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTick;
@@ -33,10 +33,10 @@ import org.ta4j.core.mocks.MockTick;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class ChandelierExitLongIndicatorTest {
-    
+
     private TimeSeries data;
 
     @Before
@@ -64,17 +64,17 @@ public class ChandelierExitLongIndicatorTest {
 
     @Test
     public void massIndexUsing3And8TimeFrames() {
-        ChandelierExitLongIndicator cel = new ChandelierExitLongIndicator(data, 5, Decimal.TWO);
+        ChandelierExitLongIndicator cel = new ChandelierExitLongIndicator(data, 5, 2d);
 
-        assertDecimalEquals(cel.getValue(5), 44.4676);
-        assertDecimalEquals(cel.getValue(6), 44.6021);
-        assertDecimalEquals(cel.getValue(7), 44.6277);
-        assertDecimalEquals(cel.getValue(8), 44.7201);
-        assertDecimalEquals(cel.getValue(9), 44.9101);
-        assertDecimalEquals(cel.getValue(10), 45.0241);
-        assertDecimalEquals(cel.getValue(11), 45.1193);
-        assertDecimalEquals(cel.getValue(12), 45.1374);
-        assertDecimalEquals(cel.getValue(13), 44.9319);
-        assertDecimalEquals(cel.getValue(14), 44.7195);
+        assertDoubleEquals(cel.getValue(5), 44.4676);
+        assertDoubleEquals(cel.getValue(6), 44.6021);
+        assertDoubleEquals(cel.getValue(7), 44.6277);
+        assertDoubleEquals(cel.getValue(8), 44.7201);
+        assertDoubleEquals(cel.getValue(9), 44.9101);
+        assertDoubleEquals(cel.getValue(10), 45.0241);
+        assertDoubleEquals(cel.getValue(11), 45.1193);
+        assertDoubleEquals(cel.getValue(12), 45.1374);
+        assertDoubleEquals(cel.getValue(13), 44.9319);
+        assertDoubleEquals(cel.getValue(14), 44.7195);
     }
 }

@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.CumulatedGainsIndicator;
 import org.ta4j.core.indicators.helpers.CumulatedLossesIndicator;
@@ -33,7 +33,7 @@ import org.ta4j.core.indicators.helpers.CumulatedLossesIndicator;
  * @see http://tradingsim.com/blog/chande-momentum-oscillator-cmo-technical-indicator/
  * @see http://www.investopedia.com/terms/c/chandemomentumoscillator.asp
  */
-public class CMOIndicator extends CachedIndicator<Decimal> {
+public class CMOIndicator extends CachedIndicator<Double> {
 
     private final CumulatedGainsIndicator cumulatedGains;
 
@@ -44,18 +44,18 @@ public class CMOIndicator extends CachedIndicator<Decimal> {
      * @param price a price indicator
      * @param timeFrame the time frame
      */
-    public CMOIndicator(Indicator<Decimal> price, int timeFrame) {
+    public CMOIndicator(Indicator<Double> price, int timeFrame) {
         super(price);
         cumulatedGains = new CumulatedGainsIndicator(price, timeFrame);
         cumulatedLosses = new CumulatedLossesIndicator(price, timeFrame);
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal sumOfGains = cumulatedGains.getValue(index);
-        Decimal sumOfLosses = cumulatedLosses.getValue(index);
-        return sumOfGains.minus(sumOfLosses)
-                .dividedBy(sumOfGains.plus(sumOfLosses))
-                .multipliedBy(Decimal.HUNDRED);
+    protected Double calculate(int index) {
+        Double sumOfGains = cumulatedGains.getValue(index);
+        Double sumOfLosses = cumulatedLosses.getValue(index);
+        return sumOfGains- (sumOfLosses)
+                / (sumOfGains+(sumOfLosses))
+                * (100d);
     }
 }

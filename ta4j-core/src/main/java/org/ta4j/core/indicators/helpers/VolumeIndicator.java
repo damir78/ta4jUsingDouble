@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,12 +30,12 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Volume indicator.
  * <p>
  */
-public class VolumeIndicator extends CachedIndicator<Decimal> {
+public class VolumeIndicator extends CachedIndicator<Double> {
 
     private TimeSeries series;
 
     private int timeFrame;
-    
+
     public VolumeIndicator(TimeSeries series) {
         this(series, 1);
     }
@@ -47,11 +47,11 @@ public class VolumeIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         int startIndex = Math.max(0, index - timeFrame + 1);
-        Decimal sumOfVolume = Decimal.ZERO;
+        Double sumOfVolume = 0d;
         for (int i = startIndex; i <= index; i++) {
-            sumOfVolume = sumOfVolume.plus(series.getTick(i).getVolume());
+            sumOfVolume = sumOfVolume+(series.getTick(i).getVolume());
         }
         return sumOfVolume;
     }

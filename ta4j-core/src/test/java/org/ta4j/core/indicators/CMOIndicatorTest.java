@@ -28,7 +28,7 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CMOIndicatorTest {
 
@@ -49,16 +49,16 @@ public class CMOIndicatorTest {
     public void dpo() {
         CMOIndicator cmo = new CMOIndicator(new ClosePriceIndicator(series), 9);
 
-        assertDecimalEquals(cmo.getValue(5), 85.1351);
-        assertDecimalEquals(cmo.getValue(6), 53.9326);
-        assertDecimalEquals(cmo.getValue(7), 6.2016);
-        assertDecimalEquals(cmo.getValue(8), -1.083);
-        assertDecimalEquals(cmo.getValue(9), 0.7092);
-        assertDecimalEquals(cmo.getValue(10), -1.4493);
-        assertDecimalEquals(cmo.getValue(11), 10.7266);
-        assertDecimalEquals(cmo.getValue(12), -3.5857);
-        assertDecimalEquals(cmo.getValue(13), 4.7619);
-        assertDecimalEquals(cmo.getValue(14), 24.1983);
-        assertDecimalEquals(cmo.getValue(15), 47.644);
+        assertDoubleEquals(cmo.getValue(5), 85.1351);
+        assertDoubleEquals(cmo.getValue(6), 53.9326);
+        assertDoubleEquals(cmo.getValue(7), 6.2016);
+        assertDoubleEquals(cmo.getValue(8), -1.083);
+        assertDoubleEquals(cmo.getValue(9), 0.7092);
+        assertDoubleEquals(cmo.getValue(10), -1.4493);
+        assertDoubleEquals(cmo.getValue(11), 10.7266);
+        assertDoubleEquals(cmo.getValue(12), -3.5857);
+        assertDoubleEquals(cmo.getValue(13), 4.7619);
+        assertDoubleEquals(cmo.getValue(14), 24.1983);
+        assertDoubleEquals(cmo.getValue(15), 47.644);
     }
 }

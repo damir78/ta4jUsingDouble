@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.ichimoku;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -36,13 +36,13 @@ import org.ta4j.core.indicators.helpers.MinPriceIndicator;
  * <p>
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud
  */
-public abstract class AbstractIchimokuLineIndicator extends CachedIndicator<Decimal>{
+public abstract class AbstractIchimokuLineIndicator extends CachedIndicator<Double>{
 
     /** The period high */
-    private final Indicator<Decimal> periodHigh;
+    private final Indicator<Double> periodHigh;
 
     /** The period low */
-    private final Indicator<Decimal> periodLow;
+    private final Indicator<Double> periodLow;
 
     /**
      * Contructor.
@@ -56,7 +56,7 @@ public abstract class AbstractIchimokuLineIndicator extends CachedIndicator<Deci
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return periodHigh.getValue(index).plus(periodLow.getValue(index)).dividedBy(Decimal.TWO);
+    protected Double calculate(int index) {
+        return periodHigh.getValue(index)+(periodLow.getValue(index))/ (2d);
     }
 }

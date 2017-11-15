@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Average high-low indicator.
  * <p>
  */
-public class MedianPriceIndicator extends CachedIndicator<Decimal> {
+public class MedianPriceIndicator extends CachedIndicator<Double> {
 
     private TimeSeries series;
 
@@ -40,8 +40,8 @@ public class MedianPriceIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return series.getTick(index).getMaxPrice().plus(series.getTick(index).getMinPrice())
-                .dividedBy(Decimal.TWO);
+    protected Double calculate(int index) {
+        return series.getTick(index).getMaxPrice()+(series.getTick(index).getMinPrice())
+                / (2d);
     }
 }

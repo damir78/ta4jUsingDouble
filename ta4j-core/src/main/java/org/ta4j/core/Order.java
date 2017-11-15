@@ -67,7 +67,7 @@ public class Order implements Serializable {
          */
         public abstract OrderType complementType();
     }
-    
+
     /** Type of the order */
     private OrderType type;
 
@@ -75,11 +75,11 @@ public class Order implements Serializable {
     private int index;
 
     /** The price for the order */
-    private Decimal price = Decimal.NaN;
-    
+    private Double price = Double.NaN;
+
     /** The amount to be (or that was) ordered */
-    private Decimal amount = Decimal.NaN;
-    
+    private Double amount = Double.NaN;
+
     /**
      * Constructor.
      * @param index the index the order is executed
@@ -97,7 +97,7 @@ public class Order implements Serializable {
      * @param price the price for the order
      * @param amount the amount to be (or that was) ordered
      */
-    protected Order(int index, OrderType type, Decimal price, Decimal amount) {
+    protected Order(int index, OrderType type, Double price, Double amount) {
         this(index, type);
         this.price = price;
         this.amount = amount;
@@ -134,14 +134,14 @@ public class Order implements Serializable {
     /**
      * @return the price for the order
      */
-    public Decimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     /**
      * @return the amount to be (or that was) ordered
      */
-    public Decimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
@@ -178,7 +178,7 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" + "type=" + type + ", index=" + index + ", price=" + price + ", amount=" + amount + '}';
     }
-    
+
     /**
      * @param index the index the order is executed
      * @return a BUY order
@@ -193,7 +193,7 @@ public class Order implements Serializable {
      * @param amount the amount to be (or that was) bought
      * @return a BUY order
      */
-    public static Order buyAt(int index, Decimal price, Decimal amount) {
+    public static Order buyAt(int index, Double price, Double amount) {
         return new Order(index, OrderType.BUY, price, amount);
     }
 
@@ -211,7 +211,7 @@ public class Order implements Serializable {
      * @param amount the amount to be (or that was) sold
      * @return a SELL order
      */
-    public static Order sellAt(int index, Decimal price, Decimal amount) {
+    public static Order sellAt(int index, Double price, Double amount) {
         return new Order(index, OrderType.SELL, price, amount);
     }
 }

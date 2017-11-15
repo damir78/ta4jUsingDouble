@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Directional movement down indicator.
  * <p>
  */
-public class DirectionalMovementDownIndicator extends CachedIndicator<Decimal>{
+public class DirectionalMovementDownIndicator extends CachedIndicator<Double>{
 
     private TimeSeries series;
 
@@ -40,19 +40,19 @@ public class DirectionalMovementDownIndicator extends CachedIndicator<Decimal>{
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index == 0) {
-            return Decimal.ZERO;
+            return 0d;
         }
-        Decimal prevMaxPrice = series.getTick(index - 1).getMaxPrice();
-        Decimal maxPrice = series.getTick(index).getMaxPrice();
-        Decimal prevMinPrice = series.getTick(index - 1).getMinPrice();
-        Decimal minPrice = series.getTick(index).getMinPrice();
-        
-        if ((prevMaxPrice.isGreaterThanOrEqual(maxPrice) && prevMinPrice.isLessThanOrEqual(minPrice))
-                || maxPrice.minus(prevMaxPrice).isGreaterThanOrEqual(prevMinPrice.minus(minPrice))) {
-            return Decimal.ZERO;
+        Double prevMaxPrice = series.getTick(index - 1).getMaxPrice();
+        Double maxPrice = series.getTick(index).getMaxPrice();
+        Double prevMinPrice = series.getTick(index - 1).getMinPrice();
+        Double minPrice = series.getTick(index).getMinPrice();
+
+        if ((prevMaxPrice>=(maxPrice) && prevMinPrice<=(minPrice))
+                || maxPrice- (prevMaxPrice)>=(prevMinPrice- (minPrice))) {
+            return 0d;
         }
-        return prevMinPrice.minus(minPrice);
+        return prevMinPrice- (minPrice);
     }
 }

@@ -28,12 +28,12 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class RAVIIndicatorTest {
 
     private TimeSeries data;
-    
+
     @Before
     public void setUp() {
 
@@ -41,29 +41,29 @@ public class RAVIIndicatorTest {
                 110.00, 109.27, 104.69, 107.07, 107.92,
                 107.95, 108.70, 107.97, 106.09, 106.03,
                 108.65, 109.54, 112.26, 114.38, 117.94
-            
+
         );
     }
-    
+
     @Test
     public void ravi() {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(data);
         RAVIIndicator ravi = new RAVIIndicator(closePrice, 3, 8);
-        
-        assertDecimalEquals(ravi.getValue(0), 0);
-        assertDecimalEquals(ravi.getValue(1), 0);
-        assertDecimalEquals(ravi.getValue(2), 0);
-        assertDecimalEquals(ravi.getValue(3), -0.6937);
-        assertDecimalEquals(ravi.getValue(4), -1.1411);
-        assertDecimalEquals(ravi.getValue(5), -0.1577);
-        assertDecimalEquals(ravi.getValue(6), 0.229);
-        assertDecimalEquals(ravi.getValue(7), 0.2412);
-        assertDecimalEquals(ravi.getValue(8), 0.1202);
-        assertDecimalEquals(ravi.getValue(9), -0.3324);
-        assertDecimalEquals(ravi.getValue(10), -0.5804);
-        assertDecimalEquals(ravi.getValue(11), 0.2013);
-        assertDecimalEquals(ravi.getValue(12), 1.6156);
-        assertDecimalEquals(ravi.getValue(13), 2.6167);
-        assertDecimalEquals(ravi.getValue(14), 4.0799);
+
+        assertDoubleEquals(ravi.getValue(0), 0);
+        assertDoubleEquals(ravi.getValue(1), 0);
+        assertDoubleEquals(ravi.getValue(2), 0);
+        assertDoubleEquals(ravi.getValue(3), -0.6937);
+        assertDoubleEquals(ravi.getValue(4), -1.1411);
+        assertDoubleEquals(ravi.getValue(5), -0.1577);
+        assertDoubleEquals(ravi.getValue(6), 0.229);
+        assertDoubleEquals(ravi.getValue(7), 0.2412);
+        assertDoubleEquals(ravi.getValue(8), 0.1202);
+        assertDoubleEquals(ravi.getValue(9), -0.3324);
+        assertDoubleEquals(ravi.getValue(10), -0.5804);
+        assertDoubleEquals(ravi.getValue(11), 0.2013);
+        assertDoubleEquals(ravi.getValue(12), 1.6156);
+        assertDoubleEquals(ravi.getValue(13), 2.6167);
+        assertDoubleEquals(ravi.getValue(14), 4.0799);
     }
 }

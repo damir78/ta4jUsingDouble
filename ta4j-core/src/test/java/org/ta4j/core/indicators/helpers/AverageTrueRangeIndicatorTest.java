@@ -30,7 +30,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class AverageTrueRangeIndicatorTest {
 
@@ -43,11 +43,11 @@ public class AverageTrueRangeIndicatorTest {
         ticks.add(new MockTick(0, 15, 17, 14));
         ticks.add(new MockTick(0, 0, 0, 2));
         AverageTrueRangeIndicator atr = new AverageTrueRangeIndicator(new MockTimeSeries(ticks), 3);
-        
-        assertDecimalEquals(atr.getValue(0), 1);
-        assertDecimalEquals(atr.getValue(1), 8d/3);
-        assertDecimalEquals(atr.getValue(2), 8d/3 * 2d/3 + 3);
-        assertDecimalEquals(atr.getValue(3), (8d/3 * 2d/3 + 3) * 2d/3 + 1);
-        assertDecimalEquals(atr.getValue(4), ((8d/3 * 2d/3 + 3) * 2d/3 + 1) * 2d/3 + 15d/3);
+
+        assertDoubleEquals(atr.getValue(0), 1);
+        assertDoubleEquals(atr.getValue(1), 8d/3);
+        assertDoubleEquals(atr.getValue(2), 8d/3 * 2d/3 + 3);
+        assertDoubleEquals(atr.getValue(3), (8d/3 * 2d/3 + 3) * 2d/3 + 1);
+        assertDoubleEquals(atr.getValue(4), ((8d/3 * 2d/3 + 3) * 2d/3 + 1) * 2d/3 + 15d/3);
     }
 }

@@ -33,7 +33,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class DirectionalMovementMinusIndicatorTest {
 
@@ -853,12 +853,12 @@ public class DirectionalMovementMinusIndicatorTest {
     public void test(){
         DirectionalMovementMinusIndicator dmmi = new DirectionalMovementMinusIndicator(data, 14);
 
-        // at the moment accurate until first decimal place
-        assertDecimalEquals(dmmi.getValue(data.getEndIndex()-5), 17.3003d);
-        assertDecimalEquals(dmmi.getValue(data.getEndIndex()-4), 15.9789d);
-        assertDecimalEquals(dmmi.getValue(data.getEndIndex()-3), 15.3518d);
-        assertDecimalEquals(dmmi.getValue(data.getEndIndex()-2), 16.5325d);
-        assertDecimalEquals(dmmi.getValue(data.getEndIndex()-1), 21.4683d);
-        assertDecimalEquals(dmmi.getValue(data.getEndIndex()), 21.7657d);
+        // at the moment accurate until first Double place
+        assertDoubleEquals(dmmi.getValue(data.getEndIndex()-5), 17.3003d);
+        assertDoubleEquals(dmmi.getValue(data.getEndIndex()-4), 15.9789d);
+        assertDoubleEquals(dmmi.getValue(data.getEndIndex()-3), 15.3518d);
+        assertDoubleEquals(dmmi.getValue(data.getEndIndex()-2), 16.5325d);
+        assertDoubleEquals(dmmi.getValue(data.getEndIndex()-1), 21.4683d);
+        assertDoubleEquals(dmmi.getValue(data.getEndIndex()), 21.7657d);
     }
 }

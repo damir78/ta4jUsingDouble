@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.candles;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
@@ -35,7 +35,7 @@ import org.ta4j.core.indicators.CachedIndicator;
 public class BullishEngulfingIndicator extends CachedIndicator<Boolean> {
 
     private final TimeSeries series;
-    
+
     /**
      * Constructor.
      * @param series a time series
@@ -54,12 +54,12 @@ public class BullishEngulfingIndicator extends CachedIndicator<Boolean> {
         Tick prevTick = series.getTick(index-1);
         Tick currTick = series.getTick(index);
         if (prevTick.isBearish() && currTick.isBullish()) {
-            final Decimal prevOpenPrice = prevTick.getOpenPrice();
-            final Decimal prevClosePrice = prevTick.getClosePrice();
-            final Decimal currOpenPrice = currTick.getOpenPrice();
-            final Decimal currClosePrice = currTick.getClosePrice();
-            return currOpenPrice.isLessThan(prevOpenPrice) && currOpenPrice.isLessThan(prevClosePrice)
-                    && currClosePrice.isGreaterThan(prevOpenPrice) && currClosePrice.isGreaterThan(prevClosePrice);
+            final Double prevOpenPrice = prevTick.getOpenPrice();
+            final Double prevClosePrice = prevTick.getClosePrice();
+            final Double currOpenPrice = currTick.getOpenPrice();
+            final Double currClosePrice = currTick.getClosePrice();
+            return currOpenPrice< (prevOpenPrice) && currOpenPrice< (prevClosePrice)
+                    && currClosePrice> (prevOpenPrice) && currClosePrice> (prevClosePrice);
         }
         return false;
     }

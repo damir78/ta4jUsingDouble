@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.Rule;
 import org.ta4j.core.TradingRecord;
@@ -37,17 +37,17 @@ import org.ta4j.core.indicators.helpers.PreviousValueIndicator;
 public class IsFallingRule extends AbstractRule {
 
 	/** The actual indicator */
-	private Indicator<Decimal> ref;
+	private Indicator<Double> ref;
 	/** The timeFrame */
 	private int timeFrame;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param ref
 	 * @param timeFrame
 	 */
-	public IsFallingRule(Indicator<Decimal> ref, int timeFrame) {
+	public IsFallingRule(Indicator<Double> ref, int timeFrame) {
 		this.ref = ref;
 		this.timeFrame = timeFrame;
 	}
@@ -59,7 +59,7 @@ public class IsFallingRule extends AbstractRule {
 			PreviousValueIndicator prev = new PreviousValueIndicator(ref, i);
 			ltPrev = ltPrev.and(new UnderIndicatorRule(prev, new PreviousValueIndicator(prev)));
 		}
-		
+
 		final boolean satisfied = ltPrev.isSatisfied(index, tradingRecord);
 		traceIsSatisfied(index, satisfied);
 		return satisfied;

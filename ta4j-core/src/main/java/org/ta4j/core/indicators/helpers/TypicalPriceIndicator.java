@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,7 +30,7 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Typical price indicator.
  * <p>
  */
-public class TypicalPriceIndicator extends CachedIndicator<Decimal> {
+public class TypicalPriceIndicator extends CachedIndicator<Double> {
 
     private TimeSeries series;
 
@@ -40,10 +40,10 @@ public class TypicalPriceIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        Decimal maxPrice = series.getTick(index).getMaxPrice();
-        Decimal minPrice = series.getTick(index).getMinPrice();
-        Decimal closePrice = series.getTick(index).getClosePrice();
-        return maxPrice.plus(minPrice).plus(closePrice).dividedBy(Decimal.THREE);
+    protected Double calculate(int index) {
+        Double maxPrice = series.getTick(index).getMaxPrice();
+        Double minPrice = series.getTick(index).getMinPrice();
+        Double closePrice = series.getTick(index).getClosePrice();
+        return maxPrice+(minPrice)+(closePrice)/ (3d);
     }
 }

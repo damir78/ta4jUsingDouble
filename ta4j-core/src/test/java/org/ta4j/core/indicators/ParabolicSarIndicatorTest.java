@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class ParabolicSarIndicatorTest {
 
@@ -65,26 +65,26 @@ public class ParabolicSarIndicatorTest {
         ParabolicSarIndicator sar = new ParabolicSarIndicator(new MockTimeSeries(ticks));
 
         assertEquals(sar.getValue(0).toString(), "NaN");
-        assertDecimalEquals(sar.getValue(1), 74.640000000000000568434188608080);
-        assertDecimalEquals(sar.getValue(2), 74.640000000000000568434188608080); // start with up trend
-        assertDecimalEquals(sar.getValue(3), 76.269900000000006912159733474255); // switch to downtrend
-        assertDecimalEquals(sar.getValue(4), 76.234502000000006773916538804770); // hold trend...
-        assertDecimalEquals(sar.getValue(5), 76.200611960000006763493729522452);
-        assertDecimalEquals(sar.getValue(6), 76.112987481600006697590288240463);
-        assertDecimalEquals(sar.getValue(7), 75.958968232704006684543855953962);
-        assertDecimalEquals(sar.getValue(8), 75.699850774087686058830877300352);
-        assertDecimalEquals(sar.getValue(9), 75.461462712160671083174936939031); // switch to up trend
-        assertDecimalEquals(sar.getValue(10), 72.719999999999998863131622783840);// hold trend
-        assertDecimalEquals(sar.getValue(11), 72.802199999999998851762939011678);
-        assertDecimalEquals(sar.getValue(12), 72.964111999999998670318746007979);
-        assertDecimalEquals(sar.getValue(13), 73.203865279999998374933056766167);
-        assertDecimalEquals(sar.getValue(14), 73.513156057599997959241591161117);
-        assertDecimalEquals(sar.getValue(15), 73.797703572991997576805442804471);
-        assertDecimalEquals(sar.getValue(16), 74.059487287152637224964186316356);
-        assertDecimalEquals(sar.getValue(17), 74.300328304180425701270230347291);
-        assertDecimalEquals(sar.getValue(18), 74.521902039845991099471790855751);
-        assertDecimalEquals(sar.getValue(19), 74.725749876658311265817226523534);
-        assertDecimalEquals(sar.getValue(20), 74.913289886525645818855027337894);
+        assertDoubleEquals(sar.getValue(1), 74.640000000000000568434188608080);
+        assertDoubleEquals(sar.getValue(2), 74.640000000000000568434188608080); // start with up trend
+        assertDoubleEquals(sar.getValue(3), 76.269900000000006912159733474255); // switch to downtrend
+        assertDoubleEquals(sar.getValue(4), 76.234502000000006773916538804770); // hold trend...
+        assertDoubleEquals(sar.getValue(5), 76.200611960000006763493729522452);
+        assertDoubleEquals(sar.getValue(6), 76.112987481600006697590288240463);
+        assertDoubleEquals(sar.getValue(7), 75.958968232704006684543855953962);
+        assertDoubleEquals(sar.getValue(8), 75.699850774087686058830877300352);
+        assertDoubleEquals(sar.getValue(9), 75.461462712160671083174936939031); // switch to up trend
+        assertDoubleEquals(sar.getValue(10), 72.719999999999998863131622783840);// hold trend
+        assertDoubleEquals(sar.getValue(11), 72.802199999999998851762939011678);
+        assertDoubleEquals(sar.getValue(12), 72.964111999999998670318746007979);
+        assertDoubleEquals(sar.getValue(13), 73.203865279999998374933056766167);
+        assertDoubleEquals(sar.getValue(14), 73.513156057599997959241591161117);
+        assertDoubleEquals(sar.getValue(15), 73.797703572991997576805442804471);
+        assertDoubleEquals(sar.getValue(16), 74.059487287152637224964186316356);
+        assertDoubleEquals(sar.getValue(17), 74.300328304180425701270230347291);
+        assertDoubleEquals(sar.getValue(18), 74.521902039845991099471790855751);
+        assertDoubleEquals(sar.getValue(19), 74.725749876658311265817226523534);
+        assertDoubleEquals(sar.getValue(20), 74.913289886525645818855027337894);
     }
 
 }

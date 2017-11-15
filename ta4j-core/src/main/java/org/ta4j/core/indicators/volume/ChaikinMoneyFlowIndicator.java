@@ -23,7 +23,7 @@
 package org.ta4j.core.indicators.volume;
 
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.helpers.CloseLocationValueIndicator;
@@ -35,14 +35,14 @@ import org.ta4j.core.indicators.helpers.VolumeIndicator;
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:chaikin_money_flow_cmf
  * @see http://www.fmlabs.com/reference/default.htm?url=ChaikinMoneyFlow.htm
  */
-public class ChaikinMoneyFlowIndicator extends CachedIndicator<Decimal> {
+public class ChaikinMoneyFlowIndicator extends CachedIndicator<Double> {
 
     private TimeSeries series;
-    
+
     private CloseLocationValueIndicator clvIndicator;
-    
+
     private VolumeIndicator volumeIndicator;
-    
+
     private int timeFrame;
 
     public ChaikinMoneyFlowIndicator(TimeSeries series, int timeFrame) {
@@ -54,25 +54,25 @@ public class ChaikinMoneyFlowIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         int startIndex = Math.max(0, index - timeFrame + 1);
-        Decimal sumOfMoneyFlowVolume = Decimal.ZERO;
+        Double sumOfMoneyFlowVolume = 0d;
         for (int i = startIndex; i <= index; i++) {
-            sumOfMoneyFlowVolume = sumOfMoneyFlowVolume.plus(getMoneyFlowVolume(i));
+            sumOfMoneyFlowVolume = sumOfMoneyFlowVolume+(getMoneyFlowVolume(i));
         }
-        Decimal sumOfVolume = volumeIndicator.getValue(index);
-        
-        return sumOfMoneyFlowVolume.dividedBy(sumOfVolume);
+        Double sumOfVolume = volumeIndicator.getValue(index);
+
+        return sumOfMoneyFlowVolume/ (sumOfVolume);
     }
-    
+
     /**
      * @param index the tick index
      * @return the money flow volume for the i-th period/tick
      */
-    private Decimal getMoneyFlowVolume(int index) {
-        return clvIndicator.getValue(index).multipliedBy(series.getTick(index).getVolume());
+    private Double getMoneyFlowVolume(int index) {
+        return clvIndicator.getValue(index)* (series.getTick(index).getVolume());
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

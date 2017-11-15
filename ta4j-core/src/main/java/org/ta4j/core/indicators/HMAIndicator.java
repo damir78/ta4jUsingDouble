@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.DifferenceIndicator;
 import org.ta4j.core.indicators.helpers.MultiplierIndicator;
@@ -32,25 +32,25 @@ import org.ta4j.core.indicators.helpers.MultiplierIndicator;
  * <p>
  * @see http://alanhull.com/hull-moving-average
  */
-public class HMAIndicator extends CachedIndicator<Decimal> {
+public class HMAIndicator extends CachedIndicator<Double> {
 
     private final int timeFrame;
 
     private final WMAIndicator sqrtWma;
-    
-    public HMAIndicator(Indicator<Decimal> indicator, int timeFrame) {
+
+    public HMAIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.timeFrame = timeFrame;
-        
+
         WMAIndicator halfWma = new WMAIndicator(indicator, timeFrame / 2);
         WMAIndicator origWma = new WMAIndicator(indicator, timeFrame);
-        
-        Indicator indicatorForSqrtWma = new DifferenceIndicator(new MultiplierIndicator(halfWma, Decimal.TWO), origWma);
+
+        Indicator indicatorForSqrtWma = new DifferenceIndicator(new MultiplierIndicator(halfWma, 2d), origWma);
         sqrtWma = new WMAIndicator(indicatorForSqrtWma, (int) Math.sqrt(timeFrame));
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         return sqrtWma.getValue(index);
     }
 

@@ -28,7 +28,7 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class PPOIndicatorTest {
 
@@ -53,11 +53,11 @@ public class PPOIndicatorTest {
 
         PPOIndicator ppo = new PPOIndicator(closePriceIndicator, 10, 20);
 
-        assertDecimalEquals(ppo.getValue(21), 2.4043);
-        assertDecimalEquals(ppo.getValue(22), 2.2224);
-        assertDecimalEquals(ppo.getValue(23), 1.88);
-        
-        assertDecimalEquals(ppo.getValue(28), 0.4408);
-        assertDecimalEquals(ppo.getValue(29), 0.0559);
+        assertDoubleEquals(ppo.getValue(21), 2.4043);
+        assertDoubleEquals(ppo.getValue(22), 2.2224);
+        assertDoubleEquals(ppo.getValue(23), 1.88);
+
+        assertDoubleEquals(ppo.getValue(28), 0.4408);
+        assertDoubleEquals(ppo.getValue(29), 0.0559);
     }
 }

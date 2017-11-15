@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,21 +30,21 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Average gain indicator.
  * <p>
  */
-public class AverageGainIndicator extends CachedIndicator<Decimal> {
+public class AverageGainIndicator extends CachedIndicator<Double> {
 
     private final CumulatedGainsIndicator cumulatedGains;
 
     private final int timeFrame;
 
-    public AverageGainIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public AverageGainIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.cumulatedGains = new CumulatedGainsIndicator(indicator, timeFrame);
         this.timeFrame = timeFrame;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         final int realTimeFrame = Math.min(timeFrame, index + 1);
-        return cumulatedGains.getValue(index).dividedBy(Decimal.valueOf(realTimeFrame));
+        return cumulatedGains.getValue(index)/ (Double.valueOf(realTimeFrame));
     }
 }

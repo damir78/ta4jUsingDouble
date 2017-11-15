@@ -34,13 +34,13 @@ import java.util.List;
  * <p>
  * This class allows to follow the money cash flow involved by a list of trades over a time series.
  */
-public class CashFlow implements Indicator<Decimal> {
+public class CashFlow implements Indicator<Double> {
 
     /** The time series */
     private final TimeSeries timeSeries;
 
     /** The cash flow values */
-    private List<Decimal> values = new ArrayList<Decimal>(Arrays.asList(Decimal.ONE));
+    private List<Double> values = new ArrayList<Double>(Arrays.asList(1d));
 
     /**
      * Constructor.
@@ -69,7 +69,7 @@ public class CashFlow implements Indicator<Decimal> {
      * @return the cash flow value at the index-th position
      */
     @Override
-    public Decimal getValue(int index) {
+    public Double getValue(int index) {
         return values.get(index);
     }
 
@@ -93,18 +93,18 @@ public class CashFlow implements Indicator<Decimal> {
         final int entryIndex = trade.getEntry().getIndex();
         int begin = entryIndex + 1;
         if (begin > values.size()) {
-            Decimal lastValue = values.get(values.size() - 1);
+            Double lastValue = values.get(values.size() - 1);
             values.addAll(Collections.nCopies(begin - values.size(), lastValue));
         }
         int end = trade.getExit().getIndex();
         for (int i = Math.max(begin, 1); i <= end; i++) {
-            Decimal ratio;
+            Double ratio;
             if (trade.getEntry().isBuy()) {
-                ratio = timeSeries.getTick(i).getClosePrice().dividedBy(timeSeries.getTick(entryIndex).getClosePrice());
+                ratio = timeSeries.getTick(i).getClosePrice()/ (timeSeries.getTick(entryIndex).getClosePrice());
             } else {
-                ratio = timeSeries.getTick(entryIndex).getClosePrice().dividedBy(timeSeries.getTick(i).getClosePrice());
+                ratio = timeSeries.getTick(entryIndex).getClosePrice()/ (timeSeries.getTick(i).getClosePrice());
             }
-            values.add(values.get(entryIndex).multipliedBy(ratio));
+            values.add(values.get(entryIndex)* (ratio));
         }
     }
 
@@ -124,7 +124,7 @@ public class CashFlow implements Indicator<Decimal> {
      */
     private void fillToTheEnd() {
         if (timeSeries.getEndIndex() >= values.size()) {
-            Decimal lastValue = values.get(values.size() - 1);
+            Double lastValue = values.get(values.size() - 1);
             values.addAll(Collections.nCopies(timeSeries.getEndIndex() - values.size() + 1, lastValue));
         }
     }

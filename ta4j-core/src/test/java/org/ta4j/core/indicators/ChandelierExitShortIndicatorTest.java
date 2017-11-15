@@ -25,7 +25,7 @@ package org.ta4j.core.indicators;
 import org.junit.Before;
 import org.junit.Test;
 import org.ta4j.core.BaseTimeSeries;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTick;
@@ -33,10 +33,10 @@ import org.ta4j.core.mocks.MockTick;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class ChandelierExitShortIndicatorTest {
-    
+
     private TimeSeries data;
 
     @Before
@@ -64,17 +64,17 @@ public class ChandelierExitShortIndicatorTest {
 
     @Test
     public void massIndexUsing3And8TimeFrames() {
-        ChandelierExitShortIndicator ces = new ChandelierExitShortIndicator(data, 5, Decimal.TWO);
+        ChandelierExitShortIndicator ces = new ChandelierExitShortIndicator(data, 5, 2d);
 
-        assertDecimalEquals(ces.getValue(5), 45.8424);
-        assertDecimalEquals(ces.getValue(6), 45.7579);
-        assertDecimalEquals(ces.getValue(7), 45.6623);
-        assertDecimalEquals(ces.getValue(8), 45.6199);
-        assertDecimalEquals(ces.getValue(9), 45.6099);
-        assertDecimalEquals(ces.getValue(10), 45.5459);
-        assertDecimalEquals(ces.getValue(11), 45.5807);
-        assertDecimalEquals(ces.getValue(12), 45.6126);
-        assertDecimalEquals(ces.getValue(13), 45.4781);
-        assertDecimalEquals(ces.getValue(14), 45.0605);
+        assertDoubleEquals(ces.getValue(5), 45.8424);
+        assertDoubleEquals(ces.getValue(6), 45.7579);
+        assertDoubleEquals(ces.getValue(7), 45.6623);
+        assertDoubleEquals(ces.getValue(8), 45.6199);
+        assertDoubleEquals(ces.getValue(9), 45.6099);
+        assertDoubleEquals(ces.getValue(10), 45.5459);
+        assertDoubleEquals(ces.getValue(11), 45.5807);
+        assertDoubleEquals(ces.getValue(12), 45.6126);
+        assertDoubleEquals(ces.getValue(13), 45.4781);
+        assertDoubleEquals(ces.getValue(14), 45.0605);
     }
 }

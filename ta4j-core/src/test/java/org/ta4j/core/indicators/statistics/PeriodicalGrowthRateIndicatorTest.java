@@ -31,17 +31,17 @@ import org.ta4j.core.trading.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.trading.rules.CrossedUpIndicatorRule;
 
 import static org.junit.Assert.assertEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 
 public class PeriodicalGrowthRateIndicatorTest {
 
     private TimeSeries mockSeries;
-    
+
     private TimeSeriesManager seriesManager;
-    
+
     private ClosePriceIndicator closePrice;
-    
+
     @Before
     public void setUp() {
         mockSeries = new MockTimeSeries(
@@ -55,43 +55,43 @@ public class PeriodicalGrowthRateIndicatorTest {
     }
 
     @Test
-    public void testGetTotalReturn() { 
+    public void testGetTotalReturn() {
         PeriodicalGrowthRateIndicator gri = new PeriodicalGrowthRateIndicator(this.closePrice, 5);
         double expResult = 0.9564;
         double result = gri.getTotalReturn();
         assertEquals(expResult, result, 0.01);
     }
-    
+
     @Test
-    public void testCalculation() { 
+    public void testCalculation() {
         PeriodicalGrowthRateIndicator gri = new PeriodicalGrowthRateIndicator(this.closePrice,5);
-        
-        assertEquals(gri.getValue(0), Decimal.NaN);
-        assertEquals(gri.getValue(4), Decimal.NaN);
-        assertDecimalEquals(gri.getValue(5), -0.0268);
-        assertDecimalEquals(gri.getValue(6), 0.0541);
-        assertDecimalEquals(gri.getValue(10), -0.0495);
-        assertDecimalEquals(gri.getValue(21), 0.2009);
-        assertDecimalEquals(gri.getValue(24), 0.0220);
-        assertEquals(gri.getValue(25), Decimal.NaN);
-        assertEquals(gri.getValue(26), Decimal.NaN);
+
+        assertEquals(gri.getValue(0), Double.NaN, MathUtils.DELTA);
+        assertEquals(gri.getValue(4), Double.NaN, MathUtils.DELTA);
+        assertDoubleEquals(gri.getValue(5), -0.0268);
+        assertDoubleEquals(gri.getValue(6), 0.0541);
+        assertDoubleEquals(gri.getValue(10), -0.0495);
+        assertDoubleEquals(gri.getValue(21), 0.2009);
+        assertDoubleEquals(gri.getValue(24), 0.0220);
+        assertEquals(gri.getValue(25), Double.NaN, MathUtils.DELTA);
+        assertEquals(gri.getValue(26), Double.NaN, MathUtils.DELTA);
     }
-    
+
     @Test
-    public void testStrategies() { 
-        
+    public void testStrategies() {
+
         PeriodicalGrowthRateIndicator gri = new PeriodicalGrowthRateIndicator(this.closePrice,5);
 
         // Rules
-        Rule buyingRule = new CrossedUpIndicatorRule(gri, Decimal.ZERO); 
-        Rule sellingRule = new CrossedDownIndicatorRule(gri, Decimal.ZERO);     
-        
+        Rule buyingRule = new CrossedUpIndicatorRule(gri, 0d);
+        Rule sellingRule = new CrossedDownIndicatorRule(gri, 0d);
+
         Strategy strategy = new BaseStrategy(buyingRule, sellingRule);
-                
+
         // Check trades
-        int result = seriesManager.run(strategy).getTradeCount();             
+        int result = seriesManager.run(strategy).getTradeCount();
         int expResult = 3;
-        
+
         assertEquals(expResult, result);
     }
 }

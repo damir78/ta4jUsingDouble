@@ -24,7 +24,7 @@ package org.ta4j.core.indicators.candles;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTick;
@@ -54,10 +54,10 @@ public class ThreeWhiteSoldiersIndicatorTest {
         ticks.add(new MockTick(23, 16.8, 24, 15));
         series = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void getValue() {
-        ThreeWhiteSoldiersIndicator tws = new ThreeWhiteSoldiersIndicator(series, 3, Decimal.valueOf("0.1"));
+        ThreeWhiteSoldiersIndicator tws = new ThreeWhiteSoldiersIndicator(series, 3, Double.valueOf("0.1"));
         assertFalse(tws.getValue(0));
         assertFalse(tws.getValue(1));
         assertFalse(tws.getValue(2));

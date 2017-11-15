@@ -27,8 +27,8 @@ import org.junit.Test;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalNotEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleNotEquals;
 
 public class SmoothedAverageGainIndicatorTest {
 
@@ -43,31 +43,31 @@ public class SmoothedAverageGainIndicatorTest {
     public void smoothedAverageGainUsingTimeFrame5UsingClosePrice() {
         SmoothedAverageGainIndicator averageGain = new SmoothedAverageGainIndicator(new ClosePriceIndicator(data), 5);
 
-        assertDecimalEquals(averageGain.getValue(5), "0.8");
-        assertDecimalEquals(averageGain.getValue(6), "0.84");
-        assertDecimalEquals(averageGain.getValue(7), "0.672");
-        assertDecimalEquals(averageGain.getValue(8), "0.5376");
-        assertDecimalEquals(averageGain.getValue(9), "0.43008");
-        assertDecimalEquals(averageGain.getValue(10), "0.544064");
-        assertDecimalEquals(averageGain.getValue(11), "0.4352512");
-        assertDecimalEquals(averageGain.getValue(12), "0.34820096");
+        assertDoubleEquals(averageGain.getValue(5), "0.8");
+        assertDoubleEquals(averageGain.getValue(6), "0.84");
+        assertDoubleEquals(averageGain.getValue(7), "0.672");
+        assertDoubleEquals(averageGain.getValue(8), "0.5376");
+        assertDoubleEquals(averageGain.getValue(9), "0.43008");
+        assertDoubleEquals(averageGain.getValue(10), "0.544064");
+        assertDoubleEquals(averageGain.getValue(11), "0.4352512");
+        assertDoubleEquals(averageGain.getValue(12), "0.34820096");
     }
 
     @Test
     public void smoothedAverageGainMustReturnNonZeroWhenDataGainedAtLeastOnce() {
         SmoothedAverageGainIndicator averageGain = new SmoothedAverageGainIndicator(new ClosePriceIndicator(data), 3);
-        assertDecimalNotEquals(averageGain.getValue(9), 0);
+        assertDoubleNotEquals(averageGain.getValue(9), 0);
     }
 
     @Test
     public void smoothedAverageGainWhenTimeFrameIsGreaterThanIndicatorDataShouldBeCalculatedWithDataSize() {
         SmoothedAverageGainIndicator averageGain = new SmoothedAverageGainIndicator(new ClosePriceIndicator(data), 1000);
-        assertDecimalEquals(averageGain.getValue(12), 6d / data.getTickCount());
+        assertDoubleEquals(averageGain.getValue(12), 6d / data.getTickCount());
     }
 
     @Test
     public void smoothedAverageGainWhenIndexIsZeroMustBeZero() {
         SmoothedAverageGainIndicator averageGain = new SmoothedAverageGainIndicator(new ClosePriceIndicator(data), 10);
-        assertDecimalEquals(averageGain.getValue(0), 0);
+        assertDoubleEquals(averageGain.getValue(0), 0);
     }
 }

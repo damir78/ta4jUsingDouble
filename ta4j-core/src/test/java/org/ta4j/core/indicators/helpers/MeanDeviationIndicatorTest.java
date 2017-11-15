@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class MeanDeviationIndicatorTest {
 
@@ -42,23 +42,23 @@ public class MeanDeviationIndicatorTest {
     public void meanDeviationUsingTimeFrame5UsingClosePrice() {
         MeanDeviationIndicator meanDeviation = new MeanDeviationIndicator(new ClosePriceIndicator(data), 5);
 
-        assertDecimalEquals(meanDeviation.getValue(2), 2.44444444444444);
-        assertDecimalEquals(meanDeviation.getValue(3), 2.5);
-        assertDecimalEquals(meanDeviation.getValue(7), 2.16);
-        assertDecimalEquals(meanDeviation.getValue(8), 2.32);
-        assertDecimalEquals(meanDeviation.getValue(9), 2.72);
+        assertDoubleEquals(meanDeviation.getValue(2), 2.44444444444444);
+        assertDoubleEquals(meanDeviation.getValue(3), 2.5);
+        assertDoubleEquals(meanDeviation.getValue(7), 2.16);
+        assertDoubleEquals(meanDeviation.getValue(8), 2.32);
+        assertDoubleEquals(meanDeviation.getValue(9), 2.72);
     }
 
     @Test
     public void firstValueShouldBeZero() {
         MeanDeviationIndicator meanDeviation = new MeanDeviationIndicator(new ClosePriceIndicator(data), 5);
-        assertDecimalEquals(meanDeviation.getValue(0), 0);
+        assertDoubleEquals(meanDeviation.getValue(0), 0);
     }
 
     @Test
     public void meanDeviationShouldBeZeroWhenTimeFrameIs1() {
         MeanDeviationIndicator meanDeviation = new MeanDeviationIndicator(new ClosePriceIndicator(data), 1);
-        assertDecimalEquals(meanDeviation.getValue(2), 0);
-        assertDecimalEquals(meanDeviation.getValue(7), 0);
+        assertDoubleEquals(meanDeviation.getValue(2), 0);
+        assertDoubleEquals(meanDeviation.getValue(7), 0);
     }
 }

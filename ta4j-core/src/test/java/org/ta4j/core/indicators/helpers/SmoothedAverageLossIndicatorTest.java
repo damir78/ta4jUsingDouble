@@ -27,8 +27,8 @@ import org.junit.Test;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.mocks.MockTimeSeries;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalNotEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleNotEquals;
 
 public class SmoothedAverageLossIndicatorTest {
 
@@ -43,37 +43,37 @@ public class SmoothedAverageLossIndicatorTest {
     public void smoothedAverageLossUsingTimeFrame5UsingClosePrice() {
         SmoothedAverageLossIndicator averageLoss = new SmoothedAverageLossIndicator(new ClosePriceIndicator(data), 5);
 
-        assertDecimalEquals(averageLoss.getValue(5), "0.2");
-        assertDecimalEquals(averageLoss.getValue(6), "0.16");
-        assertDecimalEquals(averageLoss.getValue(7), "0.328");
-        assertDecimalEquals(averageLoss.getValue(8), "0.4624");
-        assertDecimalEquals(averageLoss.getValue(9), "0.36992");
-        assertDecimalEquals(averageLoss.getValue(10), "0.295936");
-        assertDecimalEquals(averageLoss.getValue(11), "0.4367488");
-        assertDecimalEquals(averageLoss.getValue(12), "0.54939904");
+        assertDoubleEquals(averageLoss.getValue(5), "0.2");
+        assertDoubleEquals(averageLoss.getValue(6), "0.16");
+        assertDoubleEquals(averageLoss.getValue(7), "0.328");
+        assertDoubleEquals(averageLoss.getValue(8), "0.4624");
+        assertDoubleEquals(averageLoss.getValue(9), "0.36992");
+        assertDoubleEquals(averageLoss.getValue(10), "0.295936");
+        assertDoubleEquals(averageLoss.getValue(11), "0.4367488");
+        assertDoubleEquals(averageLoss.getValue(12), "0.54939904");
     }
 
     @Test
     public void smoothedAverageLossMustReturnZeroWhenPrecedingDataOnlyGain() {
         SmoothedAverageLossIndicator averageLoss = new SmoothedAverageLossIndicator(new ClosePriceIndicator(data), 4);
-        assertDecimalEquals(averageLoss.getValue(3), 0);
+        assertDoubleEquals(averageLoss.getValue(3), 0);
     }
 
     @Test
     public void smoothedAverageLossMustReturnNonZeroWhenDataLossAtLeastOnce() {
         SmoothedAverageLossIndicator averageLoss = new SmoothedAverageLossIndicator(new ClosePriceIndicator(data), 2);
-        assertDecimalNotEquals(averageLoss.getValue(6), 0);
+        assertDoubleNotEquals(averageLoss.getValue(6), 0);
     }
 
     @Test
     public void smoothedAverageLossWhenTimeFrameIsGreaterThanIndex() {
         SmoothedAverageLossIndicator averageLoss = new SmoothedAverageLossIndicator(new ClosePriceIndicator(data), 1000);
-        assertDecimalEquals(averageLoss.getValue(12), 5d / data.getTickCount());
+        assertDoubleEquals(averageLoss.getValue(12), 5d / data.getTickCount());
     }
 
     @Test
     public void smoothedAverageLossWhenIndexIsZeroMustBeZero() {
         AverageLossIndicator averageLoss = new AverageLossIndicator(new ClosePriceIndicator(data), 10);
-        assertDecimalEquals(averageLoss.getValue(0), 0);
+        assertDoubleEquals(averageLoss.getValue(0), 0);
     }
 }

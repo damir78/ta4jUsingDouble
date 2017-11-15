@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.DifferenceIndicator;
@@ -34,12 +34,12 @@ import org.ta4j.core.indicators.helpers.MinPriceIndicator;
  * <p>
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:mass_index
  */
-public class MassIndexIndicator extends CachedIndicator<Decimal> {
+public class MassIndexIndicator extends CachedIndicator<Double> {
 
     private EMAIndicator singleEma;
-    
+
     private EMAIndicator doubleEma;
-    
+
     private int timeFrame;
 
     /**
@@ -50,7 +50,7 @@ public class MassIndexIndicator extends CachedIndicator<Decimal> {
      */
     public MassIndexIndicator(TimeSeries series, int emaTimeFrame, int timeFrame) {
         super(series);
-        Indicator<Decimal> highLowDifferential = new DifferenceIndicator(
+        Indicator<Double> highLowDifferential = new DifferenceIndicator(
                 new MaxPriceIndicator(series),
                 new MinPriceIndicator(series)
         );
@@ -60,12 +60,12 @@ public class MassIndexIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         final int startIndex = Math.max(0, index - timeFrame + 1);
-        Decimal massIndex = Decimal.ZERO;
+        Double massIndex = 0d;
         for (int i = startIndex; i <= index; i++) {
-            Decimal emaRatio = singleEma.getValue(i).dividedBy(doubleEma.getValue(i));
-            massIndex = massIndex.plus(emaRatio);
+            Double emaRatio = singleEma.getValue(i)/ (doubleEma.getValue(i));
+            massIndex = massIndex+(emaRatio);
         }
         return massIndex;
     }

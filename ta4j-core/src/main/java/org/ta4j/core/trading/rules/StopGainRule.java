@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Trade;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -36,18 +36,18 @@ public class StopGainRule extends AbstractRule {
 
     /** The close price indicator */
     private ClosePriceIndicator closePrice;
-    
+
     /** The gain ratio threshold (e.g. 1.03 for 3%) */
-    private Decimal gainRatioThreshold;
+    private Double gainRatioThreshold;
 
     /**
      * Constructor.
      * @param closePrice the close price indicator
      * @param gainPercentage the gain percentage
      */
-    public StopGainRule(ClosePriceIndicator closePrice, Decimal gainPercentage) {
+    public StopGainRule(ClosePriceIndicator closePrice, Double gainPercentage) {
         this.closePrice = closePrice;
-        this.gainRatioThreshold = Decimal.HUNDRED.plus(gainPercentage).dividedBy(Decimal.HUNDRED);
+        this.gainRatioThreshold = 100d+(gainPercentage)/ (100d);
     }
 
     @Override
@@ -57,13 +57,13 @@ public class StopGainRule extends AbstractRule {
         if (tradingRecord != null) {
             Trade currentTrade = tradingRecord.getCurrentTrade();
             if (currentTrade.isOpened()) {
-                Decimal entryPrice = currentTrade.getEntry().getPrice();
-                Decimal currentPrice = closePrice.getValue(index);
-                Decimal threshold = entryPrice.multipliedBy(gainRatioThreshold);
+                Double entryPrice = currentTrade.getEntry().getPrice();
+                Double currentPrice = closePrice.getValue(index);
+                Double threshold = entryPrice* (gainRatioThreshold);
                 if (currentTrade.getEntry().isBuy()) {
-                    satisfied = currentPrice.isGreaterThanOrEqual(threshold);
+                    satisfied = currentPrice>=(threshold);
                 } else {
-                    satisfied = currentPrice.isLessThanOrEqual(threshold);
+                    satisfied = currentPrice<=(threshold);
                 }
             }
         }

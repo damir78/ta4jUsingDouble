@@ -24,7 +24,7 @@ package org.ta4j.core.trading.rules;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.FixedDecimalIndicator;
 
@@ -33,15 +33,15 @@ import static org.junit.Assert.assertTrue;
 
 public class IsEqualRuleTest {
 
-    private Indicator<Decimal> indicator;
+    private Indicator<Double> indicator;
     private IsEqualRule rule;
-    
+
     @Before
     public void setUp() {
         indicator = new FixedDecimalIndicator(20, 10, 0, -20);
-        rule = new IsEqualRule(indicator, Decimal.valueOf(20));
+        rule = new IsEqualRule(indicator, Double.valueOf(20));
     }
-    
+
     @Test
     public void isSatisfied() {
         assertTrue(rule.isSatisfied(0));

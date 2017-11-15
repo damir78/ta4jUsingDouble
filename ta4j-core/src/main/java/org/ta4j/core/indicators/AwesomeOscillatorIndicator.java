@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
@@ -30,24 +30,24 @@ import org.ta4j.core.Indicator;
  * <p>
  * @see http://www.forexgurus.co.uk/indicators/awesome-oscillator
  */
-public class AwesomeOscillatorIndicator extends CachedIndicator<Decimal> {
+public class AwesomeOscillatorIndicator extends CachedIndicator<Double> {
 
     private SMAIndicator sma5;
 
     private SMAIndicator sma34;
 
-    public AwesomeOscillatorIndicator(Indicator<Decimal> indicator, int timeFrameSma1, int timeFrameSma2) {
+    public AwesomeOscillatorIndicator(Indicator<Double> indicator, int timeFrameSma1, int timeFrameSma2) {
         super(indicator);
         this.sma5 = new SMAIndicator(indicator, timeFrameSma1);
         this.sma34 = new SMAIndicator(indicator, timeFrameSma2);
     }
 
-    public AwesomeOscillatorIndicator(Indicator<Decimal> indicator) {
+    public AwesomeOscillatorIndicator(Indicator<Double> indicator) {
         this(indicator, 5, 34);
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return sma5.getValue(index).minus(sma34.getValue(index));
+    protected Double calculate(int index) {
+        return sma5.getValue(index)- (sma34.getValue(index));
     }
 }

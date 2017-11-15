@@ -44,7 +44,7 @@ import java.util.Map;
  * @see http://www.futuresmag.com/2010/04/01/can-your-system-do-the-walk
  */
 public class WalkForward {
-    
+
     /**
      * Builds a list of split indexes from splitDuration.
      * @param series the time series to get split begin indexes of
@@ -56,7 +56,7 @@ public class WalkForward {
 
         int beginIndex = series.getBeginIndex();
         int endIndex = series.getEndIndex();
-        
+
         // Adding the first begin index
         beginIndexes.add(beginIndex);
 
@@ -82,7 +82,7 @@ public class WalkForward {
         }
         return beginIndexes;
     }
-    
+
     /**
      * Returns a new time series which is a view of a subset of the current series.
      * <p>
@@ -179,5 +179,5 @@ public class WalkForward {
             System.out.println("\t\t--> Best strategy: " + strategies.get(bestStrategy) + "\n");
         }
     }
-    
+
 }

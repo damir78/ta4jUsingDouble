@@ -25,20 +25,20 @@ package org.ta4j.core.indicators.statistics;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
 
 import static org.junit.Assert.assertTrue;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class SimpleLinearRegressionIndicatorTest {
 
     private double[] data;
-    
-    private Indicator<Decimal> closePrice;
-    
+
+    private Indicator<Double> closePrice;
+
     @Before
     public void setUp() {
         data = new double[] {10, 20, 30, 40, 30, 40, 30, 20, 30, 50, 60, 70, 80};
@@ -77,30 +77,30 @@ public class SimpleLinearRegressionIndicatorTest {
     public void calculateLinearRegressionOn4Observations() {
 
         SimpleLinearRegressionIndicator reg = new SimpleLinearRegressionIndicator(closePrice, 4);
-        assertDecimalEquals(reg.getValue(1), 20);
-        assertDecimalEquals(reg.getValue(2), 30);
-        
+        assertDoubleEquals(reg.getValue(1), 20);
+        assertDoubleEquals(reg.getValue(2), 30);
+
         SimpleRegression origReg = buildSimpleRegression(10, 20, 30, 40);
-        assertDecimalEquals(reg.getValue(3), 40);
-        assertDecimalEquals(reg.getValue(3), origReg.predict(3));
-        
+        assertDoubleEquals(reg.getValue(3), 40);
+        assertDoubleEquals(reg.getValue(3), origReg.predict(3));
+
         origReg = buildSimpleRegression(30, 40, 30, 40);
-        assertDecimalEquals(reg.getValue(5), origReg.predict(3));
-        
+        assertDoubleEquals(reg.getValue(5), origReg.predict(3));
+
         origReg = buildSimpleRegression(30, 20, 30, 50);
-        assertDecimalEquals(reg.getValue(9), origReg.predict(3));
+        assertDoubleEquals(reg.getValue(9), origReg.predict(3));
     }
-    
+
     @Test
     public void calculateLinearRegression() {
         double[] values = new double[] { 1, 2, 1.3, 3.75, 2.25 };
         ClosePriceIndicator indicator = new ClosePriceIndicator(new MockTimeSeries(values));
         SimpleLinearRegressionIndicator reg = new SimpleLinearRegressionIndicator(indicator, 5);
-        
+
         SimpleRegression origReg = buildSimpleRegression(values);
-        assertDecimalEquals(reg.getValue(4), origReg.predict(4));
+        assertDoubleEquals(reg.getValue(4), origReg.predict(4));
     }
-    
+
     /**
      * @param values values
      * @return a simple linear regression based on provided values

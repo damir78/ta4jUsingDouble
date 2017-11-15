@@ -24,7 +24,7 @@ package org.ta4j.core.indicators.keltner;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Tick;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -34,7 +34,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class KeltnerChannelUpperIndicatorTest {
 
@@ -42,7 +42,7 @@ public class KeltnerChannelUpperIndicatorTest {
 
     @Before
     public void setUp() {
-        
+
         List<Tick> ticks = new ArrayList<Tick>();
         ticks.add(new MockTick(11577.43, 11670.75, 11711.47, 11577.35));
         ticks.add(new MockTick(11670.90, 11691.18, 11698.22, 11635.74));
@@ -76,32 +76,32 @@ public class KeltnerChannelUpperIndicatorTest {
         ticks.add(new MockTick(12266.75, 12226.64, 12267.66, 12193.27));
         ticks.add(new MockTick(12219.79, 12288.17, 12303.16, 12219.79));
         ticks.add(new MockTick(12287.72, 12318.14, 12331.31, 12253.24));
-        
+
         data = new MockTimeSeries(ticks);
     }
 
     @Test
     public void keltnerChannelUpperIndicatorTest() {
-        
-        KeltnerChannelMiddleIndicator km = new KeltnerChannelMiddleIndicator(new ClosePriceIndicator(data), 14);
-        KeltnerChannelUpperIndicator ku = new KeltnerChannelUpperIndicator(km, Decimal.valueOf(2), 14);
 
-        assertDecimalEquals(ku.getValue(13), 11857.4642);
-        assertDecimalEquals(ku.getValue(14), 11896.8619);
-        assertDecimalEquals(ku.getValue(15), 11927.1486);
-        assertDecimalEquals(ku.getValue(16), 11950.6832);
-        assertDecimalEquals(ku.getValue(17), 11970.0729);
-        assertDecimalEquals(ku.getValue(18), 11991.4828);
-        assertDecimalEquals(ku.getValue(19), 12028.9281);
-        assertDecimalEquals(ku.getValue(20), 12045.3761);
-        assertDecimalEquals(ku.getValue(21), 12070.6204);
-        assertDecimalEquals(ku.getValue(22), 12092.044);
-        assertDecimalEquals(ku.getValue(23), 12124.1007);
-        assertDecimalEquals(ku.getValue(24), 12160.508);
-        assertDecimalEquals(ku.getValue(25), 12189.8451);
-        assertDecimalEquals(ku.getValue(26), 12216.1915);
-        assertDecimalEquals(ku.getValue(27), 12248.1771);
-        assertDecimalEquals(ku.getValue(28), 12266.181);
-        assertDecimalEquals(ku.getValue(29), 12280.8623);
+        KeltnerChannelMiddleIndicator km = new KeltnerChannelMiddleIndicator(new ClosePriceIndicator(data), 14);
+        KeltnerChannelUpperIndicator ku = new KeltnerChannelUpperIndicator(km, Double.valueOf(2), 14);
+
+        assertDoubleEquals(ku.getValue(13), 11857.4642);
+        assertDoubleEquals(ku.getValue(14), 11896.8619);
+        assertDoubleEquals(ku.getValue(15), 11927.1486);
+        assertDoubleEquals(ku.getValue(16), 11950.6832);
+        assertDoubleEquals(ku.getValue(17), 11970.0729);
+        assertDoubleEquals(ku.getValue(18), 11991.4828);
+        assertDoubleEquals(ku.getValue(19), 12028.9281);
+        assertDoubleEquals(ku.getValue(20), 12045.3761);
+        assertDoubleEquals(ku.getValue(21), 12070.6204);
+        assertDoubleEquals(ku.getValue(22), 12092.044);
+        assertDoubleEquals(ku.getValue(23), 12124.1007);
+        assertDoubleEquals(ku.getValue(24), 12160.508);
+        assertDoubleEquals(ku.getValue(25), 12189.8451);
+        assertDoubleEquals(ku.getValue(26), 12216.1915);
+        assertDoubleEquals(ku.getValue(27), 12248.1771);
+        assertDoubleEquals(ku.getValue(28), 12266.181);
+        assertDoubleEquals(ku.getValue(29), 12280.8623);
     }
 }

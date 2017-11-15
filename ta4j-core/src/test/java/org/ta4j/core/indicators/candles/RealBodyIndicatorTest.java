@@ -32,7 +32,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class RealBodyIndicatorTest {
 
@@ -49,14 +49,14 @@ public class RealBodyIndicatorTest {
         ticks.add(new MockTick(11, 12, 12, 10));
         series = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void getValue() {
         RealBodyIndicator body = new RealBodyIndicator(series);
-        assertDecimalEquals(body.getValue(0), 8);
-        assertDecimalEquals(body.getValue(1), 3);
-        assertDecimalEquals(body.getValue(2), 0);
-        assertDecimalEquals(body.getValue(3), -4);
-        assertDecimalEquals(body.getValue(4), 1);
+        assertDoubleEquals(body.getValue(0), 8);
+        assertDoubleEquals(body.getValue(1), 3);
+        assertDoubleEquals(body.getValue(2), 0);
+        assertDoubleEquals(body.getValue(3), -4);
+        assertDoubleEquals(body.getValue(4), 1);
     }
 }

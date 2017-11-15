@@ -32,7 +32,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class CloseLocationValueIndicatorTest {
 
@@ -49,14 +49,14 @@ public class CloseLocationValueIndicatorTest {
         ticks.add(new MockTick(11, 12, 12, 10));
         series = new MockTimeSeries(ticks);
     }
-    
+
     @Test
     public void getValue() {
         CloseLocationValueIndicator clv = new CloseLocationValueIndicator(series);
-        assertDecimalEquals(clv.getValue(0), 0.6);
-        assertDecimalEquals(clv.getValue(1), 0.5);
-        assertDecimalEquals(clv.getValue(2), 0);
-        assertDecimalEquals(clv.getValue(3), -1d/7);
-        assertDecimalEquals(clv.getValue(4), 1);
+        assertDoubleEquals(clv.getValue(0), 0.6);
+        assertDoubleEquals(clv.getValue(1), 0.5);
+        assertDoubleEquals(clv.getValue(2), 0);
+        assertDoubleEquals(clv.getValue(3), -1d/7);
+        assertDoubleEquals(clv.getValue(4), 1);
     }
 }

@@ -22,20 +22,20 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
  * Moving average convergence divergence (MACDIndicator) indicator.
  * <p>
  */
-public class MACDIndicator extends CachedIndicator<Decimal> {
+public class MACDIndicator extends CachedIndicator<Double> {
 
     private final EMAIndicator shortTermEma;
 
     private final EMAIndicator longTermEma;
 
-    public MACDIndicator(Indicator<Decimal> indicator, int shortTimeFrame, int longTimeFrame) {
+    public MACDIndicator(Indicator<Double> indicator, int shortTimeFrame, int longTimeFrame) {
         super(indicator);
         if (shortTimeFrame > longTimeFrame) {
             throw new IllegalArgumentException("Long term period count must be greater than short term period count");
@@ -45,7 +45,7 @@ public class MACDIndicator extends CachedIndicator<Decimal> {
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return shortTermEma.getValue(index).minus(longTermEma.getValue(index));
+    protected Double calculate(int index) {
+        return shortTermEma.getValue(index)- (longTermEma.getValue(index));
     }
 }

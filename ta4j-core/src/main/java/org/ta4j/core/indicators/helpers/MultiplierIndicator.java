@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.CachedIndicator;
 
@@ -30,21 +30,21 @@ import org.ta4j.core.indicators.CachedIndicator;
  * Simple multiplier indicator.
  * <p>
  */
-public class MultiplierIndicator extends CachedIndicator<Decimal> {
+public class MultiplierIndicator extends CachedIndicator<Double> {
 
-    private Indicator<Decimal> indicator;
-    
-    private Decimal coefficient;
-    
-    public MultiplierIndicator(Indicator<Decimal> indicator, Decimal coefficient) {
+    private Indicator<Double> indicator;
+
+    private Double coefficient;
+
+    public MultiplierIndicator(Indicator<Double> indicator, Double coefficient) {
         super(indicator);
         this.indicator = indicator;
         this.coefficient = coefficient;
     }
 
     @Override
-    protected Decimal calculate(int index) {
-        return indicator.getValue(index).multipliedBy(coefficient);
+    protected Double calculate(int index) {
+        return indicator.getValue(index)* (coefficient);
     }
 
     @Override

@@ -30,7 +30,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import static org.junit.Assert.*;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class TickTest {
 
@@ -55,12 +55,12 @@ public class TickTest {
         tick.addTrade(2.0, 198.0);
 
         assertEquals(3, tick.getTrades());
-        assertDecimalEquals(tick.getAmount(), 3 * 200 + 4 * 201 + 2 * 198);
-        assertDecimalEquals(tick.getOpenPrice(), 200);
-        assertDecimalEquals(tick.getClosePrice(), 198);
-        assertDecimalEquals(tick.getMinPrice(), 198);
-        assertDecimalEquals(tick.getMaxPrice(), 201);
-        assertDecimalEquals(tick.getVolume(), 9);
+        assertDoubleEquals(tick.getAmount(), 3 * 200 + 4 * 201 + 2 * 198);
+        assertDoubleEquals(tick.getOpenPrice(), 200);
+        assertDoubleEquals(tick.getClosePrice(), 198);
+        assertDoubleEquals(tick.getMinPrice(), 198);
+        assertDoubleEquals(tick.getMaxPrice(), 201);
+        assertDoubleEquals(tick.getVolume(), 9);
     }
 
     @Test

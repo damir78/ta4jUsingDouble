@@ -25,26 +25,26 @@ package org.ta4j.core.indicators.helpers;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class FixedIndicatorTest {
-    
-    private FixedDecimalIndicator fixedDecimalIndicator;
-    
+
+    private FixedDecimalIndicator FixedDecimalIndicator;
+
     private FixedBooleanIndicator fixedBooleanIndicator;
 
     @Test
     public void getValueOnFixedDecimalIndicator() {
-        fixedDecimalIndicator = new FixedDecimalIndicator(13.37, 42, -17);
-        assertDecimalEquals(fixedDecimalIndicator.getValue(0), 13.37);
-        assertDecimalEquals(fixedDecimalIndicator.getValue(1), 42);
-        assertDecimalEquals(fixedDecimalIndicator.getValue(2), -17);
-        
-        fixedDecimalIndicator = new FixedDecimalIndicator("3.0", "-123.456", "0");
-        assertDecimalEquals(fixedDecimalIndicator.getValue(0), "3");
-        assertDecimalEquals(fixedDecimalIndicator.getValue(1), "-123.456");
-        assertDecimalEquals(fixedDecimalIndicator.getValue(2), "0.0");
-        
+        FixedDecimalIndicator = new FixedDecimalIndicator(13.37, 42, -17);
+        assertDoubleEquals(FixedDecimalIndicator.getValue(0), 13.37);
+        assertDoubleEquals(FixedDecimalIndicator.getValue(1), 42);
+        assertDoubleEquals(FixedDecimalIndicator.getValue(2), -17);
+
+        FixedDecimalIndicator = new FixedDecimalIndicator("3.0", "-123.456", "0");
+        assertDoubleEquals(FixedDecimalIndicator.getValue(0), "3");
+        assertDoubleEquals(FixedDecimalIndicator.getValue(1), "-123.456");
+        assertDoubleEquals(FixedDecimalIndicator.getValue(2), "0.0");
+
     }
 
     @Test

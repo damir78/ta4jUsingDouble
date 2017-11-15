@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.trading.rules;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
 import org.ta4j.core.indicators.helpers.HighestValueIndicator;
@@ -36,17 +36,17 @@ import org.ta4j.core.indicators.helpers.HighestValueIndicator;
 public class IsHighestRule extends AbstractRule {
 
 	/** The actual indicator */
-	private Indicator<Decimal> ref;
+	private Indicator<Double> ref;
 	/** The timeFrame */
 	private int timeFrame;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param ref
 	 * @param timeFrame
 	 */
-	public IsHighestRule(Indicator<Decimal> ref, int timeFrame) {
+	public IsHighestRule(Indicator<Double> ref, int timeFrame) {
 		this.ref = ref;
 		this.timeFrame = timeFrame;
 	}
@@ -54,9 +54,9 @@ public class IsHighestRule extends AbstractRule {
 	@Override
 	public boolean isSatisfied(int index, TradingRecord tradingRecord) {
 		HighestValueIndicator highest = new HighestValueIndicator(ref, timeFrame);
-		Decimal highestVal = highest.getValue(index);
-		Decimal refVal = ref.getValue(index);
-		
+		Double highestVal = highest.getValue(index);
+		Double refVal = ref.getValue(index);
+
 		final boolean satisfied = !refVal.isNaN() && !highestVal.isNaN() && refVal.equals(highestVal);
 		traceIsSatisfied(index, satisfied);
 		return satisfied;

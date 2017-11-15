@@ -31,7 +31,7 @@ import org.ta4j.core.mocks.MockTimeSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class PVIIndicatorTest {
 
@@ -52,15 +52,15 @@ public class PVIIndicatorTest {
         TimeSeries series = new MockTimeSeries(ticks);
 
         PVIIndicator pvi = new PVIIndicator(series);
-        assertDecimalEquals(pvi.getValue(0), 1000);
-        assertDecimalEquals(pvi.getValue(1), 977.7383);
-        assertDecimalEquals(pvi.getValue(2), 984.7532);
-        assertDecimalEquals(pvi.getValue(3), 984.7532);
-        assertDecimalEquals(pvi.getValue(4), 984.7532);
-        assertDecimalEquals(pvi.getValue(5), 984.7532);
-        assertDecimalEquals(pvi.getValue(6), 982.6755);
-        assertDecimalEquals(pvi.getValue(7), 1007.164);
-        assertDecimalEquals(pvi.getValue(8), 1007.164);
-        assertDecimalEquals(pvi.getValue(9), 1007.164);
+        assertDoubleEquals(pvi.getValue(0), 1000);
+        assertDoubleEquals(pvi.getValue(1), 977.7383);
+        assertDoubleEquals(pvi.getValue(2), 984.7532);
+        assertDoubleEquals(pvi.getValue(3), 984.7532);
+        assertDoubleEquals(pvi.getValue(4), 984.7532);
+        assertDoubleEquals(pvi.getValue(5), 984.7532);
+        assertDoubleEquals(pvi.getValue(6), 982.6755);
+        assertDoubleEquals(pvi.getValue(7), 1007.164);
+        assertDoubleEquals(pvi.getValue(8), 1007.164);
+        assertDoubleEquals(pvi.getValue(9), 1007.164);
     }
 }

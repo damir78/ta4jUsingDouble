@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class EMAIndicatorTest {
 
@@ -54,15 +54,15 @@ public class EMAIndicatorTest {
     public void emaUsingTimeFrame10UsingClosePrice() {
         EMAIndicator ema = new EMAIndicator(new ClosePriceIndicator(data), 10);
 
-        assertDecimalEquals(ema.getValue(9), 63.6536);
-        assertDecimalEquals(ema.getValue(10), 63.2312);
-        assertDecimalEquals(ema.getValue(11), 62.9182);
+        assertDoubleEquals(ema.getValue(9), 63.6536);
+        assertDoubleEquals(ema.getValue(10), 63.2312);
+        assertDoubleEquals(ema.getValue(11), 62.9182);
     }
 
     @Test
     public void emaFirstValueShouldBeEqualsToFirstDataValue() {
         EMAIndicator ema = new EMAIndicator(new ClosePriceIndicator(data), 1);
-        assertDecimalEquals(ema.getValue(0), "64.75");
+        assertDoubleEquals(ema.getValue(0), "64.75");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class EMAIndicatorTest {
         EMAIndicator ema = new EMAIndicator(closePrice, 10);
         // If a StackOverflowError is thrown here, then the RecursiveCachedIndicator
         // does not work as intended.
-        assertDecimalEquals(ema.getValue(9999), 9994.5);
+        assertDoubleEquals(ema.getValue(9999), 9994.5);
 
     }
 }

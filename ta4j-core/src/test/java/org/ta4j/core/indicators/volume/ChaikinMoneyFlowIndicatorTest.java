@@ -32,13 +32,13 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.ta4j.core.TATestsUtils.assertDecimalEquals;
+import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 
 public class ChaikinMoneyFlowIndicatorTest {
 
     @Test
     public void getValue() {
-        
+
         ZonedDateTime now = ZonedDateTime.now();
         List<Tick> ticks = new ArrayList<>();
         ticks.add(new BaseTick(now, "0", "62.34", "61.37", "62.15", "7849.025"));
@@ -60,7 +60,7 @@ public class ChaikinMoneyFlowIndicatorTest {
         ticks.add(new BaseTick(now, "0", "59.53", "58.30", "59.10", "6956.717"));
         ticks.add(new BaseTick(now, "0", "62.10", "58.53", "61.92", "18171.552"));
         ticks.add(new BaseTick(now, "0", "62.16", "59.80", "61.37", "22225.894"));
-        
+
         ticks.add(new BaseTick(now, "0", "62.67", "60.93", "61.68", "14613.509"));
         ticks.add(new BaseTick(now, "0", "62.38", "60.15", "62.09", "12319.763"));
         ticks.add(new BaseTick(now, "0", "63.73", "62.26", "62.89", "15007.690"));
@@ -73,21 +73,21 @@ public class ChaikinMoneyFlowIndicatorTest {
         ticks.add(new BaseTick(now, "0", "63.18", "61.11", "61.55", "8926.512"));
         ticks.add(new BaseTick(now, "0", "62.70", "61.25", "62.69", "7459.575"));
         TimeSeries series = new BaseTimeSeries(ticks);
-        
+
         ChaikinMoneyFlowIndicator cmf = new ChaikinMoneyFlowIndicator(series, 20);
-        
-        assertDecimalEquals(cmf.getValue(0), 0.6082);
-        assertDecimalEquals(cmf.getValue(1), -0.2484);
-        assertDecimalEquals(cmf.getValue(19), -0.1211);
-        assertDecimalEquals(cmf.getValue(20), -0.0997);
-        assertDecimalEquals(cmf.getValue(21), -0.0659);
-        assertDecimalEquals(cmf.getValue(22), -0.0257);
-        assertDecimalEquals(cmf.getValue(23), -0.0617);
-        assertDecimalEquals(cmf.getValue(24), -0.0481);
-        assertDecimalEquals(cmf.getValue(25), -0.0086);
-        assertDecimalEquals(cmf.getValue(26), -0.0087);
-        assertDecimalEquals(cmf.getValue(27), -0.005);
-        assertDecimalEquals(cmf.getValue(28), -0.0574);
-        assertDecimalEquals(cmf.getValue(29), -0.0148);
+
+        assertDoubleEquals(cmf.getValue(0), 0.6082);
+        assertDoubleEquals(cmf.getValue(1), -0.2484);
+        assertDoubleEquals(cmf.getValue(19), -0.1211);
+        assertDoubleEquals(cmf.getValue(20), -0.0997);
+        assertDoubleEquals(cmf.getValue(21), -0.0659);
+        assertDoubleEquals(cmf.getValue(22), -0.0257);
+        assertDoubleEquals(cmf.getValue(23), -0.0617);
+        assertDoubleEquals(cmf.getValue(24), -0.0481);
+        assertDoubleEquals(cmf.getValue(25), -0.0086);
+        assertDoubleEquals(cmf.getValue(26), -0.0087);
+        assertDoubleEquals(cmf.getValue(27), -0.005);
+        assertDoubleEquals(cmf.getValue(28), -0.0574);
+        assertDoubleEquals(cmf.getValue(29), -0.0148);
     }
 }

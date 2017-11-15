@@ -22,7 +22,7 @@
  */
 package org.ta4j.core.indicators;
 
-import org.ta4j.core.Decimal;
+
 import org.ta4j.core.Indicator;
 
 /**
@@ -30,26 +30,26 @@ import org.ta4j.core.Indicator;
  * <p>
  * @see http://www.fmlabs.com/reference/default.htm?url=ZeroLagExpMA.htm
  */
-public class ZLEMAIndicator extends RecursiveCachedIndicator<Decimal> {
+public class ZLEMAIndicator extends RecursiveCachedIndicator<Double> {
 
-    private final Indicator<Decimal> indicator;
+    private final Indicator<Double> indicator;
 
     private final int timeFrame;
 
-    private final Decimal k;
-    
+    private final Double k;
+
     private final int lag;
 
-    public ZLEMAIndicator(Indicator<Decimal> indicator, int timeFrame) {
+    public ZLEMAIndicator(Indicator<Double> indicator, int timeFrame) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
-        k = Decimal.TWO.dividedBy(Decimal.valueOf(timeFrame + 1));
+        k = 2d/ (Double.valueOf(timeFrame + 1));
         lag = (timeFrame - 1) / 2;
     }
 
     @Override
-    protected Decimal calculate(int index) {
+    protected Double calculate(int index) {
         if (index + 1 < timeFrame) {
             // Starting point of the ZLEMA
             return new SMAIndicator(indicator, timeFrame).getValue(index);
@@ -58,11 +58,11 @@ public class ZLEMAIndicator extends RecursiveCachedIndicator<Decimal> {
             // If the timeframe is bigger than the indicator's value count
             return indicator.getValue(0);
         }
-        Decimal zlemaPrev = getValue(index - 1);
-        return k.multipliedBy(Decimal.TWO.multipliedBy(indicator.getValue(index)).minus(indicator.getValue(index-lag)))
-                .plus(Decimal.ONE.minus(k).multipliedBy(zlemaPrev));
+        Double zlemaPrev = getValue(index - 1);
+        return k* (2d* (indicator.getValue(index))- (indicator.getValue(index-lag)))
+                +(1d- (k)* (zlemaPrev));
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + " timeFrame: " + timeFrame;

@@ -22,12 +22,12 @@
  */
 package org.ta4j.core.indicators.helpers;
 
-import org.ta4j.core.Decimal;
+
 
 /**
- * A fixed decimal indicator.
+ * A fixed Double indicator.
  */
-public class FixedDecimalIndicator extends FixedIndicator<Decimal> {
+public class FixedDecimalIndicator extends FixedIndicator<Double> {
 
     /**
      * Constructor.
@@ -35,17 +35,17 @@ public class FixedDecimalIndicator extends FixedIndicator<Decimal> {
      */
     public FixedDecimalIndicator(double... values) {
         for (double value : values) {
-            addValue(Decimal.valueOf(value));
+            addValue(Double.valueOf(value));
         }
     }
-    
+
     /**
      * Constructor.
      * @param values the values to be returned by this indicator
      */
     public FixedDecimalIndicator(String... values) {
         for (String value : values) {
-            addValue(Decimal.valueOf(value));
+            addValue(Double.valueOf(value));
         }
     }
 }
