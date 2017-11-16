@@ -29,6 +29,7 @@ import org.ta4j.core.indicators.CachedIndicator;
 /**
  * Standard deviation indicator.
  * <p>
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:standard_deviation_volatility
  */
 public class StandardDeviationIndicator extends CachedIndicator<Double> {
@@ -37,6 +38,7 @@ public class StandardDeviationIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.
+     *
      * @param indicator the indicator
      * @param timeFrame the time frame
      */

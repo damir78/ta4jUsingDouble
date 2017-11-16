@@ -29,18 +29,24 @@ import org.ta4j.core.indicators.CachedIndicator;
 /**
  * Ichimoku clouds: Senkou Span A (Leading Span A) indicator
  * <p>
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:ichimoku_cloud
  */
 public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Double> {
 
-    /** The Tenkan-sen indicator */
+    /**
+     * The Tenkan-sen indicator
+     */
     private final IchimokuTenkanSenIndicator conversionLine;
 
-    /** The Kijun-sen indicator */
+    /**
+     * The Kijun-sen indicator
+     */
     private final IchimokuKijunSenIndicator baseLine;
 
     /**
      * Constructor.
+     *
      * @param series the series
      */
     public IchimokuSenkouSpanAIndicator(TimeSeries series) {
@@ -49,9 +55,10 @@ public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.
-     * @param series the series
+     *
+     * @param series                  the series
      * @param timeFrameConversionLine the time frame for the conversion line (usually 9)
-     * @param timeFrameBaseLine the time frame for the base line (usually 26)
+     * @param timeFrameBaseLine       the time frame for the base line (usually 26)
      */
     public IchimokuSenkouSpanAIndicator(TimeSeries series, int timeFrameConversionLine, int timeFrameBaseLine) {
         this(series, new IchimokuTenkanSenIndicator(series, timeFrameConversionLine), new IchimokuKijunSenIndicator(series, timeFrameBaseLine));
@@ -59,9 +66,10 @@ public class IchimokuSenkouSpanAIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.
-     * @param series the series
+     *
+     * @param series         the series
      * @param conversionLine the conversion line
-     * @param baseLine the base line
+     * @param baseLine       the base line
      */
     public IchimokuSenkouSpanAIndicator(TimeSeries series, IchimokuTenkanSenIndicator conversionLine, IchimokuKijunSenIndicator baseLine) {
         super(series);

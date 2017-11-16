@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -42,7 +42,7 @@ public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
      * @TODO Should be variable (depending on the sub-indicators used in this indicator)
      */
     private static final int RECURSION_THRESHOLD = 100;
-    
+
     /**
      * Constructor.
      * @param series the related time series
@@ -77,7 +77,7 @@ public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
                 }
             }
         }
-        
+
         return super.getValue(index);
     }
 }

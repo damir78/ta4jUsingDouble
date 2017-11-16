@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -36,7 +36,9 @@ import java.util.List;
  */
 public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
 
-    /** List of cached results */
+    /**
+     * List of cached results
+     */
     private final List<T> results = new ArrayList<T>();
 
     /**
@@ -47,6 +49,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
 
     /**
      * Constructor.
+     *
      * @param series the related time series
      */
     public CachedIndicator(TimeSeries series) {
@@ -55,6 +58,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
 
     /**
      * Constructor.
+     *
      * @param indicator a related indicator (with a time series)
      */
     public CachedIndicator(Indicator indicator) {
@@ -63,6 +67,9 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
 
     @Override
     public T getValue(int index) {
+       /* return calculate(index); */
+
+
         TimeSeries series = getTimeSeries();
         if (series == null) {
             // Series is null; the indicator doesn't need cache.
@@ -97,7 +104,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
                 // Result not calculated yet
                 highestResultIndex = index;
                 result = calculate(index);
-                results.set(results.size()-1, result);
+                results.set(results.size() - 1, result);
             } else {
                 // Result covered by current cache
                 int resultInnerIndex = results.size() - 1 - (highestResultIndex - index);
@@ -109,6 +116,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
             }
         }
         return result;
+
     }
 
     /**
@@ -119,29 +127,31 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
 
     /**
      * Increases the size of cached results buffer.
-     * @param index the index to increase length to
+     *
+     * @param index     the index to increase length to
      * @param maxLength the maximum length of the results buffer
      */
     private void increaseLengthTo(int index, int maxLength) {
         if (highestResultIndex > -1) {
-            int newResultsCount = Math.min(index-highestResultIndex, maxLength);
+            int newResultsCount = Math.min(index - highestResultIndex, maxLength);
             if (newResultsCount == maxLength) {
                 results.clear();
-                results.addAll(Collections.<T> nCopies(maxLength, null));
+                results.addAll(Collections.<T>nCopies(maxLength, null));
             } else if (newResultsCount > 0) {
-                results.addAll(Collections.<T> nCopies(newResultsCount, null));
+                results.addAll(Collections.<T>nCopies(newResultsCount, null));
                 removeExceedingResults(maxLength);
             }
         } else {
             // First use of cache
             assert results.isEmpty() : "Cache results list should be empty";
-            results.addAll(Collections.<T> nCopies(Math.min(index+1, maxLength), null));
+            results.addAll(Collections.<T>nCopies(Math.min(index + 1, maxLength), null));
         }
     }
 
     /**
      * Removes the N first results which exceed the maximum tick count.
      * (i.e. keeps only the last maximumResultCount results)
+     *
      * @param maximumResultCount the number of results to keep
      */
     private void removeExceedingResults(int maximumResultCount) {

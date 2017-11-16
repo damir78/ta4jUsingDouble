@@ -31,6 +31,7 @@ import java.util.List;
 /**
  * Pivot Reversal Indicator.
  * <p>
+ *
  * @author team172011(Simon-Justus Wimmer), 11.10.2017
  * @see <a href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:pivot_points">chart_school: pivotpoints</a>
  */
@@ -43,8 +44,9 @@ public class StandardReversalIndicator extends RecursiveCachedIndicator<Double> 
      * Constructor.
      * <p>
      * Calculates the (standard) reversal for the corresponding pivot level
+     *
      * @param pivotPointIndicator the {@link PivotPointIndicator} for this reversal
-     * @param level the {@link PivotLevel} for this reversal
+     * @param level               the {@link PivotLevel} for this reversal
      */
     public StandardReversalIndicator(PivotPointIndicator pivotPointIndicator, PivotLevel level) {
         super(pivotPointIndicator);

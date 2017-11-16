@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -35,15 +35,11 @@ import org.ta4j.core.indicators.helpers.MinPriceIndicator;
  */
 public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
 
-    private Double accelerationFactor;
     private final Double maxAcceleration;
     private final Double accelerationIncrement;
     private final Double accelarationStart;
-
-
-
     private final TimeSeries series;
-
+    private Double accelerationFactor;
     private boolean currentTrend; // true if uptrend, false otherwise
     private int startTrendIndex = 0; // index of start tick of the current trend
     private MinPriceIndicator minPriceIndicator;
@@ -55,8 +51,8 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
      * Constructor with default parameters
      * @param series the time series for this indicator
      */
-    public ParabolicSarIndicator(TimeSeries series){
-        this(series,Double.valueOf("0.02"), Double.valueOf("0.2"), Double.valueOf("0.02"));
+    public ParabolicSarIndicator(TimeSeries series) {
+        this(series, Double.valueOf("0.02"), Double.valueOf("0.2"), Double.valueOf("0.02"));
 
     }
 
@@ -66,7 +62,7 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
      * @param aF acceleration factor
      * @param maxA maximum acceleration
      */
-    public ParabolicSarIndicator(TimeSeries series, Double aF,Double maxA) {
+    public ParabolicSarIndicator(TimeSeries series, Double aF, Double maxA) {
         this(series, aF, maxA, Double.valueOf("0.02"));
     }
 
@@ -77,7 +73,7 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
      * @param maxA maximum acceleration
      * @param increment the increment step
      */
-    public ParabolicSarIndicator(TimeSeries series, Double aF,Double maxA, Double increment) {
+    public ParabolicSarIndicator(TimeSeries series, Double aF, Double maxA, Double increment) {
         super(series);
         this.series = series;
         maxPriceIndicator = new MaxPriceIndicator(series);
@@ -94,7 +90,7 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
         if (index == series.getBeginIndex()) {
             return sar; // no trend detection possible for the first value
         } else if (index == series.getBeginIndex() + 1) {// start trend detection
-            currentTrend = series.getTick(series.getBeginIndex()).getClosePrice()< (series.getTick(index).getClosePrice());
+            currentTrend = series.getTick(series.getBeginIndex()).getClosePrice() < (series.getTick(index).getClosePrice());
             if (!currentTrend) { // down trend
                 sar = maxPriceIndicator.getValue(index); // put sar on max price of candlestick
                 currentExtremePoint = sar;
@@ -108,10 +104,10 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
             return sar;
         }
 
-        Double priorSar = getValue(index-1);
+        Double priorSar = getValue(index - 1);
         if (currentTrend) { // if up trend
-            sar = priorSar+(accelerationFactor* ((currentExtremePoint- (priorSar))));
-            currentTrend = minPriceIndicator.getValue(index)> (sar);
+            sar = priorSar + (accelerationFactor * ((currentExtremePoint - (priorSar))));
+            currentTrend = minPriceIndicator.getValue(index) > (sar);
             if (!currentTrend) { // check if sar touches the min price
                 sar = minMaxExtremePoint; // sar starts at the highest extreme point of previous up trend
                 currentTrend = false; // switch to down trend and reset values
@@ -121,15 +117,15 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
                 minMaxExtremePoint = currentExtremePoint;
             } else { // up trend is going on
                 currentExtremePoint = new HighestValueIndicator(maxPriceIndicator, index - startTrendIndex).getValue(index);
-                if (currentExtremePoint> (minMaxExtremePoint)) {
+                if (currentExtremePoint > (minMaxExtremePoint)) {
                     incrementAcceleration();
                     minMaxExtremePoint = currentExtremePoint;
                 }
 
             }
         } else { // downtrend
-            sar = priorSar- (accelerationFactor* (((priorSar- (currentExtremePoint)))));
-            currentTrend = maxPriceIndicator.getValue(index)>=(sar);
+            sar = priorSar - (accelerationFactor * (((priorSar - (currentExtremePoint)))));
+            currentTrend = maxPriceIndicator.getValue(index) >= (sar);
             if (currentTrend) { // check if switch to up trend
                 sar = minMaxExtremePoint; // sar starts at the lowest extreme point of previous down trend
                 accelerationFactor = accelarationStart;
@@ -138,7 +134,7 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
                 minMaxExtremePoint = currentExtremePoint;
             } else { // down trend io going on
                 currentExtremePoint = new LowestValueIndicator(minPriceIndicator, index - startTrendIndex).getValue(index);
-                if (currentExtremePoint< (minMaxExtremePoint)) {
+                if (currentExtremePoint < (minMaxExtremePoint)) {
                     incrementAcceleration();
                     minMaxExtremePoint = currentExtremePoint;
                 }
@@ -152,10 +148,10 @@ public class ParabolicSarIndicator extends RecursiveCachedIndicator<Double> {
      * Increments the acceleration factor.
      */
     private void incrementAcceleration() {
-        if (accelerationFactor>=(maxAcceleration)) {
+        if (accelerationFactor >= (maxAcceleration)) {
             accelerationFactor = maxAcceleration;
         } else {
-            accelerationFactor = accelerationFactor+(accelerationIncrement);
+            accelerationFactor = accelerationFactor + (accelerationIncrement);
         }
     }
 }

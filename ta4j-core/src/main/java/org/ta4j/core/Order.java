@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -39,44 +39,13 @@ import java.util.Objects;
  */
 public class Order implements Serializable {
 
-	private static final long serialVersionUID = -905474949010114150L;
-
-	/**
-     * The type of an {@link Order order}.
-     * <p>
-     * A BUY corresponds to a <i>BID</i> order.<p>
-     * A SELL corresponds to an <i>ASK</i> order.
-     */
-    public enum OrderType {
-
-        BUY {
-            @Override
-            public OrderType complementType() {
-                return SELL;
-            }
-        },
-        SELL {
-            @Override
-            public OrderType complementType() {
-                return BUY;
-            }
-        };
-
-        /**
-         * @return the complementary order type
-         */
-        public abstract OrderType complementType();
-    }
-
+    private static final long serialVersionUID = -905474949010114150L;
     /** Type of the order */
     private OrderType type;
-
     /** The index the order was executed */
     private int index;
-
     /** The price for the order */
     private Double price = Double.NaN;
-
     /** The amount to be (or that was) ordered */
     private Double amount = Double.NaN;
 
@@ -101,6 +70,42 @@ public class Order implements Serializable {
         this(index, type);
         this.price = price;
         this.amount = amount;
+    }
+
+    /**
+     * @param index the index the order is executed
+     * @return a BUY order
+     */
+    public static Order buyAt(int index) {
+        return new Order(index, OrderType.BUY);
+    }
+
+    /**
+     * @param index the index the order is executed
+     * @param price the price for the order
+     * @param amount the amount to be (or that was) bought
+     * @return a BUY order
+     */
+    public static Order buyAt(int index, Double price, Double amount) {
+        return new Order(index, OrderType.BUY, price, amount);
+    }
+
+    /**
+     * @param index the index the order is executed
+     * @return a SELL order
+     */
+    public static Order sellAt(int index) {
+        return new Order(index, OrderType.SELL);
+    }
+
+    /**
+     * @param index the index the order is executed
+     * @param price the price for the order
+     * @param amount the amount to be (or that was) sold
+     * @return a SELL order
+     */
+    public static Order sellAt(int index, Double price, Double amount) {
+        return new Order(index, OrderType.SELL, price, amount);
     }
 
     /**
@@ -180,38 +185,29 @@ public class Order implements Serializable {
     }
 
     /**
-     * @param index the index the order is executed
-     * @return a BUY order
+     * The type of an {@link Order order}.
+     * <p>
+     * A BUY corresponds to a <i>BID</i> order.<p>
+     * A SELL corresponds to an <i>ASK</i> order.
      */
-    public static Order buyAt(int index) {
-        return new Order(index, OrderType.BUY);
-    }
+    public enum OrderType {
 
-    /**
-     * @param index the index the order is executed
-     * @param price the price for the order
-     * @param amount the amount to be (or that was) bought
-     * @return a BUY order
-     */
-    public static Order buyAt(int index, Double price, Double amount) {
-        return new Order(index, OrderType.BUY, price, amount);
-    }
+        BUY {
+            @Override
+            public OrderType complementType() {
+                return SELL;
+            }
+        },
+        SELL {
+            @Override
+            public OrderType complementType() {
+                return BUY;
+            }
+        };
 
-    /**
-     * @param index the index the order is executed
-     * @return a SELL order
-     */
-    public static Order sellAt(int index) {
-        return new Order(index, OrderType.SELL);
-    }
-
-    /**
-     * @param index the index the order is executed
-     * @param price the price for the order
-     * @param amount the amount to be (or that was) sold
-     * @return a SELL order
-     */
-    public static Order sellAt(int index, Double price, Double amount) {
-        return new Order(index, OrderType.SELL, price, amount);
+        /**
+         * @return the complementary order type
+         */
+        public abstract OrderType complementType();
     }
 }

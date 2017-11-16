@@ -30,6 +30,7 @@ import org.ta4j.core.indicators.statistics.StandardDeviationIndicator;
 
 /**
  * %B indicator.
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_perce
  */
 public class PercentBIndicator extends CachedIndicator<Double> {
@@ -44,9 +45,10 @@ public class PercentBIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.
+     *
      * @param indicator an indicator (usually close price)
      * @param timeFrame the time frame
-     * @param k the K multiplier (usually 2.0)
+     * @param k         the K multiplier (usually 2.0)
      */
     public PercentBIndicator(Indicator<Double> indicator, int timeFrame, Double k) {
         super(indicator);

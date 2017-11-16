@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -33,15 +33,11 @@ import org.ta4j.core.indicators.helpers.*;
  */
 public class WilliamsRIndicator extends CachedIndicator<Double> {
 
-    private final Indicator<Double> indicator;
-
-    private final int timeFrame;
-
-    private MaxPriceIndicator maxPriceIndicator;
-
-    private MinPriceIndicator minPriceIndicator;
-
     private final static Double multiplier = Double.valueOf("-100");
+    private final Indicator<Double> indicator;
+    private final int timeFrame;
+    private MaxPriceIndicator maxPriceIndicator;
+    private MinPriceIndicator minPriceIndicator;
 
     public WilliamsRIndicator(TimeSeries timeSeries, int timeFrame) {
         this(new ClosePriceIndicator(timeSeries), timeFrame, new MaxPriceIndicator(timeSeries), new MinPriceIndicator(
@@ -49,7 +45,7 @@ public class WilliamsRIndicator extends CachedIndicator<Double> {
     }
 
     public WilliamsRIndicator(Indicator<Double> indicator, int timeFrame,
-            MaxPriceIndicator maxPriceIndicator, MinPriceIndicator minPriceIndicator) {
+                              MaxPriceIndicator maxPriceIndicator, MinPriceIndicator minPriceIndicator) {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
@@ -65,8 +61,8 @@ public class WilliamsRIndicator extends CachedIndicator<Double> {
         Double highestHighPrice = highestHigh.getValue(index);
         Double lowestLowPrice = lowestMin.getValue(index);
 
-        return ((highestHighPrice- (indicator.getValue(index)))
-                / (highestHighPrice- (lowestLowPrice)))
+        return ((highestHighPrice - (indicator.getValue(index)))
+                / (highestHighPrice - (lowestLowPrice)))
                 * (multiplier);
     }
 

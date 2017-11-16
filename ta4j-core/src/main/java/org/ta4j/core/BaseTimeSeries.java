@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -42,12 +42,12 @@ public class BaseTimeSeries implements TimeSeries {
     private final Logger log = LoggerFactory.getLogger(getClass());
     /** Name of the series */
     private final String name;
+    /** List of ticks */
+    private final List<Tick> ticks;
     /** Begin index of the time series */
     private int seriesBeginIndex = -1;
     /** End index of the time series */
     private int seriesEndIndex = -1;
-    /** List of ticks */
-    private final List<Tick> ticks;
     /** Maximum number of ticks for the time series */
     private int maximumTickCount = Integer.MAX_VALUE;
     /** Number of removed ticks */
@@ -117,7 +117,7 @@ public class BaseTimeSeries implements TimeSeries {
         this.name = name;
         this.ticks = ticks == null ? new ArrayList<>() : ticks;
         if (ticks.isEmpty()) {
-        	// Tick list empty
+            // Tick list empty
             this.seriesBeginIndex = -1;
             this.seriesEndIndex = -1;
             this.constrained = false;
@@ -128,11 +128,21 @@ public class BaseTimeSeries implements TimeSeries {
             throw new IllegalArgumentException("End index must be >= to begin index - 1");
         }
         if (seriesEndIndex >= ticks.size()) {
-        	throw new IllegalArgumentException("End index must be < to the tick list size");
+            throw new IllegalArgumentException("End index must be < to the tick list size");
         }
         this.seriesBeginIndex = seriesBeginIndex;
         this.seriesEndIndex = seriesEndIndex;
         this.constrained = constrained;
+    }
+
+    /**
+     * @param series a time series
+     * @param index an out of bounds tick index
+     * @return a message for an OutOfBoundsException
+     */
+    private static String buildOutOfBoundsMessage(BaseTimeSeries series, int index) {
+        return "Size of series: " + series.ticks.size() + " ticks, "
+                + series.removedTicksCount + " ticks removed, index = " + index;
     }
 
     @Override
@@ -168,12 +178,12 @@ public class BaseTimeSeries implements TimeSeries {
         final int startIndex = Math.max(removedTicksCount, seriesBeginIndex);
         return seriesEndIndex - startIndex + 1;
     }
-    
+
     @Override
     public List<Tick> getTickData() {
-    	return ticks;
+        return ticks;
     }
-    
+
     @Override
     public int getBeginIndex() {
         return seriesBeginIndex;
@@ -182,6 +192,11 @@ public class BaseTimeSeries implements TimeSeries {
     @Override
     public int getEndIndex() {
         return seriesEndIndex;
+    }
+
+    @Override
+    public int getMaximumTickCount() {
+        return maximumTickCount;
     }
 
     @Override
@@ -194,11 +209,6 @@ public class BaseTimeSeries implements TimeSeries {
         }
         this.maximumTickCount = maximumTickCount;
         removeExceedingTicks();
-    }
-
-    @Override
-    public int getMaximumTickCount() {
-        return maximumTickCount;
     }
 
     @Override
@@ -243,15 +253,5 @@ public class BaseTimeSeries implements TimeSeries {
             // Updating removed ticks count
             removedTicksCount += nbTicksToRemove;
         }
-    }
-
-    /**
-     * @param series a time series
-     * @param index an out of bounds tick index
-     * @return a message for an OutOfBoundsException
-     */
-    private static String buildOutOfBoundsMessage(BaseTimeSeries series, int index) {
-        return "Size of series: " + series.ticks.size() + " ticks, "
-                + series.removedTicksCount + " ticks removed, index = " + index;
     }
 }

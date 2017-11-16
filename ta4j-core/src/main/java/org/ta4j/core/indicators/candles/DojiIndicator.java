@@ -34,21 +34,27 @@ import org.ta4j.core.indicators.helpers.AbsoluteIndicator;
  * Doji indicator.
  * <p>
  * A candle/tick is considered Doji if its body height is lower than the average multiplied by a factor.
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:introduction_to_candlesticks#doji
  */
 public class DojiIndicator extends CachedIndicator<Boolean> {
 
-    /** Body height */
+    /**
+     * Body height
+     */
     private final Indicator<Double> bodyHeightInd;
-    /** Average body height */
+    /**
+     * Average body height
+     */
     private final SMAIndicator averageBodyHeightInd;
 
     private final Double factor;
 
     /**
      * Constructor.
-     * @param series a time series
-     * @param timeFrame the number of ticks used to calculate the average body height
+     *
+     * @param series     a time series
+     * @param timeFrame  the number of ticks used to calculate the average body height
      * @param bodyFactor the factor used when checking if a candle is Doji
      */
     public DojiIndicator(TimeSeries series, int timeFrame, Double bodyFactor) {

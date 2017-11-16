@@ -28,6 +28,7 @@ import org.ta4j.core.Indicator;
 /**
  * Double exponential moving average indicator.
  * <p>
+ *
  * @see https://en.wikipedia.org/wiki/Double_exponential_moving_average
  */
 public class DoubleEMAIndicator extends CachedIndicator<Double> {

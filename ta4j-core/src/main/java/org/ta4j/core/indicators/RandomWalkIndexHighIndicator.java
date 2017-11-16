@@ -46,7 +46,7 @@ public class RandomWalkIndexHighIndicator extends CachedIndicator<Double> {
     /**
      * Constructor.
      *
-     * @param series the series
+     * @param series    the series
      * @param timeFrame the time frame
      */
     public RandomWalkIndexHighIndicator(TimeSeries series, int timeFrame) {

@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -38,7 +38,7 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 
 public class PreviousValueIndicatorTest {
-    
+
     private PreviousValueIndicator prevValueIndicator;
 
     private ClosePriceIndicator closePriceIndicator;
@@ -58,8 +58,8 @@ public class PreviousValueIndicatorTest {
         for (int i = 0; i < 1000; i++) {
             double open = r.nextDouble();
             double close = r.nextDouble();
-            double max = Math.max(close+r.nextDouble(), open+r.nextDouble());
-            double min = Math.min(0, Math.min(close-r.nextDouble(), open-r.nextDouble()));
+            double max = Math.max(close + r.nextDouble(), open + r.nextDouble());
+            double min = Math.min(0, Math.min(close - r.nextDouble(), open - r.nextDouble()));
             ZonedDateTime dateTime = ZonedDateTime.now();
             Tick tick = new BaseTick(dateTime, open, close, max, min, i);
             ticks.add(tick);
@@ -81,21 +81,21 @@ public class PreviousValueIndicatorTest {
         prevValueIndicator = new PreviousValueIndicator(openPriceIndicator);
         assertEquals(prevValueIndicator.getValue(0), openPriceIndicator.getValue(0));
         for (int i = 1; i < this.series.getTickCount(); i++) {
-            assertEquals(prevValueIndicator.getValue(i), openPriceIndicator.getValue(i-1));
+            assertEquals(prevValueIndicator.getValue(i), openPriceIndicator.getValue(i - 1));
         }
 
         //test 2 with minPrice-indicator
         prevValueIndicator = new PreviousValueIndicator(minPriceIndicator);
         assertEquals(prevValueIndicator.getValue(0), minPriceIndicator.getValue(0));
         for (int i = 1; i < this.series.getTickCount(); i++) {
-            assertEquals(prevValueIndicator.getValue(i), minPriceIndicator.getValue(i-1));
+            assertEquals(prevValueIndicator.getValue(i), minPriceIndicator.getValue(i - 1));
         }
 
         //test 3 with maxPrice-indicator
         prevValueIndicator = new PreviousValueIndicator(maxPriceIndicator);
         assertEquals(prevValueIndicator.getValue(0), maxPriceIndicator.getValue(0));
         for (int i = 1; i < this.series.getTickCount(); i++) {
-            assertEquals(prevValueIndicator.getValue(i), maxPriceIndicator.getValue(i-1));
+            assertEquals(prevValueIndicator.getValue(i), maxPriceIndicator.getValue(i - 1));
         }
     }
 
@@ -109,21 +109,21 @@ public class PreviousValueIndicatorTest {
     private void testWithN(int n) {
 
         // test 1 with volume-indicator
-        prevValueIndicator = new PreviousValueIndicator(volumeIndicator,n);
+        prevValueIndicator = new PreviousValueIndicator(volumeIndicator, n);
         for (int i = 0; i < n; i++) {
             assertEquals(prevValueIndicator.getValue(i), volumeIndicator.getValue(0));
         }
         for (int i = n; i < this.series.getTickCount(); i++) {
-            assertEquals(prevValueIndicator.getValue(i), volumeIndicator.getValue(i-n));
+            assertEquals(prevValueIndicator.getValue(i), volumeIndicator.getValue(i - n));
         }
 
         // test 2 with ema-indicator
-        prevValueIndicator = new PreviousValueIndicator(emaIndicator,n);
+        prevValueIndicator = new PreviousValueIndicator(emaIndicator, n);
         for (int i = 0; i < n; i++) {
             assertEquals(prevValueIndicator.getValue(i), emaIndicator.getValue(0));
         }
         for (int i = n; i < this.series.getTickCount(); i++) {
-            assertEquals(prevValueIndicator.getValue(i), emaIndicator.getValue(i-n));
+            assertEquals(prevValueIndicator.getValue(i), emaIndicator.getValue(i - n));
         }
     }
 }

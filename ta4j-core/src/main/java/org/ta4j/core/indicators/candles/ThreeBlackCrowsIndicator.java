@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -82,7 +82,7 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
         // We use the white candle index to remove to bias of the previous crows
         Double averageLowerShadow = averageLowerShadowInd.getValue(whiteCandleIndex);
 
-        return currentLowerShadow< (averageLowerShadow* (factor));
+        return currentLowerShadow < (averageLowerShadow * (factor));
     }
 
     /**
@@ -90,7 +90,7 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
      * @return true if the current tick/candle is declining, false otherwise
      */
     private boolean isDeclining(int index) {
-        Tick prevTick = series.getTick(index-1);
+        Tick prevTick = series.getTick(index - 1);
         Tick currTick = series.getTick(index);
         final Double prevOpenPrice = prevTick.getOpenPrice();
         final Double prevClosePrice = prevTick.getClosePrice();
@@ -98,9 +98,9 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
         final Double currClosePrice = currTick.getClosePrice();
 
         // Opens within the body of the previous candle
-        return currOpenPrice< (prevOpenPrice) && currOpenPrice> (prevClosePrice)
+        return currOpenPrice < (prevOpenPrice) && currOpenPrice > (prevClosePrice)
                 // Closes below the previous close price
-                && currClosePrice< (prevClosePrice);
+                && currClosePrice < (prevClosePrice);
     }
 
     /**
@@ -108,13 +108,13 @@ public class ThreeBlackCrowsIndicator extends CachedIndicator<Boolean> {
      * @return true if the current tick/candle is a black crow, false otherwise
      */
     private boolean isBlackCrow(int index) {
-        Tick prevTick = series.getTick(index-1);
+        Tick prevTick = series.getTick(index - 1);
         Tick currTick = series.getTick(index);
         if (currTick.isBearish()) {
             if (prevTick.isBullish()) {
                 // First crow case
                 return hasVeryShortLowerShadow(index)
-                        && currTick.getOpenPrice()< (prevTick.getMaxPrice());
+                        && currTick.getOpenPrice() < (prevTick.getMaxPrice());
             } else {
                 return hasVeryShortLowerShadow(index) && isDeclining(index);
             }

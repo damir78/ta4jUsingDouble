@@ -34,15 +34,20 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
  */
 public class StopGainRule extends AbstractRule {
 
-    /** The close price indicator */
+    /**
+     * The close price indicator
+     */
     private ClosePriceIndicator closePrice;
 
-    /** The gain ratio threshold (e.g. 1.03 for 3%) */
+    /**
+     * The gain ratio threshold (e.g. 1.03 for 3%)
+     */
     private Double gainRatioThreshold;
 
     /**
      * Constructor.
-     * @param closePrice the close price indicator
+     *
+     * @param closePrice     the close price indicator
      * @param gainPercentage the gain percentage
      */
     public StopGainRule(ClosePriceIndicator closePrice, Double gainPercentage) {

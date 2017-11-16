@@ -30,6 +30,7 @@ public class FixedDecimalIndicator extends FixedIndicator<Double> {
 
     /**
      * Constructor.
+     *
      * @param values the values to be returned by this indicator
      */
     public FixedDecimalIndicator(double... values) {
@@ -40,6 +41,7 @@ public class FixedDecimalIndicator extends FixedIndicator<Double> {
 
     /**
      * Constructor.
+     *
      * @param values the values to be returned by this indicator
      */
     public FixedDecimalIndicator(String... values) {

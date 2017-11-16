@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -40,7 +40,7 @@ public class PreviousValueIndicator extends CachedIndicator<Double> {
      * @param indicator the indicator of which the previous value should be calculated
      */
     public PreviousValueIndicator(Indicator<Double> indicator) {
-        this(indicator,1);
+        this(indicator, 1);
     }
 
     /**
@@ -48,14 +48,14 @@ public class PreviousValueIndicator extends CachedIndicator<Double> {
      * @param indicator the indicator of which the previous value should be calculated
      * @param n parameter defines the previous n-th value
      */
-    public PreviousValueIndicator(Indicator<Double> indicator, int n){
+    public PreviousValueIndicator(Indicator<Double> indicator, int n) {
         super(indicator);
         this.n = n;
         this.indicator = indicator;
     }
 
     protected Double calculate(int index) {
-        int previousValue = Math.max(0, (index-n));
+        int previousValue = Math.max(0, (index - n));
         return this.indicator.getValue(previousValue);
     }
 }

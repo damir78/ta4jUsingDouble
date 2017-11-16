@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -48,14 +48,14 @@ public class SMAIndicatorTest {
         assertDoubleEquals(sma.getValue(1), 1.5);
         assertDoubleEquals(sma.getValue(2), 2);
         assertDoubleEquals(sma.getValue(3), 3);
-        assertDoubleEquals(sma.getValue(4), 10d/3);
-        assertDoubleEquals(sma.getValue(5), 11d/3);
+        assertDoubleEquals(sma.getValue(4), 10d / 3);
+        assertDoubleEquals(sma.getValue(5), 11d / 3);
         assertDoubleEquals(sma.getValue(6), 4);
-        assertDoubleEquals(sma.getValue(7), 13d/3);
+        assertDoubleEquals(sma.getValue(7), 13d / 3);
         assertDoubleEquals(sma.getValue(8), 4);
-        assertDoubleEquals(sma.getValue(9), 10d/3);
-        assertDoubleEquals(sma.getValue(10), 10d/3);
-        assertDoubleEquals(sma.getValue(11), 10d/3);
+        assertDoubleEquals(sma.getValue(9), 10d / 3);
+        assertDoubleEquals(sma.getValue(10), 10d / 3);
+        assertDoubleEquals(sma.getValue(11), 10d / 3);
         assertDoubleEquals(sma.getValue(12), 3);
     }
 

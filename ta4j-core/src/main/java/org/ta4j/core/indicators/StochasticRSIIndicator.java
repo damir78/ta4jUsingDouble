@@ -31,7 +31,7 @@ import org.ta4j.core.indicators.helpers.LowestValueIndicator;
 
 /**
  * The Stochastic RSI Indicator.
- *
+ * <p>
  * Stoch RSI = (RSI - MinimumRSIn) / (MaximumRSIn - MinimumRSIn)
  */
 public class StochasticRSIIndicator extends CachedIndicator<Double> {
@@ -43,7 +43,8 @@ public class StochasticRSIIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.StochasticRSIIndicator
-     * @param series the series
+     *
+     * @param series    the series
      * @param timeFrame the time frame
      */
     public StochasticRSIIndicator(TimeSeries series, int timeFrame) {
@@ -52,6 +53,7 @@ public class StochasticRSIIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.
+     *
      * @param indicator the indicator
      * @param timeFrame the time frame
      */
@@ -61,7 +63,8 @@ public class StochasticRSIIndicator extends CachedIndicator<Double> {
 
     /**
      * Constructor.
-     * @param rsi the rsi indicator
+     *
+     * @param rsi       the rsi indicator
      * @param timeFrame the time frame
      */
     public StochasticRSIIndicator(RSIIndicator rsi, int timeFrame) {

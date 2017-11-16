@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -149,7 +149,7 @@ public class CashFlowTest {
 
     @Test
     public void cashFlowValue() {
-    	// First sample series
+        // First sample series
         TimeSeries sampleTimeSeries = new MockTimeSeries(3d, 2d, 5d, 1000d, 5000d, 0.0001d, 4d, 7d,
                 6d, 7d, 8d, 5d, 6d);
         TradingRecord tradingRecord = new BaseTradingRecord(
@@ -160,35 +160,35 @@ public class CashFlowTest {
         CashFlow cashFlow = new CashFlow(sampleTimeSeries, tradingRecord);
 
         assertDoubleEquals(cashFlow.getValue(0), 1);
-        assertDoubleEquals(cashFlow.getValue(1), 2d/3);
-        assertDoubleEquals(cashFlow.getValue(2), 5d/3);
-        assertDoubleEquals(cashFlow.getValue(3), 5d/3);
-        assertDoubleEquals(cashFlow.getValue(4), 5d/3);
-        assertDoubleEquals(cashFlow.getValue(5), 5d/3);
-        assertDoubleEquals(cashFlow.getValue(6), 5d/3);
-        assertDoubleEquals(cashFlow.getValue(7), 5d/3 * 7d/4);
-        assertDoubleEquals(cashFlow.getValue(8), 5d/3 * 6d/4);
-        assertDoubleEquals(cashFlow.getValue(9), 5d/3 * 6d/4);
-        assertDoubleEquals(cashFlow.getValue(10), 5d/3 * 6d/4 * 8d/7);
-        assertDoubleEquals(cashFlow.getValue(11), 5d/3 * 6d/4 * 5d/7);
-        assertDoubleEquals(cashFlow.getValue(12), 5d/3 * 6d/4 * 5d/7);
+        assertDoubleEquals(cashFlow.getValue(1), 2d / 3);
+        assertDoubleEquals(cashFlow.getValue(2), 5d / 3);
+        assertDoubleEquals(cashFlow.getValue(3), 5d / 3);
+        assertDoubleEquals(cashFlow.getValue(4), 5d / 3);
+        assertDoubleEquals(cashFlow.getValue(5), 5d / 3);
+        assertDoubleEquals(cashFlow.getValue(6), 5d / 3);
+        assertDoubleEquals(cashFlow.getValue(7), 5d / 3 * 7d / 4);
+        assertDoubleEquals(cashFlow.getValue(8), 5d / 3 * 6d / 4);
+        assertDoubleEquals(cashFlow.getValue(9), 5d / 3 * 6d / 4);
+        assertDoubleEquals(cashFlow.getValue(10), 5d / 3 * 6d / 4 * 8d / 7);
+        assertDoubleEquals(cashFlow.getValue(11), 5d / 3 * 6d / 4 * 5d / 7);
+        assertDoubleEquals(cashFlow.getValue(12), 5d / 3 * 6d / 4 * 5d / 7);
 
         // Second sample series
         sampleTimeSeries = new MockTimeSeries(5d, 6d, 3d, 7d, 8d, 6d, 10d, 15d, 6d);
-		tradingRecord = new BaseTradingRecord(
-				Order.buyAt(4), Order.sellAt(5),
-				Order.buyAt(6), Order.sellAt(8));
+        tradingRecord = new BaseTradingRecord(
+                Order.buyAt(4), Order.sellAt(5),
+                Order.buyAt(6), Order.sellAt(8));
 
-		CashFlow flow = new CashFlow(sampleTimeSeries, tradingRecord);
-		assertDoubleEquals(flow.getValue(0), 1);
-		assertDoubleEquals(flow.getValue(1), 1);
-		assertDoubleEquals(flow.getValue(2), 1);
-		assertDoubleEquals(flow.getValue(3), 1);
-		assertDoubleEquals(flow.getValue(4), 1);
-		assertDoubleEquals(flow.getValue(5), "0.75");
-		assertDoubleEquals(flow.getValue(6), "0.75");
-		assertDoubleEquals(flow.getValue(7), "1.125");
-		assertDoubleEquals(flow.getValue(8), "0.45");
+        CashFlow flow = new CashFlow(sampleTimeSeries, tradingRecord);
+        assertDoubleEquals(flow.getValue(0), 1);
+        assertDoubleEquals(flow.getValue(1), 1);
+        assertDoubleEquals(flow.getValue(2), 1);
+        assertDoubleEquals(flow.getValue(3), 1);
+        assertDoubleEquals(flow.getValue(4), 1);
+        assertDoubleEquals(flow.getValue(5), "0.75");
+        assertDoubleEquals(flow.getValue(6), "0.75");
+        assertDoubleEquals(flow.getValue(7), "1.125");
+        assertDoubleEquals(flow.getValue(8), "0.45");
     }
 
     @Test

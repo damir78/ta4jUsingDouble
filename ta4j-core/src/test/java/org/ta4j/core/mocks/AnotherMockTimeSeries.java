@@ -24,7 +24,6 @@ package org.ta4j.core.mocks;
 
 import org.ta4j.core.BaseTimeSeries;
 import org.ta4j.core.Tick;
-import org.ta4j.core.mocks.MockTick;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

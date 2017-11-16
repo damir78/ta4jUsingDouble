@@ -34,6 +34,7 @@ import org.ta4j.core.indicators.helpers.MinPriceIndicator;
 /**
  * Aroon down indicator.
  * <p>
+ *
  * @see <a href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:aroon">chart_school:technical_indicators:aroon</a>
  */
 public class AroonDownIndicator extends CachedIndicator<Double> {
@@ -46,9 +47,10 @@ public class AroonDownIndicator extends CachedIndicator<Double> {
     /**
      * Constructor.
      * <p>
-     * @param series the time series
+     *
+     * @param series            the time series
      * @param minValueIndicator the indicator for the maximum price (default {@link MaxPriceIndicator})
-     * @param timeFrame the time frame
+     * @param timeFrame         the time frame
      */
     public AroonDownIndicator(TimeSeries series, Indicator<Double> minValueIndicator, int timeFrame) {
         super(series);
@@ -62,7 +64,8 @@ public class AroonDownIndicator extends CachedIndicator<Double> {
     /**
      * Default Constructor that is using the maximum price
      * <p>
-     * @param series the time series
+     *
+     * @param series    the time series
      * @param timeFrame the time frame
      */
     public AroonDownIndicator(TimeSeries series, int timeFrame) {

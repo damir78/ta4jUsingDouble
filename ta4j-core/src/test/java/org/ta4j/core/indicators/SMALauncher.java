@@ -15,7 +15,7 @@ public class SMALauncher {
 
         double[] input = new double[initialCapacity];
         for (int i = 0; i < input.length; i++) {
-            input[i] = 5d;
+            input[i] = i;
         }
 
         /**
@@ -26,7 +26,7 @@ public class SMALauncher {
         TimeSeries timeSeries = new AnotherMockTimeSeries(input);
         long start = System.currentTimeMillis();
         Double average = null;
-        for (int h = 2; h < 3; h++) {
+        for (int h = 2; h < 201; h++) {
             System.out.println("h = " + h);
             SMAIndicator quoteSMA = new SMAIndicator(new ClosePriceIndicator(timeSeries), h);
             for (int i = 0; i < timeSeries.getTickCount(); i++) {

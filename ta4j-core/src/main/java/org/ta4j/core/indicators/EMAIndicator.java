@@ -47,7 +47,7 @@ public class EMAIndicator extends RecursiveCachedIndicator<Double> {
         super(indicator);
         this.indicator = indicator;
         this.timeFrame = timeFrame;
-        multiplier = 2d / (Double.valueOf(timeFrame + 1));
+        multiplier = 2d / (timeFrame + 1);
     }
 
     @Override

@@ -35,13 +35,18 @@ import org.ta4j.core.indicators.helpers.ConstantIndicator;
  */
 public class IsEqualRule extends AbstractRule {
 
-    /** The first indicator */
+    /**
+     * The first indicator
+     */
     private Indicator<Double> first;
-    /** The second indicator */
+    /**
+     * The second indicator
+     */
     private Indicator<Double> second;
 
     /**
      * Constructor.
+     *
      * @param first the first indicator
      * @param value
      */
@@ -51,7 +56,8 @@ public class IsEqualRule extends AbstractRule {
 
     /**
      * Constructor.
-     * @param first the first indicator
+     *
+     * @param first  the first indicator
      * @param second the second indicator
      */
     public IsEqualRule(Indicator<Double> first, Indicator<Double> second) {

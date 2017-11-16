@@ -34,14 +34,19 @@ import org.ta4j.core.indicators.CachedIndicator;
  */
 public class CrossIndicator extends CachedIndicator<Boolean> {
 
-    /** Upper indicator */
+    /**
+     * Upper indicator
+     */
     private final Indicator<Double> up;
-    /** Lower indicator */
+    /**
+     * Lower indicator
+     */
     private final Indicator<Double> low;
 
     /**
      * Constructor.
-     * @param up the upper indicator
+     *
+     * @param up  the upper indicator
      * @param low the lower indicator
      */
     public CrossIndicator(Indicator<Double> up, Indicator<Double> low) {

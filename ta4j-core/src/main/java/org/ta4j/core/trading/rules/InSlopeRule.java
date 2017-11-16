@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -65,14 +65,14 @@ public class InSlopeRule extends AbstractRule {
         this(ref, 1, minSlope, maxSlope);
     }
 
-     /**
+    /**
      * Constructor.
      * @param ref the reference indicator
      * @param nthPrevious defines the previous n-th indicator
      * @param maxSlope maximum slope between value of reference and previous indicator
      */
     public InSlopeRule(Indicator<Double> ref, int nthPrevious, Double maxSlope) {
-    	this(ref, nthPrevious, Double.NaN, maxSlope);
+        this(ref, nthPrevious, Double.NaN, maxSlope);
     }
 
     /**
@@ -89,16 +89,16 @@ public class InSlopeRule extends AbstractRule {
         this.maxSlope = maxSlope;
     }
 
-   @Override
-   public boolean isSatisfied(int index, TradingRecord tradingRecord) {
-	DifferenceIndicator diff = new DifferenceIndicator(ref, prev);
-	Double val = diff.getValue(index);
-	boolean minSlopeSatisfied = minSlope.isNaN() ? true : val>=(minSlope);
-	boolean maxSlopeSatisfied = maxSlope.isNaN() ? true : val<=(maxSlope);
-	boolean isNaN = minSlope.isNaN() && maxSlope.isNaN();
+    @Override
+    public boolean isSatisfied(int index, TradingRecord tradingRecord) {
+        DifferenceIndicator diff = new DifferenceIndicator(ref, prev);
+        Double val = diff.getValue(index);
+        boolean minSlopeSatisfied = minSlope.isNaN() ? true : val >= (minSlope);
+        boolean maxSlopeSatisfied = maxSlope.isNaN() ? true : val <= (maxSlope);
+        boolean isNaN = minSlope.isNaN() && maxSlope.isNaN();
 
-	final boolean satisfied = minSlopeSatisfied && maxSlopeSatisfied && !isNaN;
-	traceIsSatisfied(index, satisfied);
-	return satisfied;
-   }
+        final boolean satisfied = minSlopeSatisfied && maxSlopeSatisfied && !isNaN;
+        traceIsSatisfied(index, satisfied);
+        return satisfied;
+    }
 }

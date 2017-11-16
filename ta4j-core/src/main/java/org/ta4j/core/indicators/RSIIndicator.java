@@ -33,7 +33,7 @@ import org.ta4j.core.indicators.helpers.AverageLossIndicator;
  * <p>
  * This calculation of RSI uses traditional moving averages
  * as opposed to Wilder's accumulative moving average technique.
- *
+ * <p>
  * <p>See reference
  * <a href="https://www.barchart.com/education/technical-indicators#/studies/std_rsi_mod">
  * RSI calculation</a>.

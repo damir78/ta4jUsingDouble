@@ -27,6 +27,7 @@ import org.ta4j.core.indicators.CachedIndicator;
 
 /**
  * Bollinger BandWidth indicator.
+ *
  * @see http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:bollinger_band_width
  */
 public class BollingerBandWidthIndicator extends CachedIndicator<Double> {

@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -46,7 +46,7 @@ public class AverageProfitCriterionTest {
         series = new MockTimeSeries(100d, 105d, 110d, 100d, 95d, 105d);
         TradingRecord tradingRecord = new BaseTradingRecord(Order.buyAt(0), Order.sellAt(2));
         AnalysisCriterion averageProfit = new AverageProfitCriterion();
-        assertEquals(Math.pow(110d/100, 1d/3), averageProfit.calculate(series, tradingRecord), TATestsUtils.TA_OFFSET);
+        assertEquals(Math.pow(110d / 100, 1d / 3), averageProfit.calculate(series, tradingRecord), TATestsUtils.TA_OFFSET);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class AverageProfitCriterionTest {
                 Order.buyAt(0), Order.sellAt(1),
                 Order.buyAt(2), Order.sellAt(5));
         AnalysisCriterion averageProfit = new AverageProfitCriterion();
-        assertEquals(Math.pow(95d/100 * 70d/100, 1d / 6), averageProfit.calculate(series, tradingRecord), TATestsUtils.TA_OFFSET);
+        assertEquals(Math.pow(95d / 100 * 70d / 100, 1d / 6), averageProfit.calculate(series, tradingRecord), TATestsUtils.TA_OFFSET);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class AverageProfitCriterionTest {
         series = new MockTimeSeries(100, 105);
         Trade trade = new Trade(Order.buyAt(0), Order.sellAt(1));
         AnalysisCriterion average = new AverageProfitCriterion();
-        assertEquals(Math.pow(105d / 100, 1d/2), average.calculate(series, trade), TATestsUtils.TA_OFFSET);
+        assertEquals(Math.pow(105d / 100, 1d / 2), average.calculate(series, trade), TATestsUtils.TA_OFFSET);
     }
 
     @Test

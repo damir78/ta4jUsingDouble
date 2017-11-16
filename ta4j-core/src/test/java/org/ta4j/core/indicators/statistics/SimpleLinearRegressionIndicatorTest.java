@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -25,7 +25,6 @@ package org.ta4j.core.indicators.statistics;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.ta4j.core.Indicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.mocks.MockTimeSeries;
@@ -39,9 +38,21 @@ public class SimpleLinearRegressionIndicatorTest {
 
     private Indicator<Double> closePrice;
 
+    /**
+     * @param values values
+     * @return a simple linear regression based on provided values
+     */
+    private static SimpleRegression buildSimpleRegression(double... values) {
+        SimpleRegression simpleReg = new SimpleRegression();
+        for (int i = 0; i < values.length; i++) {
+            simpleReg.addData(i, values[i]);
+        }
+        return simpleReg;
+    }
+
     @Before
     public void setUp() {
-        data = new double[] {10, 20, 30, 40, 30, 40, 30, 20, 30, 50, 60, 70, 80};
+        data = new double[]{10, 20, 30, 40, 30, 40, 30, 20, 30, 50, 60, 70, 80};
         closePrice = new ClosePriceIndicator(new MockTimeSeries(data));
     }
 
@@ -93,23 +104,11 @@ public class SimpleLinearRegressionIndicatorTest {
 
     @Test
     public void calculateLinearRegression() {
-        double[] values = new double[] { 1, 2, 1.3, 3.75, 2.25 };
+        double[] values = new double[]{1, 2, 1.3, 3.75, 2.25};
         ClosePriceIndicator indicator = new ClosePriceIndicator(new MockTimeSeries(values));
         SimpleLinearRegressionIndicator reg = new SimpleLinearRegressionIndicator(indicator, 5);
 
         SimpleRegression origReg = buildSimpleRegression(values);
         assertDoubleEquals(reg.getValue(4), origReg.predict(4));
-    }
-
-    /**
-     * @param values values
-     * @return a simple linear regression based on provided values
-     */
-    private static SimpleRegression buildSimpleRegression(double... values) {
-        SimpleRegression simpleReg = new SimpleRegression();
-        for (int i = 0; i < values.length; i++) {
-            simpleReg.addData(i, values[i]);
-        }
-        return simpleReg;
     }
 }

@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -44,29 +44,29 @@ public class TimeSeriesManager {
      * Constructor.
      */
     public TimeSeriesManager() {
-	}
+    }
 
     /**
      * Constructor.
      * @param timeSeries the time series to be managed
      */
     public TimeSeriesManager(TimeSeries timeSeries) {
-    	this.timeSeries = timeSeries;
+        this.timeSeries = timeSeries;
+    }
+
+    /**
+     * @return the managed time series
+     */
+    public TimeSeries getTimeSeries() {
+        return timeSeries;
     }
 
     /**
      * @param timeSeries the time series to be managed
      */
     public void setTimeSeries(TimeSeries timeSeries) {
-		this.timeSeries = timeSeries;
-	}
-
-    /**
-     * @return the managed time series
-     */
-    public TimeSeries getTimeSeries() {
-		return timeSeries;
-	}
+        this.timeSeries = timeSeries;
+    }
 
     /**
      * Runs the provided strategy over the managed series.
@@ -157,7 +157,7 @@ public class TimeSeriesManager {
         if (!tradingRecord.isClosed()) {
             // If the last trade is still opened, we search out of the run end index.
             // May works if the end index for this run was inferior to the actual number of ticks
-        	int seriesMaxSize = Math.max(timeSeries.getEndIndex() + 1, timeSeries.getTickData().size());
+            int seriesMaxSize = Math.max(timeSeries.getEndIndex() + 1, timeSeries.getTickData().size());
             for (int i = runEndIndex + 1; i < seriesMaxSize; i++) {
                 // For each tick after the end index of this run...
                 // --> Trying to close the last trade

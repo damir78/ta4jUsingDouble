@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -35,7 +35,7 @@ import org.ta4j.core.indicators.helpers.AverageTrueRangeIndicator;
  * @see !http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:average_directional_index_adx
  */
 
-public class DirectionalMovementMinusIndicator extends CachedIndicator<Double>{
+public class DirectionalMovementMinusIndicator extends CachedIndicator<Double> {
 
     private final AverageDirectionalMovementDownIndicator averageDirectionalMovementDownIndicator;
     private final AverageTrueRangeIndicator trueRangeIndicator;
@@ -50,7 +50,7 @@ public class DirectionalMovementMinusIndicator extends CachedIndicator<Double>{
 
     @Override
     protected Double calculate(int index) {
-        return averageDirectionalMovementDownIndicator.getValue(index)/ (trueRangeIndicator.getValue(index))* (100d);
+        return averageDirectionalMovementDownIndicator.getValue(index) / (trueRangeIndicator.getValue(index)) * (100d);
     }
 
     @Override

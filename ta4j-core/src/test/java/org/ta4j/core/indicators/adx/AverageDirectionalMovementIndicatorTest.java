@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -35,8 +35,7 @@ import static org.ta4j.core.TATestsUtils.assertDoubleEquals;
 public class AverageDirectionalMovementIndicatorTest {
 
     @Test
-    public void getValue()
-    {
+    public void getValue() {
         List<Tick> ticks = new ArrayList<Tick>();
 
         ticks.add(new MockTick(0, 0, 10, 2));
@@ -46,13 +45,13 @@ public class AverageDirectionalMovementIndicatorTest {
         AverageDirectionalMovementIndicator adm = new AverageDirectionalMovementIndicator(series, 3);
 
         assertDoubleEquals(adm.getValue(0), 1);
-        double dup = (2d/3 + 2d/3) / (2d/3 + 12d/3);
-        double ddown = (2d/3) /(2d/3 + 12d/3);
+        double dup = (2d / 3 + 2d / 3) / (2d / 3 + 12d / 3);
+        double ddown = (2d / 3) / (2d / 3 + 12d / 3);
         double firstdm = (dup - ddown) / (dup + ddown) * 100;
-        assertDoubleEquals(adm.getValue(1), 2d/3 + firstdm/3);
-        dup = ((2d/3 + 2d/3) * 2d/3 + 1) / ((2d/3 + 12d/3) * 2d/3 + 15d/3);
-        ddown = (4d/9) / ((2d/3 + 12d/3) * 2d/3 + 15d/3);
+        assertDoubleEquals(adm.getValue(1), 2d / 3 + firstdm / 3);
+        dup = ((2d / 3 + 2d / 3) * 2d / 3 + 1) / ((2d / 3 + 12d / 3) * 2d / 3 + 15d / 3);
+        ddown = (4d / 9) / ((2d / 3 + 12d / 3) * 2d / 3 + 15d / 3);
         double secondDm = (dup - ddown) / (dup + ddown) * 100;
-        assertDoubleEquals(adm.getValue(2), (2d/3 + firstdm/3) * 2d/3 + secondDm/3);
+        assertDoubleEquals(adm.getValue(2), (2d / 3 + firstdm / 3) * 2d / 3 + secondDm / 3);
     }
 }

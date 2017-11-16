@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -31,7 +31,7 @@ import org.ta4j.core.trading.rules.XorRule;
  * A rule for strategy building.
  * <p>
  * A trading rule may be composed of a combination of other rules.
- * 
+ *
  * A {@link Strategy trading strategy} is a pair of complementary (entry and exit) rules.
  */
 public interface Rule {
@@ -41,7 +41,7 @@ public interface Rule {
      * @return a rule which is the AND combination of this rule with the provided one
      */
     default Rule and(Rule rule) {
-    	return new AndRule(this, rule);
+        return new AndRule(this, rule);
     }
 
     /**
@@ -49,7 +49,7 @@ public interface Rule {
      * @return a rule which is the OR combination of this rule with the provided one
      */
     default Rule or(Rule rule) {
-    	return new OrRule(this, rule);
+        return new OrRule(this, rule);
     }
 
     /**
@@ -57,24 +57,24 @@ public interface Rule {
      * @return a rule which is the XOR combination of this rule with the provided one
      */
     default Rule xor(Rule rule) {
-    	return new XorRule(this, rule);
+        return new XorRule(this, rule);
     }
 
     /**
      * @return a rule which is the logical negation of this rule
      */
     default Rule negation() {
-    	return new NotRule(this);
+        return new NotRule(this);
     }
-    
+
     /**
      * @param index the tick index
      * @return true if this rule is satisfied for the provided index, false otherwise
      */
     default boolean isSatisfied(int index) {
-    	return isSatisfied(index, null);
+        return isSatisfied(index, null);
     }
-    
+
     /**
      * @param index the tick index
      * @param tradingRecord the potentially needed trading history

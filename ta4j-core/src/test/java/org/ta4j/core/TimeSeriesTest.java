@@ -1,18 +1,18 @@
 /**
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2014-2017 Marc de Verdelhan & respective authors (see AUTHORS)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
 public class TimeSeriesTest {
 
     private TimeSeries defaultSeries;
-    
+
     private TimeSeries constrainedSeries;
 
     private TimeSeries emptySeries;
@@ -120,7 +120,7 @@ public class TimeSeriesTest {
     public void getTickWithRemovedIndexOnMovingSeriesShouldReturnFirstRemainingTick() {
         Tick tick = defaultSeries.getTick(4);
         defaultSeries.setMaximumTickCount(2);
-        
+
         assertSame(tick, defaultSeries.getTick(0));
         assertSame(tick, defaultSeries.getTick(1));
         assertSame(tick, defaultSeries.getTick(2));
@@ -174,7 +174,7 @@ public class TimeSeriesTest {
     public void constrainedSeriesWithInvalidIndexesShouldThrowException() {
         new BaseTimeSeries(defaultSeries, 4, 2);
     }
-    
+
     @Test(expected = IllegalStateException.class)
     public void maximumTickCountOnConstrainedSeriesShouldThrowException() {
         constrainedSeries.setMaximumTickCount(10);
@@ -209,7 +209,7 @@ public class TimeSeriesTest {
     public void addTickWithEndTimePriorToSeriesEndTimeShouldThrowException() {
         defaultSeries.addTick(new MockTick(ZonedDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), 99d));
     }
-    
+
     @Test
     public void addTick() {
         defaultSeries = new BaseTimeSeries();

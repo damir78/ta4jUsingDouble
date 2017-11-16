@@ -62,24 +62,15 @@ public class CCIIndicator extends CachedIndicator<Double> {
     @Override
     protected Double calculate(int index) {
 
-        System.out.println("=======================");
-        System.out.println("index = " + index);
-
         final Double typicalPrice = typicalPriceInd.getValue(index);
         final Double typicalPriceAvg = smaInd.getValue(index);
         final Double meanDeviation = meanDeviationInd.getValue(index);
-        System.out.println("typicalPrice = " + typicalPrice);
-        System.out.println("typicalPriceAvg = " + typicalPriceAvg);
-        System.out.println("meanDeviation = " + meanDeviation);
 
         if (0d == meanDeviation) {
             return 0d;
         }
         double minus = typicalPrice - (typicalPriceAvg);
         double divisor = meanDeviation * (FACTOR);
-
-        System.out.println("minus = " + minus);
-        System.out.println("divisor = " + divisor);
 
         return minus / divisor;
     }
