@@ -45,6 +45,6 @@ public class AverageLossIndicator extends CachedIndicator<Double> {
     @Override
     protected Double calculate(int index) {
         final int realTimeFrame = Math.min(timeFrame, index + 1);
-        return cumulatedLosses.getValue(index) / (Double.valueOf(realTimeFrame));
+        return cumulatedLosses.getValue(index) / realTimeFrame;
     }
 }

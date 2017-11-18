@@ -67,8 +67,8 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
 
     @Override
     public T getValue(int index) {
-       /* return calculate(index); */
-
+       return calculate(index);
+/*
 
         TimeSeries series = getTimeSeries();
         if (series == null) {
@@ -116,6 +116,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
             }
         }
         return result;
+        */
 
     }
 

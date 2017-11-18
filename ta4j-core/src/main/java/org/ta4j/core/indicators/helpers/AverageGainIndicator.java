@@ -45,6 +45,6 @@ public class AverageGainIndicator extends CachedIndicator<Double> {
     @Override
     protected Double calculate(int index) {
         final int realTimeFrame = Math.min(timeFrame, index + 1);
-        return cumulatedGains.getValue(index) / (Double.valueOf(realTimeFrame));
+        return cumulatedGains.getValue(index) / realTimeFrame;
     }
 }

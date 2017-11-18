@@ -61,7 +61,7 @@ public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
 
     @Override
     public T getValue(int index) {
-        TimeSeries series = getTimeSeries();
+/*        TimeSeries series = getTimeSeries();
         if (series != null) {
             final int seriesEndIndex = series.getEndIndex();
             if (index <= seriesEndIndex) {
@@ -77,7 +77,7 @@ public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
                 }
             }
         }
-
+*/
         return super.getValue(index);
     }
 }

@@ -45,12 +45,14 @@ public class SMAIndicator extends CachedIndicator<Double> {
     @Override
     protected Double calculate(int index) {
         Double sum = 0d;
-        for (int i = Math.max(0, index - timeFrame + 1); i <= index; i++) {
-            sum = sum + (indicator.getValue(i));
+        int b = index - timeFrame + 1;
+        for (int i = Math.max(0, b); i <= index; i++) {
+            Double value = indicator.getValue(i);
+             sum = sum + value;
         }
 
         final int realTimeFrame = Math.min(timeFrame, index + 1);
-        return sum / ((double) realTimeFrame);
+        return sum / realTimeFrame;
     }
 
     @Override
